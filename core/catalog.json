@@ -1,0 +1,202 @@
+{
+  "GrapplingHook": {
+    "name": "Grappling Hook",
+    "max_stack": 1
+  },
+  "BeltStrength": {
+    "name": "Megingjord",
+    "max_stack": 1
+  },
+  "TrinketIronHealth": {
+    "name": "Iron Brooch",
+    "max_stack": 1
+  },
+  "HelmetDverger": {
+    "name": "Dverger Circlet",
+    "max_stack": 1
+  },
+  "Demister": {
+    "name": "Wisplight",
+    "max_stack": 1
+  },
+  "MeadStaminaMedium": {
+    "name": "Medium Stamina Mead",
+    "max_stack": 10
+  },
+  "MeadLightfoot": {
+    "name": "Lightfoot Mead",
+    "max_stack": 7
+  },
+  "BoltCharred": {
+    "name": "Charred Bolt",
+    "max_stack": 40
+  },
+  "Salad": {
+    "name": "Salad",
+    "max_stack": 3
+  },
+  "HelmetDrake": {
+    "name": "Drake Helmet",
+    "max_stack": 1
+  },
+  "ArmorFenringLegs": {
+    "name": "Fenris Leggings",
+    "max_stack": 1
+  },
+  "CapeAsh": {
+    "name": "Ashen Cape",
+    "max_stack": 1
+  },
+  "ArmorFlametalChest": {
+    "name": "Flametal Breastplate",
+    "max_stack": 1
+  },
+  "SwordNiedhoggNature": {
+    "name": "Nidh\u00f6gg the Primal",
+    "max_stack": 1
+  },
+  "ShieldCarapace": {
+    "name": "Carapace Shield",
+    "max_stack": 1
+  },
+  "BarleyWine": {
+    "name": "Fire Resistance Barley Wine",
+    "max_stack": 5
+  },
+  "AxeBerzerkrLightning": {
+    "name": "Thundering Berserkir Axes",
+    "max_stack": 1
+  },
+  "Hammer": {
+    "name": "Hammer",
+    "max_stack": 1
+  },
+  "THSwordSlayerNature": {
+    "name": "Primal Slayer",
+    "max_stack": 1
+  },
+  "PickaxeBlackMetal": {
+    "name": "Black Metal Pickaxe",
+    "max_stack": 1
+  },
+  "MashedMeat": {
+    "name": "Mashed Meat",
+    "max_stack": 3
+  },
+  "FierySvinstew": {
+    "name": "Fiery Svinstew",
+    "max_stack": 5
+  },
+  "MeadHasty": {
+    "name": "Tonic of Ratatosk",
+    "max_stack": 9
+  },
+  "CrossbowRipperNature": {
+    "name": "Root Ripper",
+    "max_stack": 1
+  },
+  "MeadHealthMajor": {
+    "name": "Major Healing Mead",
+    "max_stack": 9
+  },
+  "BombDynamite": {
+    "name": "Ember Charge",
+    "max_stack": 37
+  },
+  "CapeWolf": {
+    "name": "Wolf Fur Cape",
+    "max_stack": 1
+  },
+  "AxeBerzerkrNature": {
+    "name": "Primal Berserkir Axes",
+    "max_stack": 1
+  },
+  "SwordMistwalker": {
+    "name": "SwordMistwalker",
+    "max_stack": 1
+  },
+  "SwordGold_FrostFire": {
+    "name": "Frostfire Sword",
+    "max_stack": 1
+  },
+  "SwordNiedhoggLightning": {
+    "name": "Nidh\u00f6gg the Thundering",
+    "max_stack": 1
+  },
+  "SwordDyrnwyn": {
+    "name": "Dyrnwyn",
+    "max_stack": 1
+  },
+  "SwordGold_BloodLightning": {
+    "name": "Thunderblood Sword",
+    "max_stack": 1
+  },
+  "Leatherstraps": {
+    "name": "Leather Straps",
+    "max_stack": 2
+  },
+  "Wood": {
+    "name": "Wood",
+    "max_stack": 50
+  },
+  "Stone": {
+    "name": "Stone",
+    "max_stack": 50
+  },
+  "Iron": {
+    "name": "Iron",
+    "max_stack": 30
+  },
+  "Copper": {
+    "name": "Copper",
+    "max_stack": 30
+  },
+  "BlackMetal": {
+    "name": "BlackMetal",
+    "max_stack": 30
+  },
+  "FlametalNew": {
+    "name": "FlametalNew",
+    "max_stack": 30
+  },
+  "FineWood": {
+    "name": "FineWood",
+    "max_stack": 50
+  },
+  "RoundLog": {
+    "name": "RoundLog",
+    "max_stack": 50
+  },
+  "Coins": {
+    "name": "Coins",
+    "max_stack": 999
+  },
+  "Resin": {
+    "name": "Resin",
+    "max_stack": 50
+  },
+  "SwordIron": {
+    "name": "SwordIron",
+    "max_stack": 1
+  },
+  "SwordBlackmetal": {
+    "name": "SwordBlackmetal",
+    "max_stack": 1
+  },
+  "ShieldBlackmetal": {
+    "name": "ShieldBlackmetal",
+    "max_stack": 1
+  },
+  "BowDraugrFang": {
+    "name": "BowDraugrFang",
+    "max_stack": 1
+  },
+  "SledgeIron": {
+    "name": "SledgeIron",
+    "max_stack": 1
+  },
+  "ArrowFire": {
+    "name": "ArrowFire",
+    "max_stack": 100
+  }
+}
