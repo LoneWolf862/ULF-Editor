@@ -1,8 +1,8 @@
 # Alpha 0.1.1 stabilization and acceptance report
 
-**Date:** 2026-11-12. **Classification: READY FOR OWNER TESTING.**
+**Date:** 2026-11-12. **Classification: INITIAL WINDOWS AND IN-GAME ACCEPTANCE PASSED.**
 
-The automated stabilization gate passes. The known inventory identity, partial skill transaction, noncanonical item encoding and same-slot replacement/export defects have regression coverage. All 76 local vanilla inventory records are identified with independently verified stack limits. Manual interactive and in-game acceptance remain; this is not a production-release or full-MVP claim.
+The automated stabilization gate passes. The known inventory identity, partial skill transaction, noncanonical item encoding and same-slot replacement/export defects have regression coverage. All 76 local vanilla inventory records are identified with independently verified stack limits. The owner completed initial Windows and in-game acceptance. Full MVP and production acceptance remain open.
 
 ## Implementation and corrected defects
 
@@ -71,7 +71,7 @@ The accepted parser matrix remains profile 44/46, player 23–33, inventory 109,
 | FR-011–014, FR-018, FR-072 | Implemented and tested: transactional item edits, high quality, bounded stacks, add/remove and replacement. |
 | FR-030–032, FR-097–098 | Sample-catalog gate complete and tested; all 76 records verified, offline lookup and unknown protection. Comprehensive vanilla catalog/search metadata remains Alpha 0.2. |
 | FR-040–043 | Implemented and tested: unknown skill preservation, valid bounds, XP preservation and atomic batches. |
-| FR-050–053, FR-056, FR-060 | Implemented and tested: source protection, semantic verification, closed-disk read-back, failure handling and metadata preservation. Native filesystem and game acceptance remain. |
+| FR-050–053, FR-056, FR-060 | Implemented and tested: source protection, semantic verification, closed-disk read-back, failure handling and metadata preservation. The owner confirmed that a modified export loaded and was playable in Valheim. Broader filesystem coverage remains open. |
 | FR-096 | Complete: two read-only compatibility investigations with redacted counts. |
 | FR-080, NFR-005 | Complete for stabilization: Qt-independent core and synthetic regression suite with no private-fixture skips. |
 | NFR-002, NFR-003, NFR-007, NFR-008 | Partial at product-release level: Windows offscreen tests and offline design verified; Linux execution, broad hostile-input assurance and distribution licensing audit remain. |
@@ -79,22 +79,22 @@ The accepted parser matrix remains profile 44/46, player 23–33, inventory 109,
 
 The owner assignment explicitly preserves experience unless edited, superseding the still-proposed D-03 reset default for this milestone. Approved REQUIREMENTS.md and AGENTS.md were not rewritten.
 
-## Remaining risks and owner acceptance
+## Owner acceptance
 
-1. Run native Windows 10 and Linux workflows offline: open a disposable save, change quality/quantity, remove/add, edit level/XP, export to a distinct file, reopen, and verify the original digest. Linux has not been executed here; path handling uses pathlib, samefile and same-directory temporary files, but permissions, Qt dependencies and rename behavior need real platform testing.
-2. Load only disposable exported copies in Valheim 1.0.21. Verify item behavior, skill values and metadata. Structurally valid extreme quality values do not establish game behavior. Achievement eligibility remains a separate, unverified concern.
+The owner reported on 2026-11-12 that all inventory items in the tested Windows session appeared correctly identified (FR-030, FR-097). Item and skill editing worked without observable errors (FR-011–014, FR-041–043). A modified character save loaded successfully in Valheim, and the character was playable (FR-050–053). The interface supported the tested workflow, and the owner identified significant usability and visual improvements for Alpha 0.2 (FR-017, FR-033, FR-044, FR-070–071). Alpha 0.2 implementation awaits design approval.
+
+The confirmation covers the reported workflow. Individual edit operations, native Windows version, offline mode, source-digest comparison, exact in-game field values, and the Valheim build were unspecified in the owner report. Linux compatibility remains unverified (NFR-002/003, FR-098). Achievement eligibility remains unverified and requires separate controlled testing. Outcomes can depend on character and world state, mods, game version, and server behavior (FR-060–063).
+
+## Remaining risks and verification
+
+1. Complete the Windows 10 and Linux offline acceptance matrix: open a disposable save, change quality/quantity, remove/add, edit level/XP, export to a distinct file, reopen, and verify the original digest. Linux has not been executed here; path handling uses pathlib, samefile and same-directory temporary files, but permissions, Qt dependencies and rename behavior need real platform testing.
+2. Use disposable exported copies for follow-up Valheim testing of specific item behavior, skill values and metadata. Structurally valid extreme quality values do not establish game behavior. Achievement eligibility remains a separate, unverified concern.
 3. Historical layouts, large/modded saves and unusual filesystem configurations need further compatibility samples. The fixed 8×6 UI does not display out-of-grid items; those records are preserved. Duplicate occupied slots block export rather than silently deleting data.
 4. Atomic replacement protects normal publication failures. Adversarial filesystem alias races and power-loss durability after rename are not guaranteed. If permissions prevent cleanup, the reported temporary file must be removed manually.
 5. Complete the comprehensive catalog, usability/sliders, dependency pinning/distribution audit and later release gates before claiming full MVP or production readiness. No known reproduced stabilization defect remains open.
 
-## Git and review handoff
+## Release verification
 
 Branch: `fix/alpha-0.1.1-stability`. Remote: `https://github.com/LoneWolf862/ULF-Editor.git`.
 
-Existing local documentation commit `d2b4127` follows initial `ba2d519`. No new commit was created during stabilization/resumption. GitHub branch inspection still lists only `main`; the development branch has not been pushed. Nothing was merged.
-
-Pending tracked changes: `README.md`, `core/catalog.json`, `core/fch.py`, `desktop/app.py`, `docs/MVP_GAP_ANALYSIS.md`, `tests/test_fch.py`.
-
-Pending new files: `core/catalog.py`, `core/editing.py`, `core/export.py`, this report, `docs/references/commit.txt`, `docs/references/fch-decoder-LICENSE.txt`, `docs/references/items.tsv`, `docs/references/Jotunn-LICENSE.txt`, `docs/references/jotunn-item-list.md`, `docs/references/local-game-item-limits.json`, `tests/synthetic.py`, `tests/test_binary_edges.py`, `tests/test_catalog.py`, `tests/test_desktop.py`, `tests/test_editing.py`, `tests/test_export.py`, `tools/inspect_game_items.py`.
-
-All prior work is retained for review. Commits, pushes and merges require explicit owner approval.
+GitHub branch verification matched stabilization commit `93b20243fac342d2630929f599b5942a914906d5`. The release verification run passed all 53 automated tests with zero failures or skips.

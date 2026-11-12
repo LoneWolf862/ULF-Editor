@@ -1,6 +1,6 @@
 # ULF — Valheim Character Workshop
 
-A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.1.1 stabilization — ready for owner testing**, pending manual platform and in-game acceptance.
+A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.1.1 passed initial Windows and in-game acceptance.** The owner confirmed inventory identification, item and skill editing, and playability in Valheim with an edited save. Linux compatibility and achievement eligibility remain unverified.
 
 ## Run on CachyOS / Linux
 
@@ -52,7 +52,7 @@ Real character files are **not bundled**. Checked-in tests use synthetic fixture
 .venv\Scripts\python.exe -B -m unittest discover -s tests -v
 ```
 
-On Linux use `.venv/bin/python -B -m unittest discover -s tests -v`. Desktop tests use Qt's offscreen platform. See [the stabilization report](docs/ALPHA_0.1.1_RESEARCH.md) for results, source evidence, limitations and the owner acceptance checklist. The optional `tools/inspect_game_items.py` research utility needs UnityPy 1.25.4; the editor itself does not.
+On Linux use `.venv/bin/python -B -m unittest discover -s tests -v`. Desktop tests use Qt's offscreen platform. See [the stabilization report](docs/ALPHA_0.1.1_RESEARCH.md) for results, source evidence, limitations and the owner’s acceptance results. The optional `tools/inspect_game_items.py` research utility needs UnityPy 1.25.4; the editor itself does not.
 
 ## Next milestones
 
