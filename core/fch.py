@@ -1,10 +1,11 @@
-"""ULF FCH binary engine. Supports Valheim profile 46, player data 33, inventory 109.
+"""ULF FCH binary engine for legacy saves and Valheim 1.0.21.
 Rebuilds inventory and skills only, preserving other profile/player sections byte-for-byte.
 """
 import hashlib
 import struct
 import copy
 import math
+import re
 from core.catalog import CATALOG
 from dataclasses import dataclass, field
 
@@ -79,7 +80,9 @@ class Item:
     _raw_fields:dict=field(default_factory=dict,repr=False,compare=False)
     _original_values:dict=field(default_factory=dict,repr=False,compare=False)
     @property
-    def cheated(self):return bool(self.tail&1)
+    def cheated(self):
+        """Raw low bit. Its game meaning depends on the inventory version."""
+        return bool(self.tail&1)
     def to_bytes(self):
         if not (0<=self.quality<=65535 and 0<=self.stack<=65535 and 0<=self.x<=255 and 0<=self.y<=255):raise FormatError('Item values out of range')
         flags=(1 if self.picked else 0)|(2 if self.equipped else 0)|(4 if self.quality!=1 else 0)|(8 if self.stack!=1 else 0)|(16 if self.variant else 0)|(32 if self.crafter_id else 0)|(64 if self.has_prefab else 0)|(128 if self.custom else 0)
@@ -147,13 +150,48 @@ def skip_world(r):
     r.i64();r.u8();r.vector();r.u8();r.vector();r.u8();r.vector();r.vector()
     if r.u8():r.arr()
 
+
+def validate_player_34_tail(reader):
+    """Check the post-skills structure while preserving its original bytes."""
+    for _ in range(reader.count()):
+        reader.string()
+        reader.string()
+    reader.read(12)  # current stamina, maximum eitr, current eitr
+    reader.arr()  # opaque build UI payload
+    for _ in range(2):  # pseudo-counter table, then upgrade seed table
+        reader.read(reader.count() * 8)
+    if reader.p != len(reader.b):
+        raise FormatError("Unexpected trailing data in player version 34")
+
+
+def writable_inventory_rows(unique_entries):
+    """Use verified v34 pocket state within ULF's existing six-row add limit."""
+    values = []
+    for entry in unique_entries:
+        parts = entry.split(" ", 2)
+        if len(parts) >= 2 and parts[0].lower() == "invrows":
+            values.append(parts[1].strip())
+    if not values:
+        return 4
+    if len(set(values)) != 1:
+        return 0
+    value = values[0]
+    if not re.fullmatch(r"[+-]?[0-9]{1,10}", value):
+        return 0
+    rows = int(value)
+    if not -(2**31) <= rows < 2**31:
+        return 0
+    return max(0, min(6, rows))
+
+
 class Character:
     def __init__(self,raw):
         if len(raw)>256*1024*1024:raise FormatError('The character file exceeds the supported size')
         self.original=raw;r=Reader(raw);body=r.arr();digest=r.arr()
         if hashlib.sha512(body).digest()!=digest or r.p!=len(raw):raise FormatError('Invalid SHA-512 or file framing')
         q=Reader(body);self.profile_version=q.i32()
-        if self.profile_version not in (44,46):raise FormatError(f'Unsupported profile version {self.profile_version}; expected 44 or 46')
+        if self.profile_version not in (44,46,47):
+            raise FormatError(f'Unsupported profile version {self.profile_version}; expected 44, 46 or 47')
         stat_count=q.i32();buckets=q.i32()
         if not 0<=stat_count<5000 or not 0<=buckets<100:raise FormatError('Invalid stats metadata')
         for _ in range(buckets):
@@ -169,7 +207,10 @@ class Character:
         if q.p!=len(body):raise FormatError('Unexpected profile trailing data')
         self.prefix=body[:pdata_start];self.suffix=body[pdata_end:]
         p=Reader(self.player_data);self.player_version=p.i32()
-        if not 23<=self.player_version<=33:raise FormatError(f'Unsupported player data version {self.player_version}')
+        current = self.profile_version == 47
+        if (current and self.player_version != 34) or (not current and not 23 <= self.player_version <= 33):
+            expected = "34" if current else "23–33"
+            raise FormatError(f'Unsupported player data version {self.player_version} for profile {self.profile_version}; expected {expected}')
         if self.player_version>=7:p.f32()
         p.f32()
         if self.player_version>=10:p.f32()
@@ -178,13 +219,22 @@ class Character:
         if self.player_version>=24:p.f32()
         self.head=self.player_data[:p.p]
         self.inventory_version=p.i32()
-        if self.inventory_version!=109:raise FormatError(f'Unsupported inventory version {self.inventory_version}')
+        expected_inventory = 110 if current else 109
+        if self.inventory_version != expected_inventory:
+            raise FormatError(f'Unsupported inventory version {self.inventory_version} for profile {self.profile_version}; expected {expected_inventory}')
         count=p.u16();self.items=[read_item(p) for _ in range(count)]
         for index,item in enumerate(self.items):item.origin_index=index
         mid_start=p.p
         skip_strings(p)
         for _ in range(p.count()):p.string();p.i32()
-        for _ in range(4):skip_strings(p) # materials, tutorials, uniques, trophies
+        skip_strings(p)  # materials
+        skip_strings(p)  # tutorials
+        if current:
+            self.writable_inventory_rows = writable_inventory_rows(p.string() for _ in range(p.count()))
+        else:
+            skip_strings(p)  # uniques
+            self.writable_inventory_rows = 6
+        skip_strings(p)  # trophies
         skip_strings(p) # known biomes
         for _ in range(p.count()):p.string();p.string()
         p.string();p.string();p.vector();p.vector();p.i32()
@@ -200,7 +250,14 @@ class Character:
             self._skill_bytes.append(self.player_data[start:p.p])
         self._original_skills=copy.deepcopy(self.skills)
         self.tail=self.player_data[p.p:]
+        if current:
+            validate_player_34_tail(p)
         self.roundtrip=self.serialize()==raw
+
+    def item_cheat_status(self, item):
+        """Return the v110 bit meaning, or None for an opaque legacy byte."""
+        return item.cheated if self.inventory_version == 110 else None
+
     def serialize(self):
         if len(self.items)>65535:raise FormatError('Too many items')
         inv=pack('iH',self.inventory_version,len(self.items))+b''.join(x.to_bytes() for x in self.items)
@@ -231,5 +288,6 @@ class Character:
         if type(stack) is not int or not 1<=stack<=min(metadata['max_stack'],65535):raise FormatError('Quantity exceeds the verified item stack limit')
         if type(quality) is not int or not 1<=quality<=65535:raise FormatError('Quality must be between 1 and 65,535')
         if any(t.x==x and t.y==y for t in self.items):raise FormatError('Slot occupied')
-        if type(x) is not int or type(y) is not int or not 0<=x<8 or not 0<=y<6:raise FormatError('Slot out of bounds')
+        if type(x) is not int or type(y) is not int or not 0<=x<8 or not 0<=y<self.writable_inventory_rows:
+            raise FormatError('Slot out of bounds for item creation')
         self.items.append(Item(stable_hash(prefab),x,y,quality,stack))

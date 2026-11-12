@@ -19,7 +19,7 @@ from core.fch import Character, Item, stable_hash
 from desktop.app import Window
 from desktop.inventory import ACCESSIBLE, CatalogDialog
 from desktop.session import Session
-from synthetic import character_bytes
+from synthetic import character_bytes, current_character_bytes
 
 
 class DesktopTests(unittest.TestCase):
@@ -203,6 +203,30 @@ class DesktopTests(unittest.TestCase):
         self.assertIn("Export verified", self.window.pending.text())
         self.assertIn(str(self.target), self.window.status.text())
         self.assertFalse(self.session.unsaved)
+
+    def test_fr051_desktop_current_format_open_edit_review_export_reopen(self):
+        raw = current_character_bytes()
+        self.source.write_bytes(raw)
+        self.window.load_path(self.source)
+        self.wait_for_job()
+        self.assertIn("SHA-512", self.window.validation.text())
+        self.assertIn("Saved cheated flag: set", self.inventory.metadata.text())
+        self.assertEqual(self.session.working.profile_version, 47)
+        self.set_item_value("quality", "60000")
+        self.inventory.apply_button.click()
+        self.create_item("Stone")
+        row = self.window.skills.rows[1]
+        row.slider.setValue(420)
+        self.assertEqual(row.level.text(), "42")
+        row.level.setText("42.125")
+        self.window.skills.apply_button.click()
+        self.assertEqual(len(self.window.changes), 3)
+        self.export_to(self.target)
+        self.window.load_path(self.target)
+        self.wait_for_job()
+        self.assertEqual(self.session.working.items[0].quality, 60000)
+        self.assertEqual(self.session.working.skills[0], [1, 42.125, 0.375])
+        self.assertEqual(self.source.read_bytes(), raw)
 
     def test_fr050_save_as_rejects_alias_and_retains_edits(self):
         alias = self.source.with_name("alias.fch")

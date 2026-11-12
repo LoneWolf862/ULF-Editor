@@ -1,5 +1,7 @@
 # Valheim item statistics and quality scaling
 
+For the subsequent 1.0.21 reader/writer implementation and local save checks, see [Alpha 0.2.1 compatibility](ALPHA_0.2.1_COMPATIBILITY.md).
+
 **Research date** 2026-11-12  
 **Verified target** Valheim 1.0.21, Steam build 26249040, Windows. This report describes the installed build and proposes a data contract. Runtime acceptance remains open.
 

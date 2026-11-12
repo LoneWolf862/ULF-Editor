@@ -558,6 +558,12 @@ class InventoryPage(QWidget):
         item = self.session.items[key] if self.session and key is not None else None
         entry = item_entry(item) if item else None
         editable = bool(entry and entry.maximum_stack and not conflict)
+        writable_rows = self.session.working.writable_inventory_rows if self.session else 0
+        flag_text = ""
+        if item:
+            cheated = self.session.working.item_cheat_status(item)
+            flag_text = ("Legacy item flag byte preserved" if cheated is None else
+                         f"Saved cheated flag: {'set' if cheated else 'clear'}")
         self.entry = entry
         self.source_button.setVisible(entry is not None)
         self.position_label.setText(slot_name(position))
@@ -568,17 +574,22 @@ class InventoryPage(QWidget):
             meta = (f"{entry.prefab} · {entry.category}\nVerified stack maximum: {entry.maximum_stack}\n"
                     f"Vanilla quality maximum: {entry.maximum_quality if entry.maximum_quality is not None else 'unavailable'}\n"
                     f"Saved durability raw value: {item.durability_raw}\n"
-                    f"Saved cheated flag: {'set' if item.cheated else 'clear'}")
+                    f"{flag_text}")
             self.metadata.setToolTip(f"{CATALOG_VERSION}\n{entry.source}")
         elif item:
             meta = (f"Hash {item.prefab_hash} · Unverified metadata. This record is preserved.\n"
                     f"Saved durability raw value: {item.durability_raw}\n"
-                    f"Saved cheated flag: {'set' if item.cheated else 'clear'}")
+                    f"{flag_text}")
             self.metadata.setToolTip("")
         elif conflict:
             meta = "Open Inventory diagnostics to inspect each record."
         else:
-            meta = "Choose an item from the offline catalog." if position[1] < 6 else "Item creation is available in rows 1–6."
+            if position[1] < writable_rows:
+                meta = "Choose an item from the offline catalog."
+            elif writable_rows:
+                meta = f"Item creation is available in rows 1–{writable_rows}."
+            else:
+                meta = "This save has no verified writable inventory rows."
         self.metadata.setText(meta)
         self.fields.setVisible(item is not None)
         draft = self.session.item_drafts.get(key) if self.session else None
@@ -595,7 +606,7 @@ class InventoryPage(QWidget):
         self.revert_button.setVisible(editable)
         self.apply_button.setEnabled(bool(draft))
         self.revert_button.setEnabled(bool(draft))
-        self.add_here.setVisible(bool(self.session and not item and not conflict and position[1] < 6))
+        self.add_here.setVisible(bool(self.session and not item and not conflict and position[1] < writable_rows))
 
     def update_draft(self):
         if self.fields.updating or self.key is None or not self.fields.isEnabled():

@@ -125,7 +125,8 @@ class Session:
 
     def free_slots(self):
         occupied = self.position_counts()
-        return [(x, y) for y in range(6) for x in range(8) if (x, y) not in occupied]
+        return [(x, y) for y in range(self.working.writable_inventory_rows) for x in range(8)
+                if (x, y) not in occupied]
 
     @staticmethod
     def run_command(character, items, command):

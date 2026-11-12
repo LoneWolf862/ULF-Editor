@@ -63,6 +63,10 @@ def export_character(character, source, destination):
             if previous is None:
                 if maximum is None or item.tail!=0 or not 1<=item.quality<=65535:
                     raise FormatError("A new item has unverified limits or a cheated-item flag.")
+                if original.inventory_version == 110 and (
+                    item.x >= 8 or item.y >= original.writable_inventory_rows
+                ):
+                    raise FormatError("A new item is outside the source character's writable slots.")
             else:
                 if item.quality != previous.quality and not 1 <= item.quality <= 65535:
                     raise FormatError("An edited item has an invalid quality value.")
