@@ -11,7 +11,32 @@ import json
 from pathlib import Path
 
 
-def inspect(bundle, prefabs):
+STAT_FIELDS = {
+    "durability": ("m_maxDurability", "m_durabilityPerLevel"),
+    "armor": ("m_armor", "m_armorPerLevel"),
+    "block": ("m_blockPower", "m_blockPowerPerLevel"),
+    "deflection": ("m_deflectionForce", "m_deflectionForcePerLevel"),
+    "parry": "m_timedBlockBonus",
+    "movement": "m_movementModifier",
+    "uses_durability": "m_useDurability",
+    "repairable": "m_canBeReparied",
+}
+
+
+def stat_coefficients(shared):
+    row = {
+        key: [shared[field] for field in fields] if isinstance(fields, tuple) else shared[fields]
+        for key, fields in STAT_FIELDS.items()
+    }
+    base, growth = shared["m_damages"], shared["m_damagesPerLevel"]
+    row["damage"] = {key.removeprefix("m_"): [base[key], growth[key]]
+                     for key in base if base[key] or growth[key]}
+    for key in ("uses_durability", "repairable"):
+        row[key] = bool(row[key])
+    return row
+
+
+def inspect(bundle, prefabs, *, statistics=False):
     import UnityPy
 
     requested = set(prefabs)
@@ -29,10 +54,14 @@ def inspect(bundle, prefabs):
             if "m_itemData" not in tree:
                 continue
             shared = tree["m_itemData"]["m_shared"]
+            if game_object.m_Name in found:
+                raise ValueError(f"Ambiguous ItemDrop metadata for {game_object.m_Name}")
             found[game_object.m_Name] = {
                 "max_stack": shared["m_maxStackSize"],
                 "max_quality": shared["m_maxQuality"],
             }
+            if statistics:
+                found[game_object.m_Name].update(stat_coefficients(shared))
     missing = requested - found.keys()
     if missing:
         raise ValueError(f"No ItemDrop metadata for: {', '.join(sorted(missing))}")
@@ -46,5 +75,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("bundle", type=Path)
     parser.add_argument("prefabs", nargs="+")
+    parser.add_argument("--statistics", action="store_true")
     arguments = parser.parse_args()
-    print(json.dumps(inspect(arguments.bundle, arguments.prefabs), indent=2, sort_keys=True))
+    print(json.dumps(inspect(arguments.bundle, arguments.prefabs, statistics=arguments.statistics),
+                     indent=2, sort_keys=True))

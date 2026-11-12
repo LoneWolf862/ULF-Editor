@@ -1,0 +1,239 @@
+{
+  "bundle": "c4210710",
+  "extractor": "UnityPy 1.25.4",
+  "game_version": "1.0.21",
+  "items": {
+    "ArmorAshlandsMediumChest": {
+      "armor": [
+        28.0,
+        2.0
+      ],
+      "block": [
+        10.0,
+        0.0
+      ],
+      "damage": {},
+      "deflection": [
+        0.0,
+        0.0
+      ],
+      "durability": [
+        1000.0,
+        200.0
+      ],
+      "max_quality": 4,
+      "max_stack": 1,
+      "movement": 0.0,
+      "parry": 1.5,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "AxeBronze": {
+      "armor": [
+        20.0,
+        1.0
+      ],
+      "block": [
+        12.0,
+        0.0
+      ],
+      "damage": {
+        "chop": [
+          40.0,
+          3.0
+        ],
+        "slash": [
+          40.0,
+          5.0
+        ]
+      },
+      "deflection": [
+        20.0,
+        5.0
+      ],
+      "durability": [
+        125.0,
+        50.0
+      ],
+      "max_quality": 4,
+      "max_stack": 1,
+      "movement": -0.05000000074505806,
+      "parry": 2.0,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "HelmetIron": {
+      "armor": [
+        14.0,
+        2.0
+      ],
+      "block": [
+        10.0,
+        0.0
+      ],
+      "damage": {
+        "blunt": [
+          10.0,
+          0.0
+        ]
+      },
+      "deflection": [
+        0.0,
+        0.0
+      ],
+      "durability": [
+        1000.0,
+        200.0
+      ],
+      "max_quality": 4,
+      "max_stack": 1,
+      "movement": 0.0,
+      "parry": 1.5,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "OrbThunderBlood": {
+      "armor": [
+        10.0,
+        1.0
+      ],
+      "block": [
+        10.0,
+        0.0
+      ],
+      "damage": {},
+      "deflection": [
+        0.0,
+        0.0
+      ],
+      "durability": [
+        100.0,
+        50.0
+      ],
+      "max_quality": 1,
+      "max_stack": 50,
+      "movement": 0.0,
+      "parry": 1.5,
+      "repairable": true,
+      "uses_durability": false
+    },
+    "ShieldWood": {
+      "armor": [
+        100.0,
+        1.0
+      ],
+      "block": [
+        6.0,
+        6.0
+      ],
+      "damage": {},
+      "deflection": [
+        20.0,
+        5.0
+      ],
+      "durability": [
+        200.0,
+        50.0
+      ],
+      "max_quality": 3,
+      "max_stack": 1,
+      "movement": -0.05000000074505806,
+      "parry": 1.5,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "StaffFireball": {
+      "armor": [
+        15.0,
+        1.0
+      ],
+      "block": [
+        48.0,
+        0.0
+      ],
+      "damage": {
+        "blunt": [
+          120.0,
+          0.0
+        ],
+        "fire": [
+          120.0,
+          6.0
+        ]
+      },
+      "deflection": [
+        20.0,
+        5.0
+      ],
+      "durability": [
+        200.0,
+        50.0
+      ],
+      "max_quality": 4,
+      "max_stack": 1,
+      "movement": -0.05000000074505806,
+      "parry": 2.0,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "SwordIron": {
+      "armor": [
+        20.0,
+        1.0
+      ],
+      "block": [
+        21.0,
+        0.0
+      ],
+      "damage": {
+        "slash": [
+          55.0,
+          6.0
+        ]
+      },
+      "deflection": [
+        20.0,
+        5.0
+      ],
+      "durability": [
+        200.0,
+        50.0
+      ],
+      "max_quality": 4,
+      "max_stack": 1,
+      "movement": -0.05000000074505806,
+      "parry": 2.0,
+      "repairable": true,
+      "uses_durability": true
+    },
+    "Wood": {
+      "armor": [
+        10.0,
+        1.0
+      ],
+      "block": [
+        10.0,
+        0.0
+      ],
+      "damage": {},
+      "deflection": [
+        0.0,
+        0.0
+      ],
+      "durability": [
+        100.0,
+        50.0
+      ],
+      "max_quality": 1,
+      "max_stack": 50,
+      "movement": 0.0,
+      "parry": 1.5,
+      "repairable": true,
+      "uses_durability": false
+    }
+  },
+  "schema": 1,
+  "sha256": "84f55cfb24af51b9f0494fd9d1a355bf009e08545ff8ccf607c7d88d2e4e1ec8",
+  "steam_build": 26249040,
+  "verification": "verified-prefab-coefficients"
+}
