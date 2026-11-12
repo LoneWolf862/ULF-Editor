@@ -46,11 +46,30 @@ ULF Editor is a Python/PySide6 desktop application for editing Valheim `.fch` ch
 
 - Define measurable acceptance criteria tied to requirement IDs before implementing changes.
 - Create automated regression tests for serialization changes, bug fixes, and new functionality.
-- Run applicable tests before committing.
 - Report which requirement IDs the work satisfies and distinguish implemented, tested, partially implemented, and unimplemented requirements.
-- Keep `main` stable and develop substantial features on separate branches.
-- Review changes before pushing them to GitHub. Obtain explicit approval before committing, pushing, or merging.
-- Use clear commit messages and document significant architectural decisions.
+- Document significant architectural decisions.
+
+## Git development policy
+
+### Branches and repository protection
+
+- Develop substantial changes on dedicated feature, fix, or milestone branches. Keep `main` as the stable, reviewed baseline.
+- Never commit or push directly to `main` during autonomous development. All merges, releases, and version tags require explicit owner approval.
+- Never force-push during autonomous development. Rewriting published history requires explicit owner approval.
+- Changes to approved requirements require owner review and explicit approval. Never modify original character saves or discard uncommitted work without approval.
+
+### Autonomous commits and GitHub synchronization
+
+- Once the owner approves the proposed breakdown and synchronization of the existing Alpha 0.2 and 0.2.1 work, this policy provides standing authorization for commits and pushes within approved milestone scope. The initial policy setup and breakdown review do not authorize committing or pushing the existing work.
+- Commit each meaningful, tested change on the approved development branch. Keep completed features, fixes, regression test groups, compatibility changes, and substantial documentation updates in focused commits. Use conventional messages such as `feat:`, `fix:`, `test:`, `refactor:`, and `docs:`.
+- After each meaningful, tested commit, push to the same approved development branch in `LoneWolf862/ULF-Editor`. Keep pushes scoped to that branch. Do not create or delete remote branches outside the approved scope.
+- If authentication fails, report the failure and leave the commits local. Do not repeatedly retry with different credentials.
+
+### Checks and reporting
+
+- Before committing, inspect the staged diff. Before pushing, inspect the staged state and review the full outgoing commit range. Verify that no real `.fch` saves, backups, private character data, credentials, tokens, or temporary files are included, and that unrelated files and existing work are preserved.
+- Run the relevant automated tests before each commit and push. Record known failures and resolve relevant failures before proceeding. Do not bypass failing tests to produce a commit or push.
+- After each major development phase, report the current branch, recent commit SHAs, completed work, test results, remaining tasks, and GitHub synchronization status.
 
 ## Interface design
 
