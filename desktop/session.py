@@ -9,6 +9,7 @@ import struct
 
 from core.editing import apply_item, apply_skills, remove_item
 from core.fch import Character, FormatError, SKILLS
+from core.item_stats import calculate_item_stats
 from desktop.item_catalog import item_entry
 
 
@@ -91,6 +92,14 @@ class Change:
     warning: str = ""
 
 
+@dataclass(frozen=True)
+class RepairPlan:
+    revision: bytes
+    keys: tuple
+    changes: tuple
+    skipped: tuple
+
+
 class Session:
     def __init__(self, character, path):
         self.baseline = character
@@ -165,6 +174,54 @@ class Session:
         if changes:
             self.apply(Command(key, "edit", tuple(changes.items())))
         self.item_drafts.pop(key, None)
+
+    def repair_plan(self, keys=None):
+        keys = tuple(self.items if keys is None else keys)
+        duplicates = self.duplicate_positions
+        changes, skipped = [], []
+        for key in keys:
+            item = self.items[key]
+            entry = item_entry(item)
+            stats = calculate_item_stats(item)
+            target = stats.repair_raw() if stats is not None else None
+            if self.working.inventory_version != 110:
+                reason = "Repair requires the current save format for the 1.0.21 statistics."
+            elif key in self.item_drafts:
+                reason = "Apply or revert this item's draft first."
+            elif item.x >= 8 or (item.x, item.y) in duplicates:
+                reason = "The saved position is ambiguous or unsupported."
+            elif entry is None or entry.maximum_stack is None:
+                reason = "Verified item metadata is unavailable."
+            elif not 1 <= item.stack <= min(entry.maximum_stack, 65535):
+                reason = "The saved quantity is outside its verified limit."
+            elif stats is None:
+                reason = "Statistics are unavailable for this prefab or quality."
+            elif stats.maximum_durability is None:
+                reason = "Verified durability is unavailable or inapplicable."
+            elif target is None:
+                reason = "This item is not repairable or its maximum cannot be encoded."
+            elif item.durability_raw >= target:
+                reason = "Durability is already at or above the repair target."
+            else:
+                changes.append((key, item.durability_raw, target))
+                continue
+            skipped.append((key, reason))
+        return RepairPlan(self.revision, keys, tuple(changes), tuple(skipped))
+
+    def apply_repairs(self, plan):
+        if (plan.revision != self.revision or any(key not in self.items for key in plan.keys)
+                or self.repair_plan(plan.keys) != plan):
+            raise FormatError("Inventory or drafts changed. Review a fresh repair preview.")
+        if not plan.changes:
+            return
+        character, items = deepcopy((self.working, self.items))
+        commands = [
+            Command(key, "edit", (("durability_raw", target),))
+            for key, _, target in plan.changes
+        ]
+        for command in commands:
+            self.run_command(character, items, command)
+        self.publish(character, items, [*self.commands, *commands])
 
     def remove_item(self, key):
         item = self.items[key]

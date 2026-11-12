@@ -7,12 +7,14 @@ import re
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, QRect, QSize, Qt, Signal
 from PySide6.QtGui import QColor, QPainter, QPen
 from PySide6.QtWidgets import (
-    QAbstractItemView, QAbstractSpinBox, QCheckBox, QComboBox, QDialog, QFormLayout,
+    QAbstractItemView, QAbstractSpinBox, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
     QHBoxLayout, QHeaderView, QLineEdit, QListWidget, QListWidgetItem, QMessageBox,
-    QPushButton, QStyledItemDelegate, QStyle, QStyleOptionSpinBox, QTableView, QVBoxLayout, QWidget,
+    QPlainTextEdit, QProgressBar, QPushButton, QStyledItemDelegate, QStyle,
+    QStyleOptionSpinBox, QTableView, QVBoxLayout, QWidget,
 )
 
 from core.fch import FormatError
+from core.item_stats import GAME_VERSION, calculate_item_stats
 from desktop.item_catalog import CATALOG_VERSION, ENTRIES, item_entry, search_catalog
 from desktop.session import durability_text, item_name, slot_name
 from desktop.theme import heading, item_icon, label, panel, primary_button, scroll_area, set_invalid, theme_active
@@ -393,7 +395,9 @@ class InventoryPage(QWidget):
         header.addLayout(title, 1)
         self.inspect_button = QPushButton("Inspect Slot")
         self.add_button = primary_button("Add Item")
+        self.repair_all_button = QPushButton("Repair All…")
         header.addWidget(self.inspect_button)
+        header.addWidget(self.repair_all_button)
         header.addWidget(self.add_button)
         grid_layout.addLayout(header)
         self.model = InventoryModel(self)
@@ -441,6 +445,17 @@ class InventoryPage(QWidget):
         self.fields = ItemFields()
         self.fields.populate()
         inspector_layout.addWidget(self.fields)
+        self.stat_summary = label(role="muted", wrap=True)
+        self.stat_summary.setAccessibleName("Calculated item statistics")
+        inspector_layout.addWidget(self.stat_summary)
+        self.durability_meter = QProgressBar()
+        self.durability_meter.setRange(0, 1000)
+        self.durability_meter.setTextVisible(False)
+        self.durability_meter.setAccessibleName("Durability percentage")
+        self.durability_meter.setMaximumHeight(10)
+        inspector_layout.addWidget(self.durability_meter)
+        self.repair_button = QPushButton("Repair")
+        inspector_layout.addWidget(self.repair_button, alignment=Qt.AlignmentFlag.AlignLeft)
         self.warning = label(role="warning", wrap=True)
         self.error = label(role="error", wrap=True)
         self.error.setAccessibleName("Item validation error")
@@ -476,6 +491,8 @@ class InventoryPage(QWidget):
         self.apply_button.clicked.connect(self.apply_item)
         self.revert_button.clicked.connect(self.revert_item)
         self.remove_button.clicked.connect(self.remove_item)
+        self.repair_button.clicked.connect(self.repair_selected)
+        self.repair_all_button.clicked.connect(self.repair_all)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -526,6 +543,7 @@ class InventoryPage(QWidget):
         for widget in (self.diagnostics_title, self.diagnostics):
             widget.setVisible(bool(self.diagnostics.count()))
         self.add_button.setEnabled(bool(self.session and self.session.free_slots()))
+        self.repair_all_button.setEnabled(bool(items))
         x, y = position
         index = self.model.index(min(y, self.model.height - 1), x)
         self.grid.setCurrentIndex(index)
@@ -607,6 +625,59 @@ class InventoryPage(QWidget):
         self.apply_button.setEnabled(bool(draft))
         self.revert_button.setEnabled(bool(draft))
         self.add_here.setVisible(bool(self.session and not item and not conflict and position[1] < writable_rows))
+        self.refresh_statistics()
+
+    def refresh_statistics(self):
+        item = self.session.items.get(self.key) if self.session else None
+        self.stat_summary.setVisible(item is not None)
+        self.repair_button.setVisible(item is not None)
+        self.durability_meter.hide()
+        if item is None:
+            return
+        draft = self.fields.draft()
+        quality_text = self.fields.editors["quality"].text().strip()
+        quality = int(quality_text) if re.fullmatch(r"[0-9]{1,5}", quality_text) else 0
+        stats = calculate_item_stats(item, quality)
+        stored = durability_text(item.durability_raw)
+        lines = [f"Valheim {GAME_VERSION} · {'Draft quality' if 'quality' in draft else 'Calculated stats'}"]
+        if stats is None or stats.maximum_durability is None:
+            lines.append(f"Durability (stored / max): {stored} / unavailable")
+        else:
+            maximum = stats.maximum_durability
+            fraction = stats.durability_fraction(item.durability_raw)
+            lines.append(f"Durability (stored / max): {stored} / {maximum:.2f} · {fraction:.1%}")
+            if item.durability_raw / 100 > maximum:
+                lines.append("Stored durability exceeds the calculated maximum.")
+            self.durability_meter.setValue(round(fraction * 1000))
+            self.durability_meter.setAccessibleDescription(f"{fraction:.1%}")
+            self.durability_meter.show()
+        category = self.entry.category if self.entry else None
+        if stats is None:
+            lines.append("Verified statistics unavailable for this item or quality.")
+        elif category in ("Weapon", "Armor", "Shield", "Tool"):
+            if category == "Armor":
+                lines.append(f"Armor: {stats.armor:g}" if stats.armor is not None else "Armor unavailable at this world level.")
+            if category in ("Weapon", "Tool"):
+                if stats.damage is None:
+                    lines.append("Damage unavailable at this world level.")
+                elif stats.damage:
+                    values = " · ".join(f"{channel.title()} {value:g}" for channel, value in stats.damage.items())
+                    lines.append(f"Item damage: {values}")
+            if category in ("Weapon", "Shield", "Tool"):
+                lines.append(f"Base block {stats.block:g} · Deflection {stats.deflection:g}")
+                lines.append(f"Parry ×{stats.parry:g}" if stats.parry > 1 else "No timed parry bonus")
+            lines.append(f"Movement {stats.movement:+.1%}")
+        plan = self.session.repair_plan((self.key,))
+        if plan.skipped:
+            reason = plan.skipped[0][1]
+            self.repair_button.setToolTip(reason)
+            self.repair_button.setAccessibleDescription(reason)
+            lines.append(reason)
+        else:
+            self.repair_button.setToolTip("Stage a durability-only change.")
+            self.repair_button.setAccessibleDescription("Stage a durability-only change.")
+        self.repair_button.setEnabled(bool(plan.changes))
+        self.stat_summary.setText("\n".join(lines))
 
     def update_draft(self):
         if self.fields.updating or self.key is None or not self.fields.isEnabled():
@@ -622,7 +693,57 @@ class InventoryPage(QWidget):
         self.error.clear()
         for field in self.fields.editors.values():
             set_invalid(field, False)
+        self.refresh_statistics()
         self.drafts_changed.emit()
+
+    def repair_selected(self):
+        self.apply_repair_plan(self.session.repair_plan((self.key,)))
+
+    def repair_all(self):
+        session = self.session
+        plan = session.repair_plan()
+        if self.confirm_repairs(plan) and self.session is session:
+            self.apply_repair_plan(plan)
+
+    def confirm_repairs(self, plan):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Repair All Preview")
+        dialog.resize(620, 430)
+        layout = QVBoxLayout(dialog)
+        layout.addWidget(label(f"{len(plan.changes)} eligible · {len(plan.skipped)} skipped", wrap=True))
+        preview = QPlainTextEdit()
+        preview.setAccessibleName("Repair changes and skipped items")
+        preview.setReadOnly(True)
+        lines = []
+        for key, before, after in plan.changes:
+            item = self.session.items[key]
+            lines.append(f"{item_name(item)} · {slot_name((item.x, item.y))} · "
+                         f"{durability_text(before)} → {durability_text(after)}")
+        for key, reason in plan.skipped:
+            item = self.session.items[key]
+            lines.append(f"Skipped {item_name(item)} · {slot_name((item.x, item.y))} · {reason}")
+        preview.setPlainText("\n".join(lines))
+        layout.addWidget(preview)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Cancel)
+        apply_button = buttons.addButton("Stage Repairs", QDialogButtonBox.ButtonRole.AcceptRole)
+        apply_button.setEnabled(bool(plan.changes))
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        accepted = dialog.exec() == QDialog.DialogCode.Accepted
+        dialog.deleteLater()
+        return accepted
+
+    def apply_repair_plan(self, plan):
+        if not plan.changes:
+            return
+        try:
+            self.session.apply_repairs(plan)
+        except FormatError as error:
+            self.error.setText(str(error))
+        else:
+            self.refresh(self.position)
+            self.changed.emit()
 
     def apply_item(self):
         try:

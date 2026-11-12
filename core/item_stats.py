@@ -67,6 +67,12 @@ class ItemStatistics:
             return None
         return int(raw) if 1 <= raw < 2**31 else None
 
+    def durability_fraction(self, raw):
+        if self.maximum_durability is None:
+            return None
+        current = _float32(_float32(raw) * _float32(0.01))
+        return min(1.0, max(0.0, _float32(current / self.maximum_durability)))
+
 
 def calculate_item_stats(item, quality=None):
     """Calculate using the 1.0.21 snapshot, or return None without verified input."""

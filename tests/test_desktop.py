@@ -13,9 +13,10 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
-from PySide6.QtWidgets import QApplication, QDialog, QMessageBox
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QPlainTextEdit
 
-from core.fch import Character, Item, stable_hash
+from core.editing import apply_item
+from core.fch import Character, FormatError, Item, stable_hash
 from desktop.app import Window
 from desktop.inventory import ACCESSIBLE, CatalogDialog
 from desktop.session import Session
@@ -227,6 +228,91 @@ class DesktopTests(unittest.TestCase):
         self.assertEqual(self.session.working.items[0].quality, 60000)
         self.assertEqual(self.session.working.skills[0], [1, 42.125, 0.375])
         self.assertEqual(self.source.read_bytes(), raw)
+
+    def load_repair_fixture(self):
+        sword = Item(stable_hash("SwordIron"), 0, 0, durability_raw=8125,
+                     equipped=True, crafter_id=27, crafter_name="Synthetic crafter",
+                     custom=[("test", "value")], tail=5)
+        shield = Item(stable_hash("ShieldWood"), 1, 0, durability_raw=12500, quality=3)
+        unknown = Item(-7654321, 2, 0, durability_raw=31, tail=7)
+        wood = Item(stable_hash("Wood"), 3, 0, stack=5)
+        self.load_fixture(current_character_bytes(item_bytes=[
+            item.to_bytes() for item in (sword, shield, unknown, wood)
+        ]))
+
+    def test_stats_follow_draft_quality_without_repairing(self):
+        self.load_repair_fixture()
+        self.assertIn("81.25 / 200.00", self.inventory.stat_summary.text())
+        self.assertEqual(self.inventory.durability_meter.value(), 406)
+        self.set_item_value("quality", "100")
+        self.assertIn("81.25 / 5150.00", self.inventory.stat_summary.text())
+        self.assertIn("Slash 649", self.inventory.stat_summary.text())
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+        self.inventory.apply_button.click()
+        self.assertEqual(self.session.working.items[0].durability_raw, 8125)
+        self.assertTrue(self.inventory.repair_button.isEnabled())
+
+    def test_selected_repair_reviews_and_exports_only_durability(self):
+        self.load_repair_fixture()
+        original = self.source.read_bytes()
+        expected = copy.deepcopy(self.session.working.items[0])
+        self.inventory.repair_button.click()
+        expected.durability_raw = 20000
+        self.assertEqual(self.session.working.items[0], expected)
+        self.assertEqual(self.window.changes[0].details, ("Durability  81.25 → 200.00",))
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+        self.export_to(self.target)
+        reopened = Character(self.target.read_bytes())
+        self.assertEqual(reopened.items[0], expected)
+        self.assertEqual(reopened.items[1:], self.session.baseline.items[1:])
+        self.assertEqual(reopened._skill_bytes, self.session.baseline._skill_bytes)
+        self.assertEqual(self.source.read_bytes(), original)
+
+    def test_repair_all_previews_skips_and_cancel_preserves_working_state(self):
+        self.load_repair_fixture()
+        original = self.session.working.serialize()
+        def cancel(dialog):
+            preview = dialog.findChild(QPlainTextEdit).toPlainText()
+            self.assertIn("81.25 → 200.00", preview)
+            self.assertIn("125.00 → 300.00", preview)
+            self.assertEqual(preview.count("Skipped"), 2)
+            return QDialog.DialogCode.Rejected
+        with patch.object(QDialog, "exec", cancel):
+            self.inventory.repair_all_button.click()
+        self.assertEqual(self.session.working.serialize(), original)
+        with patch.object(QDialog, "exec", return_value=QDialog.DialogCode.Accepted):
+            self.inventory.repair_all_button.click()
+        self.assertEqual([item.durability_raw for item in self.session.working.items],
+                         [20000, 30000, 31, 10000])
+        self.assertEqual(len(self.window.changes), 2)
+
+    def test_repair_all_failure_is_atomic_and_stale_preview_is_rejected(self):
+        self.load_repair_fixture()
+        original = self.session.working.serialize()
+        plan = self.session.repair_plan()
+        def fail_on_shield(character, item, changes):
+            if item.x == 1:
+                raise FormatError("Synthetic second-record failure")
+            apply_item(character, item, changes)
+        with patch("desktop.session.apply_item", side_effect=fail_on_shield):
+            with self.assertRaisesRegex(FormatError, "second-record"):
+                self.session.apply_repairs(plan)
+        self.assertEqual(self.session.working.serialize(), original)
+        self.assertFalse(self.session.commands)
+        self.set_item_value("quality", "4")
+        with self.assertRaisesRegex(FormatError, "fresh repair preview"):
+            self.session.apply_repairs(plan)
+        self.assertEqual(self.session.working.serialize(), original)
+
+    def test_legacy_format_previews_statistics_and_remains_editable(self):
+        sword = Item(stable_hash("SwordIron"), 0, 0, durability_raw=25)
+        self.load_fixture(character_bytes(item_bytes=[sword.to_bytes()]))
+        self.assertIn("0.25 / 200.00", self.inventory.stat_summary.text())
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+        self.set_item_value("quality", "4")
+        self.inventory.apply_button.click()
+        self.export_to(self.target)
+        self.assertEqual(Character(self.target.read_bytes()).items[0].durability_raw, 25)
 
     def test_fr050_save_as_rejects_alias_and_retains_edits(self):
         alias = self.source.with_name("alias.fch")
