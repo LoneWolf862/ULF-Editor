@@ -1,202 +1,4928 @@
 {
-  "GrapplingHook": {
-    "name": "Grappling Hook",
-    "max_stack": 1
+  "Acorn": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "Acorn",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "BeltStrength": {
-    "name": "Megingjord",
-    "max_stack": 1
+  "Amber": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Amber",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "TrinketIronHealth": {
-    "name": "Iron Brooch",
-    "max_stack": 1
+  "AmberPearl": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AmberPearl",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "HelmetDverger": {
-    "name": "Dverger Circlet",
-    "max_stack": 1
+  "AncientSeed": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AncientSeed",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
   },
-  "Demister": {
-    "name": "Wisplight",
-    "max_stack": 1
+  "ArmorAshlandsMediumChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorAshlandsMediumChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "MeadStaminaMedium": {
-    "name": "Medium Stamina Mead",
-    "max_stack": 10
+  "ArmorAshlandsMediumlegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorAshlandsMediumlegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "MeadLightfoot": {
-    "name": "Lightfoot Mead",
-    "max_stack": 7
+  "ArmorBerserkerChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBerserkerChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "BoltCharred": {
-    "name": "Charred Bolt",
-    "max_stack": 40
+  "ArmorBerserkerLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBerserkerLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Salad": {
-    "name": "Salad",
-    "max_stack": 3
+  "ArmorBerserkerUndeadChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBerserkerUndeadChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "HelmetDrake": {
-    "name": "Drake Helmet",
-    "max_stack": 1
+  "ArmorBerserkerUndeadLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBerserkerUndeadLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorBronzeChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBronzeChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorBronzeLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorBronzeLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorCarapaceChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorCarapaceChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorCarapaceLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorCarapaceLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress1": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress10": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress2": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress3": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress4": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress4",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress5": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress6": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress7": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress8": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorDress9": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorDress9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArmorFenringChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorFenringChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
   "ArmorFenringLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
     "name": "Fenris Leggings",
-    "max_stack": 1
-  },
-  "CapeAsh": {
-    "name": "Ashen Cape",
-    "max_stack": 1
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
   },
   "ArmorFlametalChest": {
+    "max_quality": 4,
+    "max_stack": 1,
     "name": "Flametal Breastplate",
-    "max_stack": 1
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
   },
-  "SwordNiedhoggNature": {
-    "name": "Nidh\u00f6gg the Primal",
-    "max_stack": 1
+  "ArmorFlametalLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorFlametalLegs",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
   },
-  "ShieldCarapace": {
-    "name": "Carapace Shield",
-    "max_stack": 1
+  "ArmorHarvester1": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorHarvester1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "BarleyWine": {
-    "name": "Fire Resistance Barley Wine",
-    "max_stack": 5
+  "ArmorHarvester2": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorHarvester2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "AxeBerzerkrLightning": {
-    "name": "Thundering Berserkir Axes",
-    "max_stack": 1
+  "ArmorIronChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorIronChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Hammer": {
-    "name": "Hammer",
-    "max_stack": 1
+  "ArmorIronLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorIronLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "THSwordSlayerNature": {
-    "name": "Primal Slayer",
-    "max_stack": 1
+  "ArmorLeatherChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorLeatherChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "PickaxeBlackMetal": {
-    "name": "Black Metal Pickaxe",
-    "max_stack": 1
+  "ArmorLeatherLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorLeatherLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "MashedMeat": {
-    "name": "Mashed Meat",
-    "max_stack": 3
+  "ArmorMageChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorMageChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "FierySvinstew": {
-    "name": "Fiery Svinstew",
-    "max_stack": 5
+  "ArmorMageChest_Ashlands": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorMageChest_Ashlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "MeadHasty": {
-    "name": "Tonic of Ratatosk",
-    "max_stack": 9
+  "ArmorMageLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorMageLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "CrossbowRipperNature": {
-    "name": "Root Ripper",
-    "max_stack": 1
+  "ArmorMageLegs_Ashlands": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorMageLegs_Ashlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "MeadHealthMajor": {
-    "name": "Major Healing Mead",
-    "max_stack": 9
+  "ArmorPaddedCuirass": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorPaddedCuirass",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "BombDynamite": {
-    "name": "Ember Charge",
-    "max_stack": 37
+  "ArmorPaddedGreaves": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorPaddedGreaves",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "CapeWolf": {
-    "name": "Wolf Fur Cape",
-    "max_stack": 1
+  "ArmorRagsChest": {
+    "max_quality": 2,
+    "max_stack": 1,
+    "name": "ArmorRagsChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "AxeBerzerkrNature": {
-    "name": "Primal Berserkir Axes",
-    "max_stack": 1
+  "ArmorRagsLegs": {
+    "max_quality": 2,
+    "max_stack": 1,
+    "name": "ArmorRagsLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordMistwalker": {
-    "name": "SwordMistwalker",
-    "max_stack": 1
+  "ArmorRootChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorRootChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordGold_FrostFire": {
-    "name": "Frostfire Sword",
-    "max_stack": 1
+  "ArmorRootLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorRootLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordNiedhoggLightning": {
-    "name": "Nidh\u00f6gg the Thundering",
-    "max_stack": 1
+  "ArmorTrollLeatherChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTrollLeatherChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordDyrnwyn": {
-    "name": "Dyrnwyn",
-    "max_stack": 1
+  "ArmorTrollLeatherLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTrollLeatherLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordGold_BloodLightning": {
-    "name": "Thunderblood Sword",
-    "max_stack": 1
+  "ArmorTunic1": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Leatherstraps": {
-    "name": "Leather Straps",
-    "max_stack": 2
+  "ArmorTunic10": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Wood": {
-    "name": "Wood",
-    "max_stack": 50
+  "ArmorTunic2": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Stone": {
-    "name": "Stone",
-    "max_stack": 50
+  "ArmorTunic3": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Iron": {
-    "name": "Iron",
-    "max_stack": 30
+  "ArmorTunic4": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic4",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Copper": {
-    "name": "Copper",
-    "max_stack": 30
+  "ArmorTunic5": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "BlackMetal": {
-    "name": "BlackMetal",
-    "max_stack": 30
+  "ArmorTunic6": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "FlametalNew": {
-    "name": "FlametalNew",
-    "max_stack": 30
+  "ArmorTunic7": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "FineWood": {
-    "name": "FineWood",
-    "max_stack": 50
+  "ArmorTunic8": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "RoundLog": {
-    "name": "RoundLog",
-    "max_stack": 50
+  "ArmorTunic9": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorTunic9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Coins": {
-    "name": "Coins",
-    "max_stack": 999
+  "ArmorWolfChest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorWolfChest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "Resin": {
-    "name": "Resin",
-    "max_stack": 50
+  "ArmorWolfLegs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "ArmorWolfLegs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordIron": {
-    "name": "SwordIron",
-    "max_stack": 1
+  "ArrowBronze": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "SwordBlackmetal": {
-    "name": "SwordBlackmetal",
-    "max_stack": 1
+  "ArrowCarapace": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowCarapace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
-  "ShieldBlackmetal": {
-    "name": "ShieldBlackmetal",
-    "max_stack": 1
-  },
-  "BowDraugrFang": {
-    "name": "BowDraugrFang",
-    "max_stack": 1
-  },
-  "SledgeIron": {
-    "name": "SledgeIron",
-    "max_stack": 1
+  "ArrowCharred": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowCharred",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   },
   "ArrowFire": {
+    "max_quality": 1,
+    "max_stack": 100,
     "name": "ArrowFire",
-    "max_stack": 100
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowFlint": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowFlint",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowFrost": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowFrost",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowIron": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowNeedle": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowNeedle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowObsidian": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowObsidian",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowPoison": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowPoison",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowSilver": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowSilver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ArrowWood": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "ArrowWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AskBladder": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AskBladder",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AskHide": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AskHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinCarrionNeck": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AsksvinCarrionNeck",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinCarrionPelvic": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AsksvinCarrionPelvic",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinCarrionRibcage": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AsksvinCarrionRibcage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinCarrionSkull": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "AsksvinCarrionSkull",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinEgg": {
+    "max_quality": 4,
+    "max_stack": 20,
+    "name": "AsksvinEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AsksvinMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "AsksvinMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AtgeirBlackmetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AtgeirBlackmetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AtgeirBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AtgeirBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AtgeirHimminAfl": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AtgeirHimminAfl",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AtgeirIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AtgeirIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AtgeirWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AtgeirWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeBerzerkr": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeBerzerkr",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "AxeBerzerkrBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeBerzerkrBlood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeBerzerkrLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Thundering Berserkir Axes",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "AxeBerzerkrNature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Primal Berserkir Axes",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "AxeBlackMetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeBlackMetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeEarly": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeEarly",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeFlint": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeFlint",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeHead1": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "AxeHead1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeHead2": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "AxeHead2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeJotunBane": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeJotunBane",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeStone": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeStone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "AxeWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "AxeWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BarberKit": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "BarberKit",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Barley": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "Barley",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BarleyFlour": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BarleyFlour",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BarleyWine": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Fire Resistance Barley Wine",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "BarleyWineBase": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "BarleyWineBase",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BarrelRings": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BarrelRings",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Battleaxe": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Battleaxe",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BattleaxeBlackmetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BattleaxeBlackmetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BattleaxeCrystal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BattleaxeCrystal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BattleaxeSkullSplittur": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BattleaxeSkullSplittur",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BattleaxeWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BattleaxeWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard1": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard10": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard11": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard11",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard12": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard12",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard13": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard13",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard14": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard14",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard15": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard15",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard16": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard16",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard17": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard17",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard18": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard18",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard19": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard19",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard20": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard20",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard21": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard21",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard22": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard22",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard23": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard23",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard24": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard24",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard25": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard25",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard26": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard26",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard4": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard4",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard5": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard6": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard7": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard8": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Beard9": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Beard9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BeardNone": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "BeardNone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BeechSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BeechSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Bell": {
+    "max_quality": 1,
+    "max_stack": 9,
+    "name": "Bell",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BellFragment": {
+    "max_quality": 1,
+    "max_stack": 9,
+    "name": "BellFragment",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BeltStrength": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Megingjord",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Bilebag": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Bilebag",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BirchSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BirchSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BjornHide": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BjornHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BjornMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BjornMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BjornPaw": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BjornPaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlackCore": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BlackCore",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlackMarble": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BlackMarble",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlackMetal": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "BlackMetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlackMetalScrap": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "BlackMetalScrap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlackSoup": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "BlackSoup",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Blackwood": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Blackwood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BlobVial": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "BlobVial",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BloodPudding": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "BloodPudding",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Bloodbag": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Bloodbag",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Blueberries": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Blueberries",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoarJerky": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BoarJerky",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoltBlackmetal": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BoltBlackmetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoltBone": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BoltBone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoltCarapace": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BoltCarapace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoltCharred": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "Charred Bolt",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "BoltIron": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BoltIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBile": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBile",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBlob_Frost": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBlob_Frost",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBlob_Lava": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBlob_Lava",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBlob_Poison": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBlob_Poison",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBlob_PoisonElite": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBlob_PoisonElite",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombBlob_Tar": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombBlob_Tar",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombDynamite": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Ember Charge",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "BombLava": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombLava",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombOoze": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombOoze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombSiege": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombSiege",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BombSmoke": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BombSmoke",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoneFragments": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BoneFragments",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BoneMawSerpentMeat": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BoneMawSerpentMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BonemawSerpentScale": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BonemawSerpentScale",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BonemawSerpentTooth": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "BonemawSerpentTooth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Bow": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Bow",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowAshlands": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowAshlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowAshlandsBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowAshlandsBlood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowAshlandsRoot": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowAshlandsRoot",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowAshlandsStorm": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowAshlandsStorm",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowDraugrFang": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowDraugrFang",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowFineWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowFineWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowHuntsman": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowHuntsman",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BowSpineSnap": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "BowSpineSnap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Bread": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Bread",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BreadDough": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BreadDough",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Bronze": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Bronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BronzeNails": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "BronzeNails",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BronzeScrap": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "BronzeScrap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "BugMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "BugMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CandleWick": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CandleWick",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeAsh": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Ashen Cape",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "CapeAsksvin": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeAsksvin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeDeerHide": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeDeerHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeFeather": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeFeather",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeLinen": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeLinen",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeLox": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeLox",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeOdin": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeOdin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeTrollHide": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CapeTrollHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CapeWolf": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Wolf Fur Cape",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Carapace": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Carapace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Carrot": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Carrot",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CarrotSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "CarrotSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CarrotSoup": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "CarrotSoup",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Catapult_ammo": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Catapult_ammo",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CelestialFeather": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CelestialFeather",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CeramicPlate": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "CeramicPlate",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Chain": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Chain",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CharcoalResin": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CharcoalResin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CharredBone": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CharredBone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CharredCogwheel": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "CharredCogwheel",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Charredskull": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Charredskull",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ChickenEgg": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "ChickenEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ChickenMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "ChickenMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Chitin": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Chitin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Cloudberry": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Cloudberry",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Club": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Club",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Coal": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Coal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Coins": {
+    "max_quality": 1,
+    "max_stack": 999,
+    "name": "Coins",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedAsksvinMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedAsksvinMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedBjornMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedBjornMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedBoneMawSerpentMeat": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CookedBoneMawSerpentMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedBugMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedBugMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedChickenMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedChickenMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedDeerMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedDeerMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedEgg": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedHareMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedHareMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedLoxMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedLoxMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedVoltureMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedVoltureMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CookedWolfMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "CookedWolfMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Copper": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Copper",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CopperOre": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "CopperOre",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CopperScrap": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "CopperScrap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CrossbowArbalest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CrossbowArbalest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CrossbowRipper": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CrossbowRipper",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CrossbowRipperBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CrossbowRipperBlood",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "CrossbowRipperLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "CrossbowRipperLightning",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CrossbowRipperNature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Root Ripper",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "CryptKey": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "CryptKey",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Crystal": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Crystal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Cultivator": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Cultivator",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "CuredSquirrelHamstring": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "CuredSquirrelHamstring",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Dandelion": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Dandelion",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DeerHide": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "DeerHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DeerMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "DeerMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DeerStew": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "DeerStew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Demister": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Wisplight",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "DragonEgg": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "DragonEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DragonTear": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "DragonTear",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergerArbalest": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "DvergerArbalest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergerArbalest_shoot": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "DvergerArbalest_shoot",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergerArbalest_shootAshlands": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "DvergerArbalest_shootAshlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergrKey": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "DvergrKey",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergrKeyFragment": {
+    "max_quality": 1,
+    "max_stack": 9,
+    "name": "DvergrKeyFragment",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DvergrNeedle": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "DvergrNeedle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DyrnwynBladeFragment": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "DyrnwynBladeFragment",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DyrnwynHiltFragment": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "DyrnwynHiltFragment",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "DyrnwynTipFragment": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "DyrnwynTipFragment",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Ectoplasm": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Ectoplasm",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Eitr": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Eitr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ElderBark": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "ElderBark",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Entrails": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Entrails",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Eyescream": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Eyescream",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FaderDrop": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "FaderDrop",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastAshlands": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastAshlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastAshlands_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastAshlands_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastBlackforest": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastBlackforest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastBlackforest_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastBlackforest_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMeadows": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastMeadows",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMeadows_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastMeadows_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMistlands": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastMistlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMistlands_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastMistlands_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMountains": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastMountains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastMountains_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastMountains_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastOceans": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastOceans",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastOceans_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastOceans_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastPlains": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastPlains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastPlains_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastPlains_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastSwamps": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FeastSwamps",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FeastSwamps_Material": {
+    "max_quality": 1,
+    "max_stack": 5,
+    "name": "FeastSwamps_Material",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Feaster": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Feaster",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Feathers": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Feathers",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fiddleheadfern": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Fiddleheadfern",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FierySvinstew": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Fiery Svinstew",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "FineWood": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "FineWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FirCone": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FirCone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Blue": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Blue",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Cyan": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Cyan",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Green": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Green",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Purple": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Purple",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Red": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Red",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_White": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_White",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FireworksRocket_Yellow": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FireworksRocket_Yellow",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish1": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish10": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish11": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish11",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish12": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish12",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish2": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish3": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish4_cave": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish4_cave",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish5": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish6": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish7": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish8": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Fish9": {
+    "max_quality": 5,
+    "max_stack": 10,
+    "name": "Fish9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishAndBread": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FishAndBread",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishAndBreadUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FishAndBreadUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishAnglerRaw": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "FishAnglerRaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishCooked": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "FishCooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishRaw": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "FishRaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishWraps": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "FishWraps",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBait": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBait",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitAshlands": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitAshlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitCave": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitCave",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitDeepNorth": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitDeepNorth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitForest": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitForest",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitMistlands": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitMistlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitOcean": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitOcean",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitPlains": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitPlains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingBaitSwamp": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "FishingBaitSwamp",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FishingRod": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "FishingRod",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FistBjornClaw": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "FistBjornClaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FistBjornUndeadClaw": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "FistBjornUndeadClaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FistFenrirClaw": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "FistFenrirClaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FistGold": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Nord Knucklechains",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "FistGold_BloodLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Thunderblood Knucklechains",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "FistGold_FrostFire": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Frostfire Knucklechains",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Flametal": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Flametal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FlametalNew": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "FlametalNew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FlametalOre": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "FlametalOre",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FlametalOreNew": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "FlametalOreNew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Flax": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "Flax",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Flint": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Flint",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FragrantBundle": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "FragrantBundle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FreezeGland": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "FreezeGland",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "FreshSeaweed": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "FreshSeaweed",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GemstoneBlue": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "GemstoneBlue",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GemstoneGreen": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "GemstoneGreen",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GemstoneRed": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "GemstoneRed",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GiantBloodSack": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "GiantBloodSack",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GoblinTotem": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "GoblinTotem",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GrapplingHook": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Grappling Hook",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Grausten": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Grausten",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "GreydwarfEye": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "GreydwarfEye",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Guck": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Guck",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair1": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair10": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair10_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair10_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair11": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair11",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair11_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair11_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair11_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair11_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair12": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair12",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair12_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair12_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair13": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair13",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair13_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair13_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair13_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair13_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair14": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair14",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair14_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair14_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair15": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair15",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair15_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair15_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair15_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair15_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair16": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair16",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair16_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair16_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair17": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair17",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair17_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair17_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair18": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair18",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair18_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair18_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair19": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair19",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair20": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair20",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair21": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair21",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair21_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair21_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair22": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair22",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair22_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair22_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair23": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair23",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair24": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair24",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair24_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair24_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair24_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair24_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair25": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair25",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair26": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair26",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair27": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair27",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair27_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair27_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair27_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair27_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair28": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair28",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair28_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair28_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair28_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair28_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair29": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair29",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair29_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair29_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair30": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair30",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair30_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair30_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair30_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair30_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair31": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair31",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair31_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair31_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair31_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair31_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair32": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair32",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair32_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair32_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair32_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair32_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair33": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair33",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair33_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair33_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair34": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair34",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair34_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair34_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair34_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair34_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair35": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair35",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair35_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair35_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair35_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair35_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair36": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair36",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair36_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair36_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair36_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair36_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair37": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair37",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair37_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair37_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair37_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair37_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair3_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair3_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair3_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair3_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair4": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair4",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair4_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair4_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair4_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair4_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair5": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair5_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair5_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair6": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair6_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair6_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair6_3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair6_3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair7": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair7_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair7_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair8": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair8_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair8_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair9": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hair9_2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Hair9_2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HairNone": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HairNone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hammer": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Hammer",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "HardAntler": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "HardAntler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HareMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "HareMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetAshlandsMediumHood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetAshlandsMediumHood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetBerserkerHood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetBerserkerHood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetBerserkerUndead": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetBerserkerUndead",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetCarapace": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetCarapace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetCelebration": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetCelebration",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetDrake": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Drake Helmet",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "HelmetDverger": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Dverger Circlet",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "HelmetFenring": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetFenring",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetFishingHat": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetFishingHat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetFlametal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetFlametal",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "HelmetHat1": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat10": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat10",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat2": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat3": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat4": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat4",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat5": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat5",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat6": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat6",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat7": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat7",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat8": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat8",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetHat9": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetHat9",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetLeather": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetLeather",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetMage": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetMage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetMage_Ashlands": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetMage_Ashlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetMidsummerCrown": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HelmetMidsummerCrown",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetOdin": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetOdin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetPadded": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetPadded",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetPointyHat": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetPointyHat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetRoot": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetRoot",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetStrawHat": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetStrawHat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetSweatBand": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetSweatBand",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetTrollLeather": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "HelmetTrollLeather",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HelmetYule": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HelmetYule",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HildirKey_forestcrypt": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HildirKey_forestcrypt",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HildirKey_mountaincave": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HildirKey_mountaincave",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HildirKey_plainsfortress": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "HildirKey_plainsfortress",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Hoe": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Hoe",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Honey": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Honey",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HoneyGlazedChicken": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "HoneyGlazedChicken",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "HoneyGlazedChickenUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "HoneyGlazedChickenUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Iron": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Iron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "IronNails": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "IronNails",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "IronOre": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "IronOre",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "IronScrap": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "IronScrap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Ironpit": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Ironpit",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "JuteBlue": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "JuteBlue",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "JuteRed": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "JuteRed",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "KnifeBlackMetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeBlackMetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeButcher": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "KnifeButcher",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeChitin": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeChitin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeCopper": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeCopper",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeFlint": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeFlint",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeSilver": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeSilver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeSkollAndHati": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeSkollAndHati",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "KnifeWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "KnifeWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Lantern": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Lantern",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Larva": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Larva",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "LeatherScraps": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "LeatherScraps",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Leatherstraps": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Leather Straps",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "LinenThread": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "LinenThread",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "LoxMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "LoxMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "LoxPelt": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "LoxPelt",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "LoxPie": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "LoxPie",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "LoxPieUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "LoxPieUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceEldner": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceEldner",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceEldnerBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceEldnerBlood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceEldnerLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceEldnerLightning",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceEldnerNature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceEldnerNature",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceNeedle": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceNeedle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceSilver": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceSilver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MaceWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "MaceWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MagicallyStuffedShroom": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MagicallyStuffedShroom",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MagicallyStuffedShroomUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MagicallyStuffedShroomUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Mandible": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Mandible",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MarinatedGreens": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MarinatedGreens",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MashedMeat": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Mashed Meat",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MeadBaseBugRepellent": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseBugRepellent",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseBzerker": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseBzerker",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseEitrLingering": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseEitrLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseEitrMinor": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseEitrMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseFrostResist": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseFrostResist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseHasty": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseHasty",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseHealthLingering": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseHealthLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseHealthMajor": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseHealthMajor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseHealthMedium": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseHealthMedium",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseHealthMinor": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseHealthMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseLightFoot": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseLightFoot",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBasePoisonResist": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBasePoisonResist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseStaminaLingering": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseStaminaLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseStaminaMedium": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseStaminaMedium",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseStaminaMinor": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseStaminaMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseStrength": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseStrength",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseSwimmer": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseSwimmer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseTamer": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseTamer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBaseTasty": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "MeadBaseTasty",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBugRepellent": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadBugRepellent",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadBzerker": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadBzerker",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadEitrLingering": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadEitrLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadEitrMinor": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadEitrMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadFrostResist": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadFrostResist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadHasty": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Tonic of Ratatosk",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MeadHealthLingering": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadHealthLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadHealthMajor": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Major Healing Mead",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MeadHealthMedium": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadHealthMedium",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadHealthMinor": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadHealthMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadLightfoot": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Lightfoot Mead",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MeadPoisonResist": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadPoisonResist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadStaminaLingering": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadStaminaLingering",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadStaminaMedium": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Medium Stamina Mead",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MeadStaminaMinor": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadStaminaMinor",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadStrength": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadStrength",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadSwimmer": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadSwimmer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadTamer": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadTamer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadTasty": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadTasty",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeadTrollPheromones": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeadTrollPheromones",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeatPlatter": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeatPlatter",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MeatPlatterUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MeatPlatterUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MechanicalSpring": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MechanicalSpring",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MinceMeatSauce": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MinceMeatSauce",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MisthareSupreme": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MisthareSupreme",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "MisthareSupremeUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MisthareSupremeUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MoltenCore": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "MoltenCore",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MorgenHeart": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MorgenHeart",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MorgenSinew": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MorgenSinew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Mushroom": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Mushroom",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomBlue": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomBlue",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomBzerker": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomBzerker",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomJotunPuffs": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomJotunPuffs",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomMagecap": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomMagecap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomOmelette": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "MushroomOmelette",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomSmokePuff": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomSmokePuff",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "MushroomYellow": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "MushroomYellow",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "NeckTail": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "NeckTail",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "NeckTailGrilled": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "NeckTailGrilled",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Needle": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Needle",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Obsidian": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Obsidian",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Onion": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Onion",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "OnionSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "OnionSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "OnionSoup": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "OnionSoup",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Ooze": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Ooze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "OrbThunderBlood": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Thunderblood Essence",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "PickaxeAntler": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "PickaxeAntler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PickaxeBlackMetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Black Metal Pickaxe",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "PickaxeBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "PickaxeBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PickaxeIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "PickaxeIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PickaxeStone": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "PickaxeStone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PineCone": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "PineCone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PiquantPie": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "PiquantPie",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "PiquantPieUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "PiquantPieUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Pot_Shard_Green": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Pot_Shard_Green",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Pot_Shard_Red": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Pot_Shard_Red",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PowderedDragonEgg": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "PowderedDragonEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ProustitePowder": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "ProustitePowder",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Pukeberries": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Pukeberries",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "PungentPebbles": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "PungentPebbles",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "QueenBee": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "QueenBee",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "QueenDrop": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "QueenDrop",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "QueensJam": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "QueensJam",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Raspberry": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Raspberry",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "RawMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "RawMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Resin": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Resin",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "RoastedCrustPie": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "RoastedCrustPie",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "RoastedCrustPieUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "RoastedCrustPieUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Root": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Root",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "RottenMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "RottenMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "RoundLog": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "RoundLog",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "RoyalJelly": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "RoyalJelly",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Ruby": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Ruby",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SaddleAsksvin": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "SaddleAsksvin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SaddleLox": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "SaddleLox",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Salad": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "Salad",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Sap": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Sap",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Sausages": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Sausages",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ScaleHide": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "ScaleHide",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "ScorchingMedley": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "ScorchingMedley",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Scythe": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Scythe",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ScytheHandle": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "ScytheHandle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SeekerAspic": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SeekerAspic",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SerpentMeat": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "SerpentMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SerpentMeatCooked": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "SerpentMeatCooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SerpentScale": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "SerpentScale",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SerpentStew": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SerpentStew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SharpeningStone": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "SharpeningStone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldBanded": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldBanded",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldBlackmetal": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldBlackmetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldBlackmetalTower": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldBlackmetalTower",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldBoneTower": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldBoneTower",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldBronzeBuckler": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldBronzeBuckler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldCarapace": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "Carapace Shield",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "ShieldCarapaceBuckler": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldCarapaceBuckler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldCore": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "ShieldCore",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldFlametal": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldFlametal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldFlametalTower": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldFlametalTower",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldIronBuckler": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldIronBuckler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldIronSquare": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldIronSquare",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldIronTower": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldIronTower",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldKnight": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "ShieldKnight",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldSerpentscale": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldSerpentscale",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldSilver": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldSilver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldWood": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShieldWoodTower": {
+    "max_quality": 3,
+    "max_stack": 1,
+    "name": "ShieldWoodTower",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "ShocklateSmoothie": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "ShocklateSmoothie",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Silver": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Silver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SilverNecklace": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "SilverNecklace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SilverOre": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "SilverOre",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SizzlingBerryBroth": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SizzlingBerryBroth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SledgeDemolisher": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SledgeDemolisher",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SledgeIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SledgeIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SledgeStagbreaker": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SledgeStagbreaker",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SledgeWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SledgeWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Softtissue": {
+    "max_quality": 1,
+    "max_stack": 40,
+    "name": "Softtissue",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Sparkler": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Sparkler",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SparklingShroomshake": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SparklingShroomshake",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearCarapace": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearCarapace",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearChitin": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "SpearChitin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearElderbark": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearElderbark",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearFlint": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearFlint",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearSplitner": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearSplitner",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearSplitner_Blood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearSplitner_Blood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearSplitner_Lightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearSplitner_Lightning",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearSplitner_Nature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearSplitner_Nature",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearWolfFang": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearWolfFang",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpearWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SpearWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpiceAshlands": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpiceAshlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpiceForests": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpiceForests",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpiceMistlands": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpiceMistlands",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpiceMountains": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpiceMountains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpiceOceans": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpiceOceans",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpicePlains": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "SpicePlains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SpicyMarmalade": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SpicyMarmalade",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "StaffClusterbomb": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffClusterbomb",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffFireball": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffFireball",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffFrostOrbs": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Northern Vengeance",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "StaffGreenRoots": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffGreenRoots",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffIceShards": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffIceShards",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffLightning",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffOrbofAhri": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Echo Spike",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "StaffRedTroll": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffRedTroll",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffShield": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffShield",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffSkeleton": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "StaffSkeleton",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StaffSpiritCaller": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Spirit Caller",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "StaffThunderBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Lightning Strike",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Stone": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Stone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "StoneRock": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "StoneRock",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SulfurStone": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "SulfurStone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SurtlingCore": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "SurtlingCore",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordBlackmetal": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordBlackmetal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordBronze": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordBronze",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordDyrnwyn": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Dyrnwyn",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordGold_BloodLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Thunderblood Sword",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordGold_FrostFire": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Frostfire Sword",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordIron": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordIron",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordIronFire": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordIronFire",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordMistwalker": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordMistwalker",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordNiedhogg": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordNiedhogg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordNiedhoggBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordNiedhoggBlood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordNiedhoggLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Nidhögg the Thundering",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordNiedhoggNature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Nidhögg the Primal",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "SwordSilver": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordSilver",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "SwordWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "SwordWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "THSwordKrom": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "THSwordKrom",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "THSwordSlayer": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "THSwordSlayer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "THSwordSlayerBlood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "THSwordSlayerBlood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "THSwordSlayerLightning": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "THSwordSlayerLightning",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "THSwordSlayerNature": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "Primal Slayer",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "THSwordWood": {
+    "max_quality": 4,
+    "max_stack": 1,
+    "name": "THSwordWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Tankard": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Tankard",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TankardAnniversary": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TankardAnniversary",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TankardOdin": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TankardOdin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Tankard_dvergr": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Tankard_dvergr",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Tar": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Tar",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Thistle": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Thistle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Thunderstone": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "Thunderstone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Tin": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "Tin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TinOre": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "TinOre",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Torch": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Torch",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TorchMist": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TorchMist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketBlackDamageHealth": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketBlackDamageHealth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketBlackStamina": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketBlackStamina",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketBronzeHealth": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketBronzeHealth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketBronzeStamina": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketBronzeStamina",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketCarapaceEitr": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketCarapaceEitr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketChitinSwim": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketChitinSwim",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketFlametalEitr": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketFlametalEitr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketFlametalStaminaHealth": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketFlametalStaminaHealth",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "TrinketIronHealth": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Iron Brooch",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "TrinketIronStamina": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketIronStamina",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketScaleStaminaDamage": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketScaleStaminaDamage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketSilverDamage": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketSilverDamage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrinketSilverResist": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "TrinketSilverResist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrollHide": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrollHide",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyAbomination": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyAbomination",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyAsksvin": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyAsksvin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBjorn": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBjorn",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBjornUndead": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBjornUndead",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBlob": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBlob",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBoar": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBoar",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBonemass": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBonemass",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyBonemawSerpent": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyBonemawSerpent",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyCharredArcher": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyCharredArcher",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyCharredMage": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyCharredMage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyCharredMelee": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyCharredMelee",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyCultist": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyCultist",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyCultist_Hildir": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyCultist_Hildir",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "TrophyDeathsquito": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDeathsquito",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "TrophyDeer": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDeer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyDragonQueen": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDragonQueen",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyDraugr": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDraugr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyDraugrElite": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDraugrElite",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyDraugrFem": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDraugrFem",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyDvergr": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyDvergr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyEikthyr": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyEikthyr",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyFader": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyFader",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyFallenValkyrie": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyFallenValkyrie",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyFenring": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyFenring",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyForestTroll": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyForestTroll",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyFrostTroll": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyFrostTroll",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGhost": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGhost",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGjall": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGjall",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblin": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblin",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblinBrute": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblinBrute",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblinBruteBrosBrute": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblinBruteBrosBrute",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblinBruteBrosShaman": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblinBruteBrosShaman",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblinKing": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblinKing",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGoblinShaman": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGoblinShaman",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGreydwarf": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGreydwarf",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGreydwarfBrute": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGreydwarfBrute",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGreydwarfShaman": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGreydwarfShaman",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyGrowth": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyGrowth",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyHare": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyHare",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyHatchling": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyHatchling",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyKvastur": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyKvastur",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyLeech": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyLeech",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyLox": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyLox",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyMorgen": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyMorgen",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyNeck": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyNeck",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySGolem": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySGolem",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySeeker": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySeeker",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySeekerBrute": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySeekerBrute",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySeekerQueen": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySeekerQueen",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySerpent": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySerpent",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySkeleton": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySkeleton",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySkeletonHildir": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySkeletonHildir",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySkeletonPoison": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySkeletonPoison",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophySurtling": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophySurtling",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyTheElder": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyTheElder",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyTick": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyTick",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyUlv": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyUlv",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyVolture": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyVolture",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyWolf": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyWolf",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TrophyWraith": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "TrophyWraith",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Turnip": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Turnip",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurnipSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "TurnipSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurnipStew": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "TurnipStew",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurretBolt": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "TurretBolt",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurretBoltBone": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "TurretBoltBone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurretBoltFlametal": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "TurretBoltFlametal",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "TurretBoltWood": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "TurretBoltWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "UndeadBjornRibcage": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "UndeadBjornRibcage",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VikingCupcake": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "VikingCupcake",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VikingCupcakeUncooked": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "VikingCupcakeUncooked",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VineGreenSeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "VineGreenSeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Vineberry": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Vineberry",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VineberrySeeds": {
+    "max_quality": 1,
+    "max_stack": 100,
+    "name": "VineberrySeeds",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VoltureEgg": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "VoltureEgg",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "VoltureMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "VoltureMeat",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Wishbone": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "Wishbone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "Wisp": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Wisp",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WitheredBone": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "WitheredBone",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WolfClaw": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "WolfClaw",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WolfFang": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "WolfFang",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "WolfHairBundle": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "WolfHairBundle",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WolfJerky": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "WolfJerky",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WolfMeat": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "WolfMeat",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "WolfMeatSkewer": {
+    "max_quality": 1,
+    "max_stack": 20,
+    "name": "WolfMeatSkewer",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "WolfPelt": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "WolfPelt",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "Wood": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "Wood",
+    "source": "Valheim 1.0.21 build 26249040; local ItemDrop extraction; docs/references/local-game-item-limits.json"
+  },
+  "YagluthDrop": {
+    "max_quality": 1,
+    "max_stack": 30,
+    "name": "YagluthDrop",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "YggdrasilPorridge": {
+    "max_quality": 1,
+    "max_stack": 10,
+    "name": "YggdrasilPorridge",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "YggdrasilWood": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "YggdrasilWood",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "YmirRemains": {
+    "max_quality": 1,
+    "max_stack": 50,
+    "name": "YmirRemains",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "chest_hildir1": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "chest_hildir1",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "chest_hildir2": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "chest_hildir2",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
+  },
+  "chest_hildir3": {
+    "max_quality": 1,
+    "max_stack": 1,
+    "name": "chest_hildir3",
+    "source": "fch-decoder 1a5ff4f767e1bbf2f7955d4dcd22e628eb318427"
   }
 }

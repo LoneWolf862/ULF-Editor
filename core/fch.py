@@ -3,6 +3,9 @@ Rebuilds inventory and skills only, preserving other profile/player sections byt
 """
 import hashlib
 import struct
+import copy
+import math
+from core.catalog import CATALOG
 from dataclasses import dataclass, field
 
 class FormatError(ValueError): pass
@@ -24,7 +27,15 @@ class Reader:
             x=self.u8();n|=(x&127)<<(i*7)
             if not x&128:return n
         raise FormatError('Invalid variable-length integer')
-    def string(self):return self.read(self.var()).decode('utf-8')
+    def count(self, maximum=100000):
+        value=self.i32()
+        if not 0<=value<=maximum:raise FormatError('A save section has an invalid entry count')
+        return value
+    def string(self):
+        length=self.var()
+        if length>16*1024*1024:raise FormatError('A save string exceeds the supported size')
+        try:return self.read(length).decode('utf-8')
+        except UnicodeDecodeError as error:raise FormatError('A save string contains invalid text') from error
     def arr(self):return self.read(self.i32())
     def vector(self):self.read(12)
 
@@ -35,10 +46,14 @@ def string(s):
     a.append(n);return bytes(a)+b
 
 def stable_hash(s):
+    encoded=s.encode('utf-16-le',errors='surrogatepass')
+    units=struct.unpack('<'+'H'*(len(encoded)//2),encoded)
     a=b=5381
-    for i in range(0,len(s),2):
-        a=((a*33)^ord(s[i]))&0xffffffff
-        if i+1<len(s):b=((b*33)^ord(s[i+1]))&0xffffffff
+    for i in range(0,len(units),2):
+        if units[i]==0:break
+        a=((a*33)^units[i])&0xffffffff
+        if i+1>=len(units) or units[i+1]==0:break
+        b=((b*33)^units[i+1])&0xffffffff
     n=(a+b*1566083941)&0xffffffff
     return n if n<0x80000000 else n-0x100000000
 
@@ -59,36 +74,62 @@ class Item:
     custom:list=field(default_factory=list)
     tail:int=0
     has_prefab:bool=True
+    origin_index:int|None=field(default=None,repr=False,compare=False)
+    _original_flags:int=field(default=0,repr=False,compare=False)
+    _raw_fields:dict=field(default_factory=dict,repr=False,compare=False)
+    _original_values:dict=field(default_factory=dict,repr=False,compare=False)
     @property
     def cheated(self):return bool(self.tail&1)
     def to_bytes(self):
-        if not (1<=self.quality<=65535 and 1<=self.stack<=65535 and 0<=self.x<=255 and 0<=self.y<=255):raise FormatError('Item values out of range')
+        if not (0<=self.quality<=65535 and 0<=self.stack<=65535 and 0<=self.x<=255 and 0<=self.y<=255):raise FormatError('Item values out of range')
         flags=(1 if self.picked else 0)|(2 if self.equipped else 0)|(4 if self.quality!=1 else 0)|(8 if self.stack!=1 else 0)|(16 if self.variant else 0)|(32 if self.crafter_id else 0)|(64 if self.has_prefab else 0)|(128 if self.custom else 0)
+        flags |= self._original_flags & 252
         out=pack('iBBBB',self.durability_raw,self.x,self.y,self.world_level,flags)
-        if flags&4:out+=pack('H',self.quality)
-        if flags&8:out+=pack('H',self.stack)
-        if flags&16:out+=pack('i',self.variant)
-        if flags&32:out+=pack('q',self.crafter_id)+string(self.crafter_name)
-        if flags&64:out+=pack('i',self.prefab_hash)
+        if flags&4:out+=self._encoded('quality',self.quality,pack('H',self.quality))
+        if flags&8:out+=self._encoded('stack',self.stack,pack('H',self.stack))
+        if flags&16:out+=self._encoded('variant',self.variant,pack('i',self.variant))
+        if flags&32:out+=self._encoded('crafter',(self.crafter_id,self.crafter_name),pack('q',self.crafter_id)+string(self.crafter_name))
+        if flags&64:out+=self._encoded('prefab_hash',self.prefab_hash,pack('i',self.prefab_hash))
         if flags&128:
             n=len(self.custom)
             if n>=32768:raise FormatError('Too much custom data')
-            out+=(bytes([n]) if n<128 else bytes([128|(n>>8),n&255]))
-            for k,v in self.custom:out+=string(k)+string(v)
+            custom=(bytes([n]) if n<128 else bytes([128|(n>>8),n&255]))
+            for k,v in self.custom:custom+=string(k)+string(v)
+            out+=self._encoded('custom',self.custom,custom)
         return out+bytes([self.tail])
+
+    def _encoded(self,name,value,encoded):
+        """Retain original optional-field bytes when their value is unchanged."""
+        if name in self._raw_fields and value==self._original_values[name]:
+            return self._raw_fields[name]
+        return encoded
 
 def read_item(r):
     durability=r.i32();x=r.u8();y=r.u8();world=r.u8();f=r.u8()
-    quality=r.u16() if f&4 else 1;stack=r.u16() if f&8 else 1
-    variant=r.i32() if f&16 else 0
-    cid=r.i64() if f&32 else 0;cn=r.string() if f&32 else ''
-    pref=r.i32() if f&64 else 0
+    raw_fields={}
+    def optional(name,bit,read,default):
+        if not f&bit:return default
+        start=r.p
+        value=read()
+        raw_fields[name]=r.b[start:r.p]
+        return value
+    quality=optional('quality',4,r.u16,1)
+    stack=optional('stack',8,r.u16,1)
+    variant=optional('variant',16,r.i32,0)
+    cid,cn=optional('crafter',32,lambda:(r.i64(),r.string()),(0,''))
+    pref=optional('prefab_hash',64,r.i32,0)
     custom=[]
     if f&128:
+        start=r.p
         n=r.u8();n=((n&127)<<8)|r.u8() if n&128 else n
         for _ in range(n):custom.append((r.string(),r.string()))
+        raw_fields['custom']=r.b[start:r.p]
     tail=r.u8()
-    return Item(pref,x,y,quality,stack,durability,world,bool(f&1),bool(f&2),variant,cid,cn,custom,tail,bool(f&64))
+    item=Item(pref,x,y,quality,stack,durability,world,bool(f&1),bool(f&2),variant,cid,cn,custom,tail,bool(f&64))
+    item._original_flags=f
+    item._raw_fields=raw_fields
+    item._original_values=copy.deepcopy(dict(quality=quality,stack=stack,variant=variant,crafter=(cid,cn),prefab_hash=pref,custom=custom))
+    return item
 
 SKILLS={1:'Swords',2:'Knives',3:'Clubs',4:'Polearms',5:'Spears',6:'Blocking',7:'Axes',8:'Bows',9:'Elemental Magic',10:'Blood Magic',11:'Fists',12:'Pickaxes',13:'Wood Cutting',14:'Crossbows',100:'Jump',101:'Sneak',102:'Run',103:'Swim',104:'Fishing',105:'Cooking',106:'Farming',107:'Crafting',108:'Dodge',110:'Riding'}
 
@@ -108,6 +149,7 @@ def skip_world(r):
 
 class Character:
     def __init__(self,raw):
+        if len(raw)>256*1024*1024:raise FormatError('The character file exceeds the supported size')
         self.original=raw;r=Reader(raw);body=r.arr();digest=r.arr()
         if hashlib.sha512(body).digest()!=digest or r.p!=len(raw):raise FormatError('Invalid SHA-512 or file framing')
         q=Reader(body);self.profile_version=q.i32()
@@ -117,10 +159,10 @@ class Character:
         for _ in range(buckets):
             q.read(stat_count*4)
             for j in range(3):skip_dict(q)
-            for j in range(q.i32()):skip_dict(q)
+            for j in range(q.count()):skip_dict(q)
             for j in range(5):skip_dict(q)
         q.u8()
-        for _ in range(q.i32()):skip_world(q)
+        for _ in range(q.count()):skip_world(q)
         self.name=q.string();q.i64();q.string();self.used_cheats=bool(q.u8());q.i64()
         if not q.u8():raise FormatError('Character contains no player data')
         pdata_start=q.p;self.player_data=q.arr();pdata_end=q.p
@@ -138,34 +180,56 @@ class Character:
         self.inventory_version=p.i32()
         if self.inventory_version!=109:raise FormatError(f'Unsupported inventory version {self.inventory_version}')
         count=p.u16();self.items=[read_item(p) for _ in range(count)]
+        for index,item in enumerate(self.items):item.origin_index=index
         mid_start=p.p
         skip_strings(p)
-        for _ in range(p.i32()):p.string();p.i32()
+        for _ in range(p.count()):p.string();p.i32()
         for _ in range(4):skip_strings(p) # materials, tutorials, uniques, trophies
         skip_strings(p) # known biomes
-        for _ in range(p.i32()):p.string();p.string()
+        for _ in range(p.count()):p.string();p.string()
         p.string();p.string();p.vector();p.vector();p.i32()
-        for _ in range(p.i32()):p.string();p.f32()
+        for _ in range(p.count()):p.string();p.f32()
         self.middle=self.player_data[mid_start:p.p]
         self.skills_version=p.i32();n=p.i32()
-        if self.skills_version<2 or not 0<=n<500:raise FormatError('Unsupported skills section')
+        if self.skills_version!=2 or not 0<=n<500:raise FormatError('Unsupported skills section')
         self.skills=[]
-        for _ in range(n):self.skills.append([p.i32(),p.f32(),p.f32()])
+        self._skill_bytes=[]
+        for _ in range(n):
+            start=p.p
+            self.skills.append([p.i32(),p.f32(),p.f32()])
+            self._skill_bytes.append(self.player_data[start:p.p])
+        self._original_skills=copy.deepcopy(self.skills)
         self.tail=self.player_data[p.p:]
         self.roundtrip=self.serialize()==raw
     def serialize(self):
         if len(self.items)>65535:raise FormatError('Too many items')
         inv=pack('iH',self.inventory_version,len(self.items))+b''.join(x.to_bytes() for x in self.items)
-        sk=pack('ii',self.skills_version,len(self.skills))+b''.join(pack('iff',*x) for x in self.skills)
+        if len(self.skills)>=500:raise FormatError('Too many skill records')
+        skill_records=[]
+        for index,row in enumerate(self.skills):
+            if len(row)!=3:raise FormatError('A skill record must contain an ID, level and experience')
+            original=self._original_skills[index] if index<len(self._original_skills) else None
+            fields=[]
+            for column,(kind,value) in enumerate(zip('iff',row)):
+                same=original is not None and (value==original[column] or (column>0 and type(value) in (int,float) and math.isnan(value) and math.isnan(original[column])))
+                if not same:
+                    if column==0 and (type(value) is not int or not -(2**31)<=value<2**31):raise FormatError('Invalid skill identifier')
+                    if column>0 and (type(value) not in (int,float) or not math.isfinite(value) or value<0 or (column==1 and value>100) or (column==2 and value>=1e9)):raise FormatError('Invalid modified skill value')
+                fields.append(self._skill_bytes[index][column*4:column*4+4] if same else pack(kind,value))
+            skill_records.append(b''.join(fields))
+        sk=pack('ii',self.skills_version,len(self.skills))+b''.join(skill_records)
         player=self.head+inv+self.middle+sk+self.tail
         body=self.prefix+pack('i',len(player))+player+self.suffix
         return pack('i',len(body))+body+pack('i',64)+hashlib.sha512(body).digest()
     def set_skill(self,id,level):
-        if not 0<=level<=100:raise FormatError('Skill must be in [0,100]')
-        for row in self.skills:
-            if row[0]==id:row[1]=float(level);row[2]=0;return
-        self.skills.append([id,float(level),0.0])
+        from core.editing import apply_skills
+        apply_skills(self,[(id,level,None)])
     def add(self,prefab,x,y,quality=1,stack=1):
+        if not self.roundtrip:raise FormatError('The original character failed round-trip validation')
+        metadata=CATALOG.get(prefab)
+        if not metadata or metadata.get('max_stack') is None:raise FormatError('This item has no verified stack limit and cannot be added')
+        if type(stack) is not int or not 1<=stack<=min(metadata['max_stack'],65535):raise FormatError('Quantity exceeds the verified item stack limit')
+        if type(quality) is not int or not 1<=quality<=65535:raise FormatError('Quality must be between 1 and 65,535')
         if any(t.x==x and t.y==y for t in self.items):raise FormatError('Slot occupied')
-        if not 0<=x<8 or not 0<=y<6:raise FormatError('Slot out of bounds')
+        if type(x) is not int or type(y) is not int or not 0<=x<8 or not 0<=y<6:raise FormatError('Slot out of bounds')
         self.items.append(Item(stable_hash(prefab),x,y,quality,stack))

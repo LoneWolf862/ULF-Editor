@@ -2,9 +2,12 @@ import sys, json, copy, pathlib
 from PySide6.QtWidgets import (QApplication,QMainWindow,QWidget,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QTableWidget,QTableWidgetItem,QTabWidget,QFileDialog,QMessageBox,QSpinBox,QDoubleSpinBox,QLineEdit,QComboBox,QFormLayout,QGroupBox,QHeaderView,QAbstractItemView,QCheckBox)
 from PySide6.QtCore import Qt
 from core.fch import Character,FormatError,SKILLS,stable_hash
+from core.editing import apply_skills as apply_skill_transaction
+from core.editing import apply_item, remove_item
+from core.export import export_character
+from core.catalog import CATALOG
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-CATALOG=json.loads((ROOT/'core/catalog.json').read_text())
 HASHES={stable_hash(k):k for k in CATALOG}
 STYLE='''
 QWidget{background:#12171a;color:#e7dcc5;font-family:"Noto Sans", "Segoe UI",sans-serif;font-size:12px}
@@ -49,7 +52,7 @@ class Window(QMainWindow):
   self.equipped=QCheckBox('Equipped');form.addRow('',self.equipped)
   self.apply=QPushButton('Apply to slot / Add item');self.apply.clicked.connect(self.apply_slot);right.addWidget(self.apply)
   remove=QPushButton('Remove selected item');remove.clicked.connect(self.remove_slot);right.addWidget(remove)
-  right.addWidget(QLabel('Tip: Quality and quantity support values up to 65,535.\nUnusual values may not behave normally in-game.'))
+  right.addWidget(QLabel('Quality supports values up to 65,535.\nQuantity must stay within the verified item stack limit.'))
   right.addStretch()
   skillpage=QWidget();tabs.addTab(skillpage,'ᛟ  SKILLS');sl=QVBoxLayout(skillpage)
   self.skilltable=QTableWidget(0,3);self.skilltable.setHorizontalHeaderLabels(['Skill','Level (0–100)','Progress / XP']);self.skilltable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);sl.addWidget(self.skilltable)
@@ -72,7 +75,7 @@ class Window(QMainWindow):
    if not ch.roundtrip:raise FormatError('Byte-exact round trip failed; edits disabled for this save')
    self.ch=ch;self.path=pathlib.Path(filename);self.refresh();self.savebtn.setEnabled(True)
   except Exception as e:QMessageBox.critical(self,'Invalid/unsupported save',str(e))
- def refresh(self):
+ def refresh(self, refresh_skills=True):
   self.table.clearContents();self.selected=None
   for it in self.ch.items:
    if it.x>=8 or it.y>=6:continue
@@ -81,60 +84,98 @@ class Window(QMainWindow):
    cell=QTableWidgetItem(f'{display}\n★ {it.quality}    ×{it.stack}'+ ('  ⚠' if it.cheated else ''))
    cell.setTextAlignment(Qt.AlignCenter);cell.setToolTip(name);self.table.setItem(it.y,it.x,cell)
   self.status.setText(f'{self.ch.name}  •  {len(self.ch.items)} items  •  '+('Cheat flag set' if self.ch.used_cheats else 'Character cheat flag clear'))
+  if not refresh_skills:return
   self.skilltable.setRowCount(len(SKILLS))
   existing={x[0]:x for x in self.ch.skills}
   for row,(id,name) in enumerate(SKILLS.items()):
    self.skilltable.setItem(row,0,QTableWidgetItem(name));self.skilltable.item(row,0).setData(Qt.UserRole,id)
-   lv=existing.get(id,[id,0,0]);self.skilltable.setItem(row,1,QTableWidgetItem(f'{lv[1]:.3f}'));self.skilltable.setItem(row,2,QTableWidgetItem(f'{lv[2]:.3f}'))
+   lv=existing.get(id,[id,0,0])
+   for column,value in enumerate(lv[1:],1):
+    cell=QTableWidgetItem(repr(value))
+    cell.setData(Qt.UserRole,cell.text())
+    self.skilltable.setItem(row,column,cell)
  def select_slot(self,y,x):
+  if self.ch is None:return
   self.selected=(x,y);self.slotlabel.setText(f'Column {x+1} / Row {y+1}')
   it=next((a for a in self.ch.items if (a.x,a.y)==(x,y)),None)
   if it:
    prefab=HASHES.get(it.prefab_hash,'')
+   self.prefab.setEnabled(False)
    self.prefab.setEditText(prefab if prefab else f'#{it.prefab_hash}')
    self.qty.setValue(it.stack);self.quality.setValue(it.quality);self.durability.setValue(it.durability_raw/100);self.equipped.setChecked(it.equipped)
-  else:self.prefab.setEditText('Wood');self.qty.setValue(1);self.quality.setValue(1);self.durability.setValue(100);self.equipped.setChecked(False)
+  else:
+   self.prefab.setEnabled(True)
+   self.prefab.setEditText('Wood');self.qty.setValue(1);self.quality.setValue(1);self.durability.setValue(100);self.equipped.setChecked(False)
+  self.slot_values={'stack':self.qty.value(),'quality':self.quality.value(),'durability_raw':round(self.durability.value()*100),'equipped':self.equipped.isChecked()}
  def apply_slot(self):
   if not self.ch or self.selected is None:return
-  x,y=self.selected;it=next((a for a in self.ch.items if (a.x,a.y)==(x,y)),None)
-  prefab=self.prefab.currentData() or self.prefab.currentText().strip()
+  x,y=self.selected
+  proposed=copy.deepcopy(self.ch)
+  it=next((a for a in proposed.items if (a.x,a.y)==(x,y)),None)
+  prefab=self.prefab.currentText().strip()
   if '[' in prefab and prefab.endswith(']'):prefab=prefab.rsplit('[',1)[-1][:-1]
-  if not prefab or prefab.startswith('#'):QMessageBox.warning(self,'Item','Enter a valid prefab name');return
-  if not it:self.ch.add(prefab,x,y);it=self.ch.items[-1]
-  else:it.prefab_hash=stable_hash(prefab)
-  it.stack=self.qty.value();it.quality=self.quality.value();it.durability_raw=round(self.durability.value()*100);it.equipped=self.equipped.isChecked()
-  self.refresh();self.table.setCurrentCell(y,x)
+  if not self.ch.roundtrip:
+   QMessageBox.warning(self,'Item','The original character failed round-trip validation.');return
+  if it:prefab=HASHES.get(it.prefab_hash,'')
+  metadata=CATALOG.get(prefab,{})
+  maximum=metadata.get('max_stack')
+  if maximum is None:
+   QMessageBox.warning(self,'Item','This item has no verified stack limit. Its data is preserved unchanged.');return
+  if self.qty.value()>maximum:
+   QMessageBox.warning(self,'Item',f'This item supports at most {maximum} per stack.');return
+  if not it:
+   if prefab not in CATALOG:
+    QMessageBox.warning(self,'Item','Select an item from the catalog.');return
+   try:proposed.add(prefab,x,y)
+   except FormatError as e:
+    QMessageBox.warning(self,'Item',str(e));return
+   it=proposed.items[-1]
+  values={'stack':self.qty.value(),'quality':self.quality.value(),'durability_raw':round(self.durability.value()*100),'equipped':self.equipped.isChecked()}
+  changes={key:value for key,value in values.items() if value!=self.slot_values[key]}
+  try:apply_item(proposed,it,changes)
+  except FormatError as e:
+   QMessageBox.warning(self,'Item',str(e));return
+  self.ch.items=proposed.items
+  self.refresh(refresh_skills=False);self.table.setCurrentCell(y,x);self.select_slot(y,x)
  def remove_slot(self):
   if self.ch and self.selected is not None:
-   x,y=self.selected;self.ch.items=[a for a in self.ch.items if (a.x,a.y)!=(x,y)];self.refresh()
- def apply_skills(self):
-  if not self.ch:return
+   item=next((item for item in self.ch.items if (item.x,item.y)==self.selected),None)
+   if item is None:return
+   try:remove_item(self.ch,item)
+   except FormatError as error:
+    QMessageBox.warning(self,'Item',str(error));return
+   self.refresh(refresh_skills=False)
+ def apply_skills(self, checked=False, *, notify=True):
+  if not self.ch:return False
   try:
+   changes=[]
    for row in range(self.skilltable.rowCount()):
-    id=self.skilltable.item(row,0).data(Qt.UserRole);level=float(self.skilltable.item(row,1).text());xp=float(self.skilltable.item(row,2).text())
-    if not 0<=level<=100 or not 0<=xp<1e9:raise ValueError('Skill values out of range')
-    old=next((a for a in self.ch.skills if a[0]==id),None)
-    if old:
-     old[1]=level;old[2]=xp
-    elif level or xp:self.ch.skills.append([id,level,xp])
-   QMessageBox.information(self,'Skills','Skill edits applied in memory. Export to produce a save file.')
-  except Exception as e:QMessageBox.warning(self,'Invalid skill',str(e))
+    id=self.skilltable.item(row,0).data(Qt.UserRole)
+    values=[]
+    for column in (1,2):
+     cell=self.skilltable.item(row,column)
+     values.append(float(cell.text()) if cell.text()!=cell.data(Qt.UserRole) else None)
+    if any(value is not None for value in values):changes.append((id,*values))
+   apply_skill_transaction(self.ch,changes)
+   for row in range(self.skilltable.rowCount()):
+    for column in (1,2):
+     cell=self.skilltable.item(row,column);cell.setData(Qt.UserRole,cell.text())
+   if notify:QMessageBox.information(self,'Skills','Skill edits applied in memory. Export to produce a save file.')
+   return True
+  except (ValueError,OverflowError) as e:
+   QMessageBox.warning(self,'Invalid skill',str(e))
+   return False
  def max_skills(self):
   for row in range(self.skilltable.rowCount()):self.skilltable.item(row,1).setText('100');self.skilltable.item(row,2).setText('0')
  def export(self):
   if not self.ch:return
   # Apply skills before writing to avoid accidentally losing edits on that tab.
-  self.apply_skills()
+  if not self.apply_skills(notify=False):return
   default=self.path.with_name(self.path.stem+'_ULF_edited.fch')
   filename,_=QFileDialog.getSaveFileName(self,'Export edited character',str(default),'Valheim Character (*.fch)')
   if not filename:return
   try:
-   out=self.ch.serialize();verified=Character(out)
-   if not verified.roundtrip:raise FormatError('Export verification failed')
-   if verified.profile_version!=self.ch.profile_version or verified.used_cheats!=self.ch.used_cheats:raise FormatError('Unexpected metadata change')
-   target=pathlib.Path(filename)
-   if target.resolve()==self.path.resolve():raise FormatError('Refusing to overwrite the original character')
-   target.write_bytes(out)
+   target=export_character(self.ch,self.path,filename)
    QMessageBox.information(self,'Export complete',f'Saved {target.name}.\n\nOriginal was not modified.\nClose Valheim before testing the new file.\nAchievement eligibility is not guaranteed.')
   except Exception as e:QMessageBox.critical(self,'Export failed',str(e))
 

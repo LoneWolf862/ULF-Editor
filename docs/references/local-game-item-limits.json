@@ -1,0 +1,258 @@
+{
+  "bundle": "c4210710",
+  "extractor": "UnityPy 1.25.4",
+  "fields": "ItemDrop.m_itemData.m_shared.m_maxStackSize / m_maxQuality",
+  "game_version": "1.0.21",
+  "items": {
+    "AncientSeed": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "ArmorFenringLegs": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "ArmorFlametalChest": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "ArmorFlametalLegs": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "AxeBerzerkr": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "AxeBerzerkrLightning": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "AxeBerzerkrNature": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "BarleyWine": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "BeltStrength": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "BoltCharred": {
+      "max_quality": 1,
+      "max_stack": 100
+    },
+    "BombDynamite": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "CapeAsh": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "CapeWolf": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "CrossbowRipperBlood": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "CrossbowRipperNature": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "Demister": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "FierySvinstew": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "FistGold": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "FistGold_BloodLightning": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "FistGold_FrostFire": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "GrapplingHook": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "Hammer": {
+      "max_quality": 3,
+      "max_stack": 1
+    },
+    "HelmetDrake": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "HelmetDverger": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "HelmetFlametal": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "JuteRed": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "Leatherstraps": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "MashedMeat": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "MeadHasty": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "MeadHealthMajor": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "MeadLightfoot": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "MeadStaminaMedium": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "MisthareSupreme": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "Needle": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "OrbThunderBlood": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "PickaxeBlackMetal": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "PiquantPie": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "Resin": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "Salad": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "ScaleHide": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "ShieldCarapace": {
+      "max_quality": 3,
+      "max_stack": 1
+    },
+    "SpicyMarmalade": {
+      "max_quality": 1,
+      "max_stack": 10
+    },
+    "StaffFrostOrbs": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "StaffOrbofAhri": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "StaffSpiritCaller": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "StaffThunderBlood": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordDyrnwyn": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordGold_BloodLightning": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordGold_FrostFire": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordMistwalker": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordNiedhoggLightning": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "SwordNiedhoggNature": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "THSwordSlayerNature": {
+      "max_quality": 4,
+      "max_stack": 1
+    },
+    "Tankard_dvergr": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "TrinketFlametalStaminaHealth": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "TrinketIronHealth": {
+      "max_quality": 1,
+      "max_stack": 1
+    },
+    "TrophyCultist_Hildir": {
+      "max_quality": 1,
+      "max_stack": 20
+    },
+    "TrophyDeathsquito": {
+      "max_quality": 1,
+      "max_stack": 20
+    },
+    "WolfFang": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "WolfMeat": {
+      "max_quality": 1,
+      "max_stack": 20
+    },
+    "WolfPelt": {
+      "max_quality": 1,
+      "max_stack": 50
+    },
+    "Wood": {
+      "max_quality": 1,
+      "max_stack": 50
+    }
+  },
+  "sha256": "84f55cfb24af51b9f0494fd9d1a355bf009e08545ff8ccf607c7d88d2e4e1ec8",
+  "steam_build": 26249040
+}

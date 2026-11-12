@@ -2,7 +2,27 @@
 
 **Audit date** November 11, 2026
 
-**Release assessment** Alpha 0.1 falls short of both the 0.1.1 stabilization gate and the 0.2 MVP gate. Inventory edits can replace an item's prefab, failed skill batches can leave changes applied, and exports can report success without validating the file on disk.
+**Release assessment (updated 2026-11-12): READY FOR OWNER TESTING for Alpha 0.1.1.** The automated stabilization gate passes; full MVP and production release acceptance remain open. The detailed Alpha 0.1 audit below is historical evidence, superseded by this update where applicable.
+
+## Alpha 0.1.1 implementation update
+
+See [the stabilization report](ALPHA_0.1.1_RESEARCH.md) for source provenance, the full file inventory, test evidence and manual acceptance checklist. Final Windows 10 run: **53 passed, 0 failed, 0 skipped**, including seven offscreen desktop tests.
+
+| Requirements | Current evidence | Status |
+|---|---|---|
+| FR-011–015, FR-018, FR-072 | Atomic item edits preserve identity and unchanged fields. Add/remove and same-slot replacement export tested. High-quality and stack boundaries tested. | Complete for stabilization |
+| FR-030–032, FR-097–098 | Offline catalog: 821 entries. All 76 sample records recognized with verified limits; 62 distinct sample prefabs independently extracted from installed game build 26249040. Unknown records protected. | Sample gate complete; comprehensive catalog remains partial |
+| FR-040–043 | Atomic skill batches, raw float32/unknown preservation and explicit-only XP edits tested. | Complete for supported current layout |
+| FR-050–053, FR-056, FR-060 | Original aliases/changed sources rejected; intended values and protected metadata checked; closed temporary file verified before publication. Creation, flush, read-back, rename and cleanup failures tested. | Automated gate complete; native/in-game acceptance pending |
+| FR-002–005, FR-010, FR-015–016 | Noncanonical optional fields and unknown metadata retain raw bytes. Truncation, unsupported versions, checksum and synthetic matrix tests pass. | Current-layout gate complete; historical compatibility partial |
+| FR-096 | Both originals still round-trip exactly and remain unchanged; 76 independent in-memory high-quality edits reparse successfully. | Complete |
+| FR-080, NFR-005 | Qt-independent edit/export core; synthetic suite has no private-fixture skips. | Complete for stabilization |
+| NFR-002/003/007/008 | Windows 10 automation and offline design checked. Linux execution, wider hostile-input coverage and distribution licensing audit outstanding. | Partial at release level |
+| FR-017, FR-033, FR-044, FR-071 | Basic UI exists; comprehensive metadata/search, sliders and full usability acceptance belong to Alpha 0.2. | Partial / Missing as detailed below |
+
+The approved baseline remains intact. The assignment explicitly selects XP preservation for Alpha 0.1.1; D-03 remains a proposed baseline default. Sliders are MVP requirements assigned to Alpha 0.2, not removed from scope. No web implementation was introduced.
+
+The old findings about eight unresolved hashes, thirteen unverified limits, skipped fixture tests and the unsafe export path are resolved by this update. Risks that remain: historical-version assumptions, out-of-grid inventory display, in-game semantics of extreme quality, native filesystem/platform behavior, distribution review and full MVP usability.
 
 ## Scope and evidence
 
