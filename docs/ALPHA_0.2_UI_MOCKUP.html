@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ULF Alpha 0.2 — desktop design mockup</title>
+<style>
+:root{color-scheme:dark;--canvas:#151617;--stone:#222426;--inset:#18191a;--ink:#f2e9da;--muted:#bdb5a9;--line:#514940;--control:#827367;--gold:#e3bb79;--sage:#b5d3b3;--edge:#926c42}
+*{box-sizing:border-box}body{margin:0;background:#111212;color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,sans-serif}h1,h2,h3,p{margin:0}h1{font:600 32px Georgia,serif}h2{font-size:23px}h3{font-size:16px}small,.muted{color:var(--muted)}a{color:inherit}a:focus-visible{outline:2px solid #faf2de;outline-offset:4px}strong,.number,.quality,.count{font-variant-numeric:tabular-nums}
+.frame{max-width:1240px;margin:26px auto;border:1px solid var(--line);border-radius:14px;background:var(--canvas);overflow:hidden;box-shadow:0 20px 65px #0007}.titlebar{display:flex;justify-content:space-between;align-items:center;padding:10px 22px;background:#1d1d1d;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}.brand{display:flex;align-items:center;gap:12px;color:var(--gold);font:700 21px Georgia,serif;letter-spacing:.12em}
+.wolf{width:24px;height:24px;background:var(--gold);clip-path:polygon(5% 0,35% 21%,65% 21%,95% 0,89% 58%,63% 90%,50% 100%,37% 90%,11% 58%);position:relative}.wolf::after{content:"";position:absolute;inset:0;background:#1d1d1d;clip-path:polygon(14% 35%,42% 49%,31% 55%,14% 35%,86% 35%,69% 55%,58% 49%,86% 35%,58% 77%,50% 86%,42% 77%,58% 77%)}
+.header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px}.identity{display:grid;gap:4px}.labels{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.verified{color:var(--sage)}.pending{color:var(--gold)}.rule{color:var(--control)}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:7px 13px;border:1px solid var(--control);border-radius:6px;background:#2b2b2b;font-weight:600;text-decoration:none;white-space:nowrap}.primary{background:var(--gold);border-color:var(--gold);color:#22180d}.danger{color:#efb4a6}.nav{display:flex;gap:20px;padding:0 24px;border-block:1px solid var(--line);background:#1c1d1e}.nav a{padding:10px 4px;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent}.nav .active{color:var(--gold);border-color:var(--gold)}
+.workspace{display:grid;grid-template-columns:minmax(0,2fr) minmax(275px,1fr);gap:16px;padding:18px 24px}.panel{background:var(--stone);border:1px solid var(--line);border-radius:9px;padding:15px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(8,minmax(44px,1fr));gap:6px}.slot{position:relative;min-height:60px;border:1px solid #665e55;border-radius:5px;background:var(--inset)}.occupied{background:radial-gradient(ellipse at 50% 34%,#42372a,#2a2723 70%);border-color:var(--control)}.selected{background:radial-gradient(ellipse at 50% 34%,#5b442b,#31271f 75%);outline:2px solid var(--gold);outline-offset:-2px}.selected .item-name{color:#ffe1a6}.quality,.count{position:absolute;top:3px;font-size:11px;color:#f2ddbb}.quality{left:4px}.count{right:4px}.item-name{position:absolute;left:3px;right:3px;bottom:3px;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}.art{display:block;position:absolute;left:50%;top:43%;translate:-50% -50%;width:30px;height:29px;color:var(--gold);font-style:normal;text-align:center}.art::before,.art::after{content:"";position:absolute}.axe::before{width:5px;height:28px;background:#aa7848;transform:rotate(33deg);left:12px;top:2px;border-radius:2px}.axe::after{width:20px;height:14px;left:10px;top:1px;background:linear-gradient(90deg,#916038,#ecc384);clip-path:polygon(0 25%,100% 0,89% 100%,0 67%)}.sword::before{inset:0;background:#d5c8aa;clip-path:polygon(83% 3%,91% 4%,90% 23%,48% 67%,56% 78%,48% 84%,35% 73%,18% 93%,8% 84%,27% 65%,17% 55%,25% 48%,37% 57%)}.bow::before{inset:0 3px;border:3px solid #c08f57;border-left:1px solid #d8c6a1;border-radius:0 80% 80% 0;transform:rotate(35deg)}.shield::before{inset:1px 2px;border:3px solid #b4864d;border-radius:50%;background:radial-gradient(circle,#d9b678 0 16%,#614d37 18% 54%,#8a6843 56%)}.helm::before{inset:2px 3px;background:#beb4a5;clip-path:polygon(50% 1%,80% 17%,100% 58%,90% 92%,64% 89%,60% 56%,40% 56%,35% 89%,10% 92%,0 58%,19% 17%)}.wood::before{inset:8px 1px;background:repeating-linear-gradient(#a87649 0 5px,#523622 5px 7px);border-radius:3px;transform:rotate(-24deg)}.stone::before{inset:5px 3px;background:linear-gradient(135deg,#cac3b4,#77736b 55%,#a19b90);clip-path:polygon(10% 33%,49% 0,93% 21%,100% 65%,60% 100%,0 73%)}.food::before{inset:6px 5px 2px;background:#c78f48;border-radius:40% 40% 55% 55%}.food::after{inset:2px 8px auto;height:6px;border-radius:100% 0;background:#a1ac76}.unknown{font-size:24px;font-weight:600}
+.item-title{display:flex;align-items:center;gap:11px;margin:10px 0 15px}.item-title .art{position:relative;left:auto;top:auto;translate:none;flex:none}.fields{display:grid;gap:12px}.field{display:grid;grid-template-columns:1fr minmax(75px,98px);align-items:center;gap:8px}.number{padding:6px 8px;background:var(--inset);border:1px solid var(--control);border-radius:5px;font-weight:600}.field small{display:block}.draft{border-left:2px solid var(--gold);padding:7px 9px;background:#33291e;color:#f5d4a0;margin:14px 0}.item-actions{margin-top:14px}.foot{display:flex;justify-content:space-between;gap:12px;padding:10px 24px;border-top:1px solid var(--line);color:var(--muted)}.page{padding:18px 24px}.subview{margin:18px auto}.skill{display:grid;grid-template-columns:minmax(120px,1fr) minmax(100px,2fr) 75px;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}.track{height:7px;border-radius:10px;background:#63594c;position:relative}.track::before{content:"";display:block;width:var(--value);height:100%;border-radius:inherit;background:var(--gold)}.track::after{content:"";position:absolute;left:var(--value);top:50%;translate:-50% -50%;width:15px;height:15px;border-radius:50%;background:#f0cf99}.review-line{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.page .actions{margin-top:12px}
+@media(max-width:830px){.frame{margin:0;border-radius:0}.workspace{grid-template-columns:1fr}.header,.foot{flex-wrap:wrap}.panel,.workspace,.page{padding:12px}.grid{overflow:auto}.item-name{font-size:9px}.slot{min-height:57px}}
+</style>
+</head>
+<body>
+<main>
+<section class="frame" id="inventory" aria-labelledby="inventory-title">
+  <div class="titlebar"><span class="brand"><i class="wolf" aria-hidden="true"></i> ULF</span><span>Alpha 0.2 · Design mockup <span aria-hidden="true">ᚢ</span></span></div>
+  <header class="header">
+    <div class="identity"><h1>Runa Ashvale</h1><div class="labels"><span class="muted">runa-demo.fch</span><span class="rule" aria-hidden="true">·</span><span class="verified">✓ Save validated</span><span class="rule" aria-hidden="true">·</span><span class="pending">Unapplied edits · 2 changes to export</span></div></div>
+    <div class="actions"><span class="btn">Open Character</span><a class="btn primary" href="#review">Review Changes</a></div>
+  </header>
+  <nav class="nav" aria-label="Mockup views"><a class="active" href="#inventory" aria-current="page">Inventory</a><a href="#skills">Skills</a><a href="#review">Review (2)</a></nav>
+  <div class="workspace">
+    <section class="panel"><div class="panel-head"><div><h2 id="inventory-title">Inventory</h2><small>13 items · 48 displayed slots</small></div><span class="btn">＋ Add Item</span></div><div class="grid"><div class="slot occupied " role="img" aria-label="Iron sword, quantity 1, quality 3, Row 1, column 1"><span class="quality">Q3</span><i class="art sword" aria-hidden="true"></i><span class="count">×1</span><span class="item-name">Iron sword</span></div>
+<div class="slot occupied " role="img" aria-label="Finewood bow, quantity 1, quality 2, Row 1, column 2"><span class="quality">Q2</span><i class="art bow" aria-hidden="true"></i><span class="count">×1</span><span class="item-name">Finewood bow</span></div>
+<div class="slot occupied selected" role="img" aria-label="Bronze axe, quantity 1, quality 4, Row 1, column 3, selected"><span class="quality">Q4</span><i class="art axe" aria-hidden="true"></i><span class="count">×1</span><span class="item-name">Bronze axe</span></div>
+<div class="slot occupied " role="img" aria-label="Round shield, quantity 1, quality 2, Row 1, column 4"><span class="quality">Q2</span><i class="art shield" aria-hidden="true"></i><span class="count">×1</span><span class="item-name">Round shield</span></div>
+<div class="slot occupied " role="img" aria-label="Iron helmet, quantity 1, quality 2, Row 1, column 5"><span class="quality">Q2</span><i class="art helm" aria-hidden="true"></i><span class="count">×1</span><span class="item-name">Iron helmet</span></div>
+<div class="slot occupied " role="img" aria-label="Honey, quantity 8, quality 1, Row 1, column 6"><span class="quality">Q1</span><i class="art food" aria-hidden="true"></i><span class="count">×8</span><span class="item-name">Honey</span></div>
+<div class="slot occupied " role="img" aria-label="Wood, quantity 18, quality 1, Row 1, column 7"><span class="quality">Q1</span><i class="art wood" aria-hidden="true"></i><span class="count">×18</span><span class="item-name">Wood</span></div>
+<div class="slot occupied " role="img" aria-label="Stone, quantity 24, quality 1, Row 1, column 8"><span class="quality">Q1</span><i class="art stone" aria-hidden="true"></i><span class="count">×24</span><span class="item-name">Stone</span></div>
+<div class="slot occupied " role="img" aria-label="Flint, quantity 12, quality 1, Row 2, column 1"><span class="quality">Q1</span><i class="art stone" aria-hidden="true"></i><span class="count">×12</span><span class="item-name">Flint</span></div>
+<div class="slot occupied " role="img" aria-label="Resin, quantity 9, quality 1, Row 2, column 2"><span class="quality">Q1</span><i class="art food" aria-hidden="true"></i><span class="count">×9</span><span class="item-name">Resin</span></div>
+<div class="slot occupied " role="img" aria-label="Core wood, quantity 6, quality 1, Row 2, column 3"><span class="quality">Q1</span><i class="art wood" aria-hidden="true"></i><span class="count">×6</span><span class="item-name">Core wood</span></div>
+<div class="slot occupied " role="img" aria-label="Carrot, quantity 4, quality 1, Row 2, column 4"><span class="quality">Q1</span><i class="art food" aria-hidden="true"></i><span class="count">×4</span><span class="item-name">Carrot</span></div>
+<div class="slot" aria-label="Row 2, column 5, empty"></div>
+<div class="slot occupied " role="img" aria-label="Unknown item, quantity 2, quality 1, Row 2, column 6"><span class="quality">Q1</span><i class="art unknown" aria-hidden="true">?</i><span class="count">×2</span><span class="item-name">Unknown item</span></div>
+<div class="slot" aria-label="Row 2, column 7, empty"></div>
+<div class="slot" aria-label="Row 2, column 8, empty"></div>
+<div class="slot" aria-label="Row 3, column 1, empty"></div>
+<div class="slot" aria-label="Row 3, column 2, empty"></div>
+<div class="slot" aria-label="Row 3, column 3, empty"></div>
+<div class="slot" aria-label="Row 3, column 4, empty"></div>
+<div class="slot" aria-label="Row 3, column 5, empty"></div>
+<div class="slot" aria-label="Row 3, column 6, empty"></div>
+<div class="slot" aria-label="Row 3, column 7, empty"></div>
+<div class="slot" aria-label="Row 3, column 8, empty"></div>
+<div class="slot" aria-label="Row 4, column 1, empty"></div>
+<div class="slot" aria-label="Row 4, column 2, empty"></div>
+<div class="slot" aria-label="Row 4, column 3, empty"></div>
+<div class="slot" aria-label="Row 4, column 4, empty"></div>
+<div class="slot" aria-label="Row 4, column 5, empty"></div>
+<div class="slot" aria-label="Row 4, column 6, empty"></div>
+<div class="slot" aria-label="Row 4, column 7, empty"></div>
+<div class="slot" aria-label="Row 4, column 8, empty"></div>
+<div class="slot" aria-label="Row 5, column 1, empty"></div>
+<div class="slot" aria-label="Row 5, column 2, empty"></div>
+<div class="slot" aria-label="Row 5, column 3, empty"></div>
+<div class="slot" aria-label="Row 5, column 4, empty"></div>
+<div class="slot" aria-label="Row 5, column 5, empty"></div>
+<div class="slot" aria-label="Row 5, column 6, empty"></div>
+<div class="slot" aria-label="Row 5, column 7, empty"></div>
+<div class="slot" aria-label="Row 5, column 8, empty"></div>
+<div class="slot" aria-label="Row 6, column 1, empty"></div>
+<div class="slot" aria-label="Row 6, column 2, empty"></div>
+<div class="slot" aria-label="Row 6, column 3, empty"></div>
+<div class="slot" aria-label="Row 6, column 4, empty"></div>
+<div class="slot" aria-label="Row 6, column 5, empty"></div>
+<div class="slot" aria-label="Row 6, column 6, empty"></div>
+<div class="slot" aria-label="Row 6, column 7, empty"></div>
+<div class="slot" aria-label="Row 6, column 8, empty"></div></div></section>
+    <section class="panel" aria-labelledby="item-title"><div class="labels muted">Row 1 · Column 3</div><div class="item-title"><i class="art axe" aria-hidden="true"></i><div><h2 id="item-title">Bronze axe</h2><small>AxeBronze · Tool</small></div></div>
+      <div class="fields">
+        <div class="field"><div><strong>Quality</strong><small>Vanilla maximum 4</small></div><span class="number">5</span></div>
+        <div class="field"><div><strong>Quantity</strong><small>Verified stack maximum 1</small></div><span class="number">1</span></div>
+        <div class="field"><div><strong>Durability</strong><small>Two decimal places</small></div><span class="number">118.50</span></div>
+        <div><span aria-hidden="true">□</span> Equipped</div>
+      </div>
+      <p class="draft">⚠ Draft · Quality 4 → 5 exceeds the vanilla maximum.</p>
+      <div class="actions item-actions"><span class="btn primary">Apply Item</span><span class="btn">Revert Draft</span><span class="btn danger">Remove…</span></div>
+    </section>
+  </div>
+  <footer class="foot"><span>✓ SHA-512 and byte-exact round trip passed</span><span>Save As creates a separate copy</span></footer>
+</section>
+<section class="frame subview" id="skills" aria-labelledby="skills-title">
+  <div class="page"><div class="panel-head"><div><h2 id="skills-title">Skills</h2><small>Runa Ashvale · 1 unapplied skill edit</small></div><a href="#inventory">Back to Inventory</a></div>
+  <div class="panel">
+    <div class="skill"><div><strong>Run</strong><br><small>Applied 37.6 · Draft 42.25</small></div><span class="track" style="--value:42.25%" aria-hidden="true"></span><span class="number">42.25</span></div>
+    <details><summary>Experience · preserved unless edited</summary><p>Saved accumulator 12.75</p></details>
+    <div class="skill"><div><strong>Axes</strong><br><small>Applied 24</small></div><span class="track" style="--value:24%" aria-hidden="true"></span><span class="number">24</span></div>
+    <div class="skill"><div><strong>Blocking</strong><br><small>Applied 16</small></div><span class="track" style="--value:16%" aria-hidden="true"></span><span class="number">16</span></div>
+    <div class="actions"><span class="btn primary">Apply Skill Changes</span><span class="btn">Discard Skill Drafts</span></div>
+  </div></div>
+</section>
+<section class="frame subview" id="review" aria-labelledby="review-title">
+  <div class="page"><div class="panel-head"><div><h2 id="review-title">Review Changes</h2><small>2 applied changes · Drafts resolved in this example</small></div><a href="#inventory">Back to Inventory</a></div>
+  <div class="panel">
+    <div class="review-line"><div><strong>Wood · Row 1, Column 7</strong><br><span class="muted">Quantity 12 → 18</span></div><span class="btn">Discard Change</span></div>
+    <div class="review-line"><div><strong>Axes</strong><br><span class="muted">Level 22 → 24</span></div><span class="btn">Discard Change</span></div>
+    <div class="actions"><span class="btn primary">Export Save As…</span><span class="btn">Discard All…</span></div>
+  </div></div>
+</section>
+</main>
+</body>
+</html>

@@ -1,191 +1,467 @@
-import sys, json, copy, pathlib
-from PySide6.QtWidgets import (QApplication,QMainWindow,QWidget,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QTableWidget,QTableWidgetItem,QTabWidget,QFileDialog,QMessageBox,QSpinBox,QDoubleSpinBox,QLineEdit,QComboBox,QFormLayout,QGroupBox,QHeaderView,QAbstractItemView,QCheckBox)
-from PySide6.QtCore import Qt
-from core.fch import Character,FormatError,SKILLS,stable_hash
-from core.editing import apply_skills as apply_skill_transaction
-from core.editing import apply_item, remove_item
-from core.export import export_character
-from core.catalog import CATALOG
+"""ULF desktop shell and verified file workflow."""
 
-ROOT=pathlib.Path(__file__).resolve().parents[1]
-HASHES={stable_hash(k):k for k in CATALOG}
-STYLE='''
-QWidget{background:#12171a;color:#e7dcc5;font-family:"Noto Sans", "Segoe UI",sans-serif;font-size:12px}
-QMainWindow{background:#12171a}
-QLabel#hero{font-family:serif;font-weight:bold;font-size:28px;color:#d9a65e}
-QLabel#sub{color:#8d999e;font-size:12px}
-QTabWidget::pane,QGroupBox{border:1px solid #554637;border-radius:7px;background:#1c2426}
-QGroupBox{margin-top:13px;padding:12px;font-weight:bold;color:#d7ac6c}
-QGroupBox::title{subcontrol-origin:margin;left:12px;padding:0 5px}
-QTabBar::tab{background:#263033;color:#baaea1;padding:12px 25px;border:1px solid #344044}
-QTabBar::tab:selected{background:#5a3d22;color:#ffe2a4}
-QPushButton{background:#5d4227;color:#f7dfbc;border:1px solid #926d41;border-radius:5px;padding:8px 14px;font-weight:bold}
-QPushButton:hover{background:#775331} QPushButton:disabled{color:#666;background:#303434}
-QLineEdit,QSpinBox,QDoubleSpinBox,QComboBox{background:#101719;color:#f7e6ca;border:1px solid #596364;padding:7px;border-radius:4px}
-QTableWidget{background:#1a2224;alternate-background-color:#20292b;gridline-color:#40413a;border:1px solid #554637;selection-background-color:#735027;selection-color:#fff}
-QHeaderView::section{background:#302f2b;color:#eac78b;border:1px solid #504435;padding:7px}
-'''
+from copy import deepcopy
+from pathlib import Path
+import sys
+
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Qt, Signal, Slot
+from PySide6.QtGui import QKeySequence, QShortcut
+from PySide6.QtWidgets import (
+    QApplication, QDialog, QFileDialog, QFormLayout, QHBoxLayout, QMainWindow,
+    QMessageBox, QPushButton, QSizePolicy, QStackedWidget, QTabWidget, QVBoxLayout, QWidget,
+)
+
+from core.export import export_character
+from core.fch import FormatError
+from desktop.inventory import InventoryPage
+from desktop.session import Session, load_character
+from desktop.skills import SkillsPage
+from desktop.theme import apply_theme, artwork, heading, label, panel, primary_button, scroll_area
+
+
+class FileSignals(QObject):
+    finished = Signal(object, str)
+
+
+class FileJob(QRunnable):
+    def __init__(self, operation):
+        super().__init__()
+        self.operation = operation
+        self.signals = FileSignals()
+
+    def run(self):
+        try:
+            result = self.operation()
+        except Exception as error:
+            self.signals.finished.emit(None, str(error) or type(error).__name__)
+        else:
+            self.signals.finished.emit(result, "")
+
+
+class ReviewPage(QWidget):
+    discard_change = Signal(object)
+
+    def __init__(self):
+        super().__init__()
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(heading("Review Changes"))
+        layout.addWidget(label("Compare with the loaded original. Save As exports a separate copy.", "muted", wrap=True))
+        self.inventory_drafts = QPushButton("Resolve inventory drafts")
+        self.skill_drafts = QPushButton("Resolve skill drafts")
+        draft_actions = QHBoxLayout()
+        draft_actions.addWidget(self.inventory_drafts)
+        draft_actions.addWidget(self.skill_drafts)
+        draft_actions.addStretch(1)
+        layout.addLayout(draft_actions)
+        content = QWidget()
+        self.cards = QVBoxLayout(content)
+        self.cards.setContentsMargins(0, 0, 8, 0)
+        layout.addWidget(scroll_area(content), 1)
+        self.notice = label(role="warning", wrap=True)
+        layout.addWidget(self.notice)
+        actions = QHBoxLayout()
+        self.discard_all = QPushButton("Discard All…")
+        self.export = primary_button("Export Save As…")
+        actions.addWidget(self.discard_all)
+        actions.addStretch(1)
+        actions.addWidget(self.export)
+        layout.addLayout(actions)
+
+    def show_changes(self, changes):
+        while self.cards.count():
+            widget = self.cards.takeAt(0).widget()
+            if widget is not None:
+                widget.hide()
+                widget.deleteLater()
+        if not changes:
+            self.cards.addWidget(label("No applied differences from the loaded original.", "muted", wrap=True))
+        for group, title in (("inventory", "Inventory"), ("skills", "Skills")):
+            subset = [change for change in changes if (change.position is None) == (group == "skills")]
+            if not subset:
+                continue
+            self.cards.addWidget(heading(title, 1.15))
+            for change in subset:
+                card = panel()
+                layout = QHBoxLayout(card)
+                details = QVBoxLayout()
+                details.addWidget(heading(change.title, 1.05))
+                details.itemAt(0).widget().setWordWrap(True)
+                details.addWidget(label("\n".join(change.details), "muted", wrap=True))
+                if change.warning:
+                    details.addWidget(label(change.warning, "warning", wrap=True))
+                layout.addLayout(details, 1)
+                discard = QPushButton("Discard Change")
+                discard.setAccessibleName(f"Discard change: {change.title}")
+                discard.clicked.connect(lambda checked=False, change=change: self.discard_change.emit(change))
+                layout.addWidget(discard)
+                self.cards.addWidget(card)
+        self.cards.addStretch(1)
+
+    def show_state(self, session, changes, duplicate_positions):
+        self.inventory_drafts.setVisible(bool(session.item_drafts))
+        self.skill_drafts.setVisible(bool(session.skill_drafts))
+        notices = []
+        if session.has_drafts:
+            notices.append("Apply or discard unapplied drafts before exporting.")
+        if duplicate_positions:
+            notices.append("Duplicate inventory positions prevent safe export. See Inventory diagnostics.")
+        if session.export_path:
+            notices.append(f"Last verified export: {session.export_path}")
+        self.notice.setText("\n".join(notices))
+        self.notice.setVisible(bool(notices))
+        self.discard_all.setEnabled(bool(changes or session.has_drafts))
+        self.export.setEnabled(not session.has_drafts and not duplicate_positions)
+
+
 class Window(QMainWindow):
- def __init__(self):
-  super().__init__();self.ch=None;self.path=None;self.selected=None
-  self.setWindowTitle('ULF — Valheim Character Workshop · WolfWorks Labs');self.resize(1170,800)
-  central=QWidget();self.setCentralWidget(central);outer=QVBoxLayout(central);outer.setSpacing(15)
-  hero=QLabel('ᚢ  ULF  /  CHARACTER WORKSHOP');hero.setObjectName('hero');outer.addWidget(hero)
-  self.subtitle=QLabel('WOLFWORKS LABS     •     LOCAL FCH EDITING     •     ORIGINAL SAVE PRESERVED');self.subtitle.setObjectName('sub');outer.addWidget(self.subtitle)
-  toolbar=QHBoxLayout();outer.addLayout(toolbar)
-  self.openbtn=QPushButton('Open .fch');self.openbtn.clicked.connect(self.open_file);toolbar.addWidget(self.openbtn)
-  self.savebtn=QPushButton('Export edited .fch');self.savebtn.clicked.connect(self.export);toolbar.addWidget(self.savebtn)
-  toolbar.addStretch();self.status=QLabel('No character loaded');toolbar.addWidget(self.status)
-  tabs=QTabWidget();outer.addWidget(tabs)
-  inv=QWidget();tabs.addTab(inv,'⚔  INVENTORY');invrow=QHBoxLayout(inv)
-  left=QVBoxLayout();invrow.addLayout(left,4)
-  self.table=QTableWidget(6,8);self.table.setSelectionMode(QAbstractItemView.SingleSelection);self.table.setEditTriggers(QAbstractItemView.NoEditTriggers);self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);self.table.verticalHeader().setDefaultSectionSize(83)
-  self.table.setHorizontalHeaderLabels([str(x+1) for x in range(8)]);self.table.setVerticalHeaderLabels([str(y+1) for y in range(6)]);self.table.cellClicked.connect(self.select_slot);left.addWidget(self.table)
-  right=QVBoxLayout();invrow.addLayout(right,2)
-  self.group=QGroupBox('SLOT EDITOR');form=QFormLayout(self.group);right.addWidget(self.group)
-  self.slotlabel=QLabel('Select an inventory slot');form.addRow('Slot',self.slotlabel)
-  self.search=QLineEdit();self.search.setPlaceholderText('Search or enter exact prefab…');self.search.textChanged.connect(self.filter_catalog);form.addRow('Item search',self.search)
-  self.prefab=QComboBox();self.prefab.setEditable(True);form.addRow('Prefab',self.prefab);self.filter_catalog('')
-  self.qty=QSpinBox();self.qty.setRange(1,65535);form.addRow('Quantity',self.qty)
-  self.quality=QSpinBox();self.quality.setRange(1,65535);form.addRow('Quality',self.quality)
-  self.durability=QDoubleSpinBox();self.durability.setRange(0,2000000);self.durability.setDecimals(2);form.addRow('Durability',self.durability)
-  self.equipped=QCheckBox('Equipped');form.addRow('',self.equipped)
-  self.apply=QPushButton('Apply to slot / Add item');self.apply.clicked.connect(self.apply_slot);right.addWidget(self.apply)
-  remove=QPushButton('Remove selected item');remove.clicked.connect(self.remove_slot);right.addWidget(remove)
-  right.addWidget(QLabel('Quality supports values up to 65,535.\nQuantity must stay within the verified item stack limit.'))
-  right.addStretch()
-  skillpage=QWidget();tabs.addTab(skillpage,'ᛟ  SKILLS');sl=QVBoxLayout(skillpage)
-  self.skilltable=QTableWidget(0,3);self.skilltable.setHorizontalHeaderLabels(['Skill','Level (0–100)','Progress / XP']);self.skilltable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);sl.addWidget(self.skilltable)
-  bar=QHBoxLayout();sl.addLayout(bar);b=QPushButton('Apply skill changes');b.clicked.connect(self.apply_skills);bar.addWidget(b)
-  b=QPushButton('Set all to 100');b.clicked.connect(self.max_skills);bar.addWidget(b);bar.addStretch()
-  foot=QLabel('SAFETY  •  SHA-512 checked  •  Byte-exact no-change round trip required  •  Save As only  •  No cheat-flag scrubbing');foot.setObjectName('sub');outer.addWidget(foot)
-  self.savebtn.setEnabled(False)
- def filter_catalog(self,term):
-  current=self.prefab.currentText() if hasattr(self,'prefab') else ''
-  self.prefab.blockSignals(True);self.prefab.clear()
-  for prefab,data in sorted(CATALOG.items(),key=lambda x:x[1]['name']):
-   if term.lower() in (prefab+' '+data['name']).lower():self.prefab.addItem(data['name']+'  ['+prefab+']',prefab)
-  if current:self.prefab.setEditText(current)
-  self.prefab.blockSignals(False)
- def open_file(self):
-  filename,_=QFileDialog.getOpenFileName(self,'Open Valheim character','','Valheim Character (*.fch)')
-  if not filename:return
-  try:
-   ch=Character(pathlib.Path(filename).read_bytes())
-   if not ch.roundtrip:raise FormatError('Byte-exact round trip failed; edits disabled for this save')
-   self.ch=ch;self.path=pathlib.Path(filename);self.refresh();self.savebtn.setEnabled(True)
-  except Exception as e:QMessageBox.critical(self,'Invalid/unsupported save',str(e))
- def refresh(self, refresh_skills=True):
-  self.table.clearContents();self.selected=None
-  for it in self.ch.items:
-   if it.x>=8 or it.y>=6:continue
-   name=HASHES.get(it.prefab_hash,f'#{it.prefab_hash}')
-   display=CATALOG.get(name,{}).get('name',name)
-   cell=QTableWidgetItem(f'{display}\n★ {it.quality}    ×{it.stack}'+ ('  ⚠' if it.cheated else ''))
-   cell.setTextAlignment(Qt.AlignCenter);cell.setToolTip(name);self.table.setItem(it.y,it.x,cell)
-  self.status.setText(f'{self.ch.name}  •  {len(self.ch.items)} items  •  '+('Cheat flag set' if self.ch.used_cheats else 'Character cheat flag clear'))
-  if not refresh_skills:return
-  self.skilltable.setRowCount(len(SKILLS))
-  existing={x[0]:x for x in self.ch.skills}
-  for row,(id,name) in enumerate(SKILLS.items()):
-   self.skilltable.setItem(row,0,QTableWidgetItem(name));self.skilltable.item(row,0).setData(Qt.UserRole,id)
-   lv=existing.get(id,[id,0,0])
-   for column,value in enumerate(lv[1:],1):
-    cell=QTableWidgetItem(repr(value))
-    cell.setData(Qt.UserRole,cell.text())
-    self.skilltable.setItem(row,column,cell)
- def select_slot(self,y,x):
-  if self.ch is None:return
-  self.selected=(x,y);self.slotlabel.setText(f'Column {x+1} / Row {y+1}')
-  it=next((a for a in self.ch.items if (a.x,a.y)==(x,y)),None)
-  if it:
-   prefab=HASHES.get(it.prefab_hash,'')
-   self.prefab.setEnabled(False)
-   self.prefab.setEditText(prefab if prefab else f'#{it.prefab_hash}')
-   self.qty.setValue(it.stack);self.quality.setValue(it.quality);self.durability.setValue(it.durability_raw/100);self.equipped.setChecked(it.equipped)
-  else:
-   self.prefab.setEnabled(True)
-   self.prefab.setEditText('Wood');self.qty.setValue(1);self.quality.setValue(1);self.durability.setValue(100);self.equipped.setChecked(False)
-  self.slot_values={'stack':self.qty.value(),'quality':self.quality.value(),'durability_raw':round(self.durability.value()*100),'equipped':self.equipped.isChecked()}
- def apply_slot(self):
-  if not self.ch or self.selected is None:return
-  x,y=self.selected
-  proposed=copy.deepcopy(self.ch)
-  it=next((a for a in proposed.items if (a.x,a.y)==(x,y)),None)
-  prefab=self.prefab.currentText().strip()
-  if '[' in prefab and prefab.endswith(']'):prefab=prefab.rsplit('[',1)[-1][:-1]
-  if not self.ch.roundtrip:
-   QMessageBox.warning(self,'Item','The original character failed round-trip validation.');return
-  if it:prefab=HASHES.get(it.prefab_hash,'')
-  metadata=CATALOG.get(prefab,{})
-  maximum=metadata.get('max_stack')
-  if maximum is None:
-   QMessageBox.warning(self,'Item','This item has no verified stack limit. Its data is preserved unchanged.');return
-  if self.qty.value()>maximum:
-   QMessageBox.warning(self,'Item',f'This item supports at most {maximum} per stack.');return
-  if not it:
-   if prefab not in CATALOG:
-    QMessageBox.warning(self,'Item','Select an item from the catalog.');return
-   try:proposed.add(prefab,x,y)
-   except FormatError as e:
-    QMessageBox.warning(self,'Item',str(e));return
-   it=proposed.items[-1]
-  values={'stack':self.qty.value(),'quality':self.quality.value(),'durability_raw':round(self.durability.value()*100),'equipped':self.equipped.isChecked()}
-  changes={key:value for key,value in values.items() if value!=self.slot_values[key]}
-  try:apply_item(proposed,it,changes)
-  except FormatError as e:
-   QMessageBox.warning(self,'Item',str(e));return
-  self.ch.items=proposed.items
-  self.refresh(refresh_skills=False);self.table.setCurrentCell(y,x);self.select_slot(y,x)
- def remove_slot(self):
-  if self.ch and self.selected is not None:
-   item=next((item for item in self.ch.items if (item.x,item.y)==self.selected),None)
-   if item is None:return
-   try:remove_item(self.ch,item)
-   except FormatError as error:
-    QMessageBox.warning(self,'Item',str(error));return
-   self.refresh(refresh_skills=False)
- def apply_skills(self, checked=False, *, notify=True):
-  if not self.ch:return False
-  try:
-   changes=[]
-   for row in range(self.skilltable.rowCount()):
-    id=self.skilltable.item(row,0).data(Qt.UserRole)
-    values=[]
-    for column in (1,2):
-     cell=self.skilltable.item(row,column)
-     values.append(float(cell.text()) if cell.text()!=cell.data(Qt.UserRole) else None)
-    if any(value is not None for value in values):changes.append((id,*values))
-   apply_skill_transaction(self.ch,changes)
-   for row in range(self.skilltable.rowCount()):
-    for column in (1,2):
-     cell=self.skilltable.item(row,column);cell.setData(Qt.UserRole,cell.text())
-   if notify:QMessageBox.information(self,'Skills','Skill edits applied in memory. Export to produce a save file.')
-   return True
-  except (ValueError,OverflowError) as e:
-   QMessageBox.warning(self,'Invalid skill',str(e))
-   return False
- def max_skills(self):
-  for row in range(self.skilltable.rowCount()):self.skilltable.item(row,1).setText('100');self.skilltable.item(row,2).setText('0')
- def export(self):
-  if not self.ch:return
-  # Apply skills before writing to avoid accidentally losing edits on that tab.
-  if not self.apply_skills(notify=False):return
-  default=self.path.with_name(self.path.stem+'_ULF_edited.fch')
-  filename,_=QFileDialog.getSaveFileName(self,'Export edited character',str(default),'Valheim Character (*.fch)')
-  if not filename:return
-  try:
-   target=export_character(self.ch,self.path,filename)
-   QMessageBox.information(self,'Export complete',f'Saved {target.name}.\n\nOriginal was not modified.\nClose Valheim before testing the new file.\nAchievement eligibility is not guaranteed.')
-  except Exception as e:QMessageBox.critical(self,'Export failed',str(e))
+    def __init__(self):
+        super().__init__()
+        self.session = None
+        self.changes = []
+        self.duplicate_positions = set()
+        self.job = None
+        self.on_success = None
+        self.failure_title = ""
+        self.setWindowTitle("ULF · Valheim Character Workshop")
+        self.resize(1210, 760)
+        self.setMinimumSize(570, 420)
+        canvas = QWidget(objectName="canvas")
+        self.setCentralWidget(canvas)
+        shell = QVBoxLayout(canvas)
+        shell.setContentsMargins(18, 12, 18, 12)
+        shell.setSpacing(10)
+
+        brand = QHBoxLayout()
+        mark = label()
+        mark.setPixmap(artwork("wolf").pixmap(27, 27))
+        brand.addWidget(mark)
+        wordmark = heading("ULF", 1.65, serif=True)
+        wordmark.setObjectName("brand")
+        brand.addWidget(wordmark)
+        brand.addStretch(1)
+        brand.addWidget(label("ᚢ   Alpha 0.2", "muted"))
+        shell.addLayout(brand)
+
+        header = panel()
+        header_layout = QHBoxLayout(header)
+        identity = QVBoxLayout()
+        identity.setSpacing(3)
+        self.character_name = heading("No character loaded", 1.85, serif=True)
+        self.character_name.setWordWrap(True)
+        identity.addWidget(self.character_name)
+        self.source = label(role="muted", wrap=True)
+        identity.addWidget(self.source)
+        self.validation = label(role="verified", wrap=True)
+        identity.addWidget(self.validation)
+        self.pending = label(role="warning", wrap=True)
+        identity.addWidget(self.pending)
+        header_layout.addLayout(identity, 1)
+        header_actions = QVBoxLayout()
+        buttons = QHBoxLayout()
+        self.open_button = QPushButton("Open Character…")
+        self.review_button = primary_button("Review Changes")
+        buttons.addWidget(self.open_button)
+        buttons.addWidget(self.review_button)
+        header_actions.addLayout(buttons)
+        self.details_button = QPushButton("Character Details")
+        header_actions.addWidget(self.details_button, alignment=Qt.AlignmentFlag.AlignRight)
+        header_layout.addLayout(header_actions)
+        shell.addWidget(header)
+
+        self.pages = QStackedWidget()
+        empty = QWidget()
+        empty_layout = QVBoxLayout(empty)
+        empty_layout.addStretch()
+        empty_layout.addWidget(heading("Open a Valheim character"), alignment=Qt.AlignmentFlag.AlignHCenter)
+        empty_layout.addWidget(label("Choose a local .fch file to inspect and edit.", "muted"),
+                               alignment=Qt.AlignmentFlag.AlignHCenter)
+        open_empty = primary_button("Open Character…")
+        empty_layout.addWidget(open_empty, alignment=Qt.AlignmentFlag.AlignHCenter)
+        empty_layout.addStretch()
+        self.pages.addWidget(empty)
+        self.tabs = QTabWidget()
+        self.inventory = InventoryPage()
+        self.skills = SkillsPage()
+        self.review = ReviewPage()
+        self.tabs.addTab(self.inventory, "Inventory")
+        self.tabs.addTab(self.skills, "Skills")
+        self.tabs.addTab(self.review, "Review")
+        self.pages.addWidget(self.tabs)
+        shell.addWidget(self.pages, 1)
+        self.status = label(role="muted", wrap=True)
+        self.status.setAccessibleName("Session and file operation status")
+        self.status.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+        shell.addWidget(self.status)
+        self.message = ""
+
+        self.open_button.clicked.connect(self.open_file)
+        open_empty.clicked.connect(self.open_file)
+        self.review_button.clicked.connect(self.show_review)
+        self.details_button.clicked.connect(self.character_details)
+        self.inventory.changed.connect(self.refresh_review)
+        self.inventory.drafts_changed.connect(self.refresh_status)
+        self.skills.changed.connect(self.refresh_review)
+        self.skills.drafts_changed.connect(self.refresh_status)
+        self.review.inventory_drafts.clicked.connect(self.resolve_inventory_draft)
+        self.review.skill_drafts.clicked.connect(self.resolve_skill_draft)
+        self.review.discard_change.connect(self.discard_change)
+        self.review.discard_all.clicked.connect(self.discard_all)
+        self.review.export.clicked.connect(self.export)
+        QShortcut(QKeySequence.StandardKey.Open, self, activated=self.open_file)
+        QShortcut(QKeySequence.StandardKey.SaveAs, self, activated=self.save_shortcut)
+        apply_theme(self)
+        self.refresh_status()
+
+    def start_job(self, operation, message, failure_title, on_success):
+        if self.job is not None:
+            return
+        self.message = message
+        self.failure_title = failure_title
+        self.on_success = on_success
+        self.job = FileJob(operation)
+        self.job.signals.finished.connect(self.finish_job, Qt.ConnectionType.QueuedConnection)
+        self.refresh_status()
+        QThreadPool.globalInstance().start(self.job)
+
+    @Slot(object, str)
+    def finish_job(self, result, error):
+        self.job = None
+        on_success, self.on_success = self.on_success, None
+        if error:
+            self.message = f"{self.failure_title} · {error}"
+            self.refresh_status()
+            dialog = QMessageBox(QMessageBox.Icon.Critical, self.failure_title, error,
+                                 QMessageBox.StandardButton.Ok, self)
+            dialog.setTextFormat(Qt.TextFormat.PlainText)
+            dialog.exec()
+            return
+        self.message = ""
+        on_success(result)
+        self.refresh_status()
+
+    def confirm_discard(self, action):
+        if not self.session or not self.session.unsaved:
+            return True
+        return QMessageBox.question(
+            self, "Unsaved Edits", f"{action}? Unexported edits and drafts will be discarded.",
+            QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Cancel,
+        ) == QMessageBox.StandardButton.Discard
+
+    def open_file(self):
+        if self.job is not None:
+            return
+        filename, _ = QFileDialog.getOpenFileName(self, "Open Valheim Character", "", "Valheim character (*.fch)")
+        if filename and self.confirm_discard("Open another character"):
+            self.load_path(Path(filename))
+
+    def load_path(self, path):
+        self.start_job(lambda: Session(load_character(path), path), f"Validating {path.name}…",
+                       "Could not open character", self.set_session)
+
+    def set_session(self, session):
+        self.session = session
+        self.character_name.setText(session.baseline.name or "Unnamed character")
+        self.source.setText(session.path.name)
+        self.source.setToolTip(str(session.path))
+        self.validation.setText("✓ SHA-512 and byte-exact round trip passed")
+        self.inventory.set_session(session)
+        self.skills.set_session(session)
+        self.tabs.setCurrentWidget(self.inventory)
+        self.pages.setCurrentWidget(self.tabs)
+        self.refresh_review()
+        self.inventory.grid.setFocus()
+
+    def character_details(self):
+        character = self.session.baseline
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Character Details")
+        dialog.resize(580, 290)
+        layout = QVBoxLayout(dialog)
+        layout.addWidget(heading(character.name or "Unnamed character", serif=True))
+        rows = QFormLayout()
+        for title, value in (
+            ("Source", str(self.session.path)),
+            ("Versions", f"Profile {character.profile_version} · Player {character.player_version}\n"
+                         f"Inventory {character.inventory_version} · Skills {character.skills_version}"),
+            ("Validation", "SHA-512 passed · Byte-exact round trip passed"),
+            ("Saved cheat flag", "Set" if character.used_cheats else "Clear"),
+        ):
+            field = label(value, wrap=True)
+            field.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+            rows.addRow(title, field)
+        layout.addLayout(rows)
+        layout.addWidget(label("Achievement eligibility is unverified.", "muted", wrap=True))
+        close = QPushButton("Close")
+        close.clicked.connect(dialog.accept)
+        layout.addWidget(close, alignment=Qt.AlignmentFlag.AlignRight)
+        dialog.exec()
+        dialog.deleteLater()
+
+    def refresh_review(self):
+        self.changes = self.session.changes()
+        self.duplicate_positions = self.session.duplicate_positions
+        self.review.show_changes(self.changes)
+        self.message = ""
+        self.refresh_status()
+
+    def refresh_status(self):
+        session = self.session
+        busy = self.job is not None
+        self.open_button.setEnabled(not busy)
+        self.pages.setEnabled(not busy)
+        self.review_button.setEnabled(bool(session and not busy))
+        self.details_button.setEnabled(bool(session and not busy))
+        if not session:
+            self.pending.hide()
+            self.status.setText(self.message)
+            return
+        self.pending.show()
+        self.review.show_state(session, self.changes, self.duplicate_positions)
+        self.tabs.setTabText(0, "Inventory · Draft" if session.item_drafts else "Inventory")
+        self.tabs.setTabText(1, "Skills · Draft" if session.skill_drafts else "Skills")
+        self.tabs.setTabText(2, f"Review ({len(self.changes)})")
+        parts = []
+        if session.has_drafts:
+            parts.append("Unapplied edits")
+        if session.revision != session.exported_revision:
+            count = len(self.changes)
+            parts.append(f"{count} applied change{'s' if count != 1 else ''} vs original · Export pending"
+                         if count else "Changes to export")
+        elif session.export_path:
+            parts.append("Export verified")
+        elif not parts:
+            parts.append("No pending changes")
+        self.pending.setText(" · ".join(parts))
+        if self.message:
+            self.status.setText(self.message)
+        elif session.export_path:
+            self.status.setText(f"Last verified export · {session.export_path}")
+        else:
+            self.status.setText("Save As creates a separate copy.")
+
+    def resolve_inventory_draft(self):
+        key = next(iter(self.session.item_drafts))
+        item = self.session.items[key]
+        self.tabs.setCurrentWidget(self.inventory)
+        self.inventory.grid.setCurrentIndex(self.inventory.model.index(item.y, item.x))
+        self.inventory.open_inspector()
+
+    def resolve_skill_draft(self):
+        key = next(iter(self.session.skill_drafts))
+        self.tabs.setCurrentWidget(self.skills)
+        row = self.skills.rows[key]
+        self.skills.scroll.ensureWidgetVisible(row)
+        if row.level.text() != row.original[0]:
+            row.level.setFocus()
+        else:
+            row.toggle.setChecked(True)
+            row.experience.setFocus()
+
+    def show_review(self):
+        if self.session and self.job is None:
+            self.tabs.setCurrentWidget(self.review)
+
+    def save_shortcut(self):
+        if self.tabs.currentWidget() is self.review:
+            self.export()
+        else:
+            self.show_review()
+
+    def discard_change(self, change):
+        keys = {change.key}
+        dependencies = self.session.discard_dependencies(change)
+        if dependencies.intersection(self.session.items):
+            answer = QMessageBox.question(
+                self, "Discard Related Changes",
+                "Restoring this item requires discarding the new item in its slot. Discard both changes?",
+                QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel,
+            )
+            if answer != QMessageBox.StandardButton.Discard:
+                return
+        elif (change.key in self.session.item_drafts or
+              change.key[0] == "skill" and change.key[1] in self.session.skill_drafts):
+            answer = QMessageBox.question(
+                self, "Discard Change and Draft", "Discard this applied change and its unapplied draft?",
+                QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel,
+            )
+            if answer != QMessageBox.StandardButton.Discard:
+                return
+        try:
+            self.session.discard(keys | dependencies)
+        except FormatError as error:
+            self.message = str(error)
+            self.refresh_status()
+        else:
+            self.refresh_editors()
+
+    def discard_all(self):
+        answer = QMessageBox.question(
+            self, "Discard All Changes", "Restore the loaded original in the editor and clear all drafts?",
+            QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Cancel,
+        )
+        if answer == QMessageBox.StandardButton.Discard:
+            self.session.discard_all()
+            self.refresh_editors()
+
+    def refresh_editors(self):
+        self.inventory.refresh()
+        self.skills.refresh()
+        self.refresh_review()
+
+    def export(self):
+        session = self.session
+        if self.job is not None or not session:
+            return
+        self.show_review()
+        if session.has_drafts or self.duplicate_positions:
+            return
+        default = session.path.with_name(session.path.stem + "_ULF_edited.fch")
+        filename, _ = QFileDialog.getSaveFileName(self, "Export Verified Character Copy", str(default),
+                                                   "Valheim character (*.fch)")
+        if not filename:
+            return
+        destination = Path(filename)
+        if not destination.suffix:
+            destination = destination.with_suffix(".fch")
+            # The picker confirmed the extensionless name, so confirm a suffixed collision.
+            if destination.exists() and QMessageBox.question(
+                self, "Replace Export", f"Replace {destination}?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel,
+            ) != QMessageBox.StandardButton.Yes:
+                return
+        if destination.suffix.lower() != ".fch":
+            self.message = "Choose a destination with the .fch extension."
+            self.refresh_status()
+            return
+        snapshot = deepcopy(session.working)
+        self.start_job(lambda: export_character(snapshot, session.path, destination),
+                       f"Writing and verifying {destination}…", "Export failed", self.export_finished)
+
+    def export_finished(self, destination):
+        self.session.export_path = destination
+        self.session.exported_revision = self.session.revision
+
+    def closeEvent(self, event):
+        if self.job is not None:
+            event.ignore()
+            return
+        if self.confirm_discard("Close ULF"):
+            event.accept()
+        else:
+            event.ignore()
+
 
 def main():
- app=QApplication(sys.argv);app.setStyleSheet(STYLE);w=Window();w.show()
- if len(sys.argv)>1:
-  try:
-   p=pathlib.Path(sys.argv[1]);c=Character(p.read_bytes())
-   if not c.roundtrip:raise FormatError('Roundtrip failed')
-   w.ch=c;w.path=p;w.refresh();w.savebtn.setEnabled(True)
-  except Exception as e:QMessageBox.warning(w,'Failed to load',str(e))
- sys.exit(app.exec())
-if __name__=='__main__':main()
+    application = QApplication(sys.argv)
+    application.setApplicationName("ULF Editor")
+    window = Window()
+    window.show()
+    if len(sys.argv) > 1:
+        window.load_path(Path(sys.argv[1]))
+    sys.exit(application.exec())

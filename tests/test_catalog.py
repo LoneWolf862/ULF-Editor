@@ -1,14 +1,35 @@
 import json
 from pathlib import Path
+import re
 import unittest
 
 from core.catalog import CATALOG
 from core.editing import apply_item
 from core.fch import Character, FormatError, stable_hash
+from desktop.item_catalog import BY_PREFAB, LABELS, search_catalog
 from synthetic import character_bytes
 
 
 class CatalogTests(unittest.TestCase):
+    def test_fr033_localized_catalog_matches_pinned_references(self):
+        references = Path(__file__).resolve().parents[1] / "docs/references"
+        jotunn = {}
+        for line in (references / "jotunn-item-list.md").read_text(encoding="utf-8").splitlines():
+            fields = line.split("|")
+            if len(fields) >= 7 and re.fullmatch("[a-f0-9]{32}", fields[2]):
+                jotunn[fields[1].split("<br>")[0]] = fields[4:6]
+        self.assertEqual(set(BY_PREFAB), set(CATALOG))
+        self.assertEqual(LABELS, {prefab: jotunn[prefab] for prefab in CATALOG})
+        valid = set()
+        for line in (references / "items.tsv").read_text(encoding="utf-8").splitlines()[1:]:
+            prefab, inventory_valid, *_ = line.split("\t")
+            if inventory_valid == "true":
+                valid.add(prefab)
+        self.assertLessEqual(valid, CATALOG.keys())
+        self.assertEqual(search_catalog("amber pearl", "Material")[0].prefab, "AmberPearl")
+        self.assertEqual(search_catalog("AmberPearl", None)[0].prefab, "AmberPearl")
+        self.assertFalse(search_catalog("amber pearl", "Armor"))
+
     def test_fr030_hashes_are_unambiguous(self):
         hashes = [stable_hash(name) for name in CATALOG]
         self.assertEqual(len(hashes), len(set(hashes)))
