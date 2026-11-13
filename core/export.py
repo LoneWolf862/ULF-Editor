@@ -8,6 +8,7 @@ import struct
 
 from core.fch import Character, FormatError, stable_hash
 from core.catalog import CATALOG
+from core.inventory_ops import legal_position
 
 
 def export_character(character, source, destination):
@@ -48,7 +49,7 @@ def export_character(character, source, destination):
         if len(current_items) != len(verified.items):
             raise FormatError("More than one item occupies an inventory position.")
         retained=set()
-        protected_item_fields=('prefab_hash','has_prefab','x','y','world_level','picked','variant','crafter_id','crafter_name','custom','tail')
+        protected_item_fields=('prefab_hash','has_prefab','world_level','picked','variant','crafter_id','crafter_name','custom','tail')
         for item,edited in zip(verified.items,character.items):
             origin=edited.origin_index
             previous=None
@@ -68,6 +69,11 @@ def export_character(character, source, destination):
                 ):
                     raise FormatError("A new item is outside the source character's writable slots.")
             else:
+                if (item.x, item.y) != (previous.x, previous.y) and (
+                    not legal_position(original, (previous.x, previous.y))
+                    or not legal_position(original, (item.x, item.y))
+                ):
+                    raise FormatError("An item moved outside the supported inventory.")
                 if item.quality != previous.quality and not 1 <= item.quality <= 65535:
                     raise FormatError("An edited item has an invalid quality value.")
                 if any(getattr(item,name)!=getattr(previous,name) for name in protected_item_fields):

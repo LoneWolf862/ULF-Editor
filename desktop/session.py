@@ -10,6 +10,8 @@ import struct
 from core.editing import apply_item, apply_skills, remove_item
 from core.fch import Character, FormatError, SKILLS
 from core.item_stats import calculate_item_stats
+from core.history import History
+from core.inventory_ops import move_item, duplicate_item, replace_item, fill_stack
 from desktop.item_catalog import item_entry
 
 
@@ -112,6 +114,7 @@ class Session:
         self.next_item = 0
         self.revision = self.exported_revision = sha256(character.original).digest()
         self.export_path = None
+        self.history = History()
 
     @staticmethod
     def original_items(character):
@@ -152,20 +155,66 @@ class Session:
             if extra:
                 apply_item(character, item, dict(extra))
             items[key] = item
-        else:
+        elif action in ("move", "swap"):
+            move_item(character, items[key], values, swap=action == "swap")
+        elif action == "duplicate":
+            new_key, destination = values
+            items[new_key] = duplicate_item(character, items[key], destination)
+        elif action == "replace":
+            new_key, prefab, quality, stack = values
+            items[new_key] = replace_item(character, items[key], prefab, quality, stack)
+            del items[key]
+        elif action == "fill":
+            fill_stack(character, items[key])
+        elif action == "skill":
             apply_skills(character, [values])
+        else:
+            raise FormatError("Unsupported editing command.")
 
-    def publish(self, character, items, commands):
+    def publish(self, character, items, commands, label="Edit"):
         # Verify serialization before exposing the candidate to any widget.
         revision = sha256(character.serialize()).digest()
+        if revision != self.revision:
+            self.history.record(label, (self.working, self.items, self.commands),
+                                (character, items, commands))
         self.working, self.items, self.commands = character, items, commands
         self.revision = revision
 
     def apply(self, command):
         character, items = deepcopy((self.working, self.items))
         self.run_command(character, items, command)
-        self.publish(character, items, [*self.commands, command])
+        self.publish(character, items, [*self.commands, command], command.action.title())
         self.item_drafts.pop(command.key, None)
+
+    def undo(self):
+        self._travel(False)
+
+    def redo(self):
+        self._travel(True)
+
+    def _travel(self, redo):
+        if self.has_drafts:
+            raise FormatError("Apply or revert all form drafts before Undo/Redo.")
+        if not (self.history.future if redo else self.history.past):
+            return
+        self.working, self.items, self.commands = self.history.redo() if redo else self.history.undo()
+        self.revision = sha256(self.working.serialize()).digest()
+
+    def organize(self, key, action, values=()):
+        if self.has_drafts:
+            raise FormatError("Apply or revert all form drafts before inventory quick actions.")
+        if action not in ("move", "swap", "duplicate", "replace", "fill"):
+            raise FormatError("Unsupported inventory quick action.")
+        new_key = ("new", self.next_item)
+        if action == "duplicate":
+            values = (new_key, tuple(values))
+        elif action == "replace":
+            values = (new_key, *values)
+        self.apply(Command(key, action, tuple(values)))
+        if action in ("duplicate", "replace"):
+            self.next_item += 1
+            return new_key
+        return key
 
     def edit_item(self, key, changes):
         item = self.items[key]
@@ -221,7 +270,7 @@ class Session:
         ]
         for command in commands:
             self.run_command(character, items, command)
-        self.publish(character, items, [*self.commands, *commands])
+        self.publish(character, items, [*self.commands, *commands], "Repair" if len(commands) == 1 else "Repair All")
 
     def remove_item(self, key):
         item = self.items[key]
@@ -239,7 +288,7 @@ class Session:
         if changes:
             apply_skills(character, changes)
             commands = [Command(("skill", row[0]), "skill", row) for row in changes]
-            self.publish(character, items, [*self.commands, *commands])
+            self.publish(character, items, [*self.commands, *commands], "Edit skills")
         self.skill_drafts.clear()
 
     def changes(self):
@@ -253,6 +302,8 @@ class Session:
             title = f"{item_name(item)} · {slot_name(position)}"
             details = []
             warning = ""
+            if before and after and (before.x, before.y) != position:
+                details.append(f"Position  {slot_name((before.x, before.y))} → {slot_name(position)}")
             for field, label in ITEM_FIELDS.items():
                 old = getattr(before, field, None)
                 new = getattr(after, field, None)
@@ -297,6 +348,8 @@ class Session:
         return set()
 
     def discard(self, keys):
+        if any(c.action in ("move", "swap", "duplicate", "replace") for c in self.commands):
+            raise FormatError("Use Undo or Discard All for dependent inventory operations.")
         character = deepcopy(self.baseline)
         items = self.original_items(character)
         commands = [command for command in self.commands if command.key not in keys]
