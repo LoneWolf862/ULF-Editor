@@ -1,5 +1,19 @@
 # Changelog
 
+## Alpha 0.4 — Unreleased
+
+- General Undo/Redo for supported item/skill edits and inventory transactions.
+- Validated Move/Swap with previewed drag/drop and keyboard alternatives.
+- Duplicate, explicit fresh-item Replacement and verified Fill Stack previews.
+- Conservative equipment conflict management, equipped badges and overview.
+- Complete affected-record previews and net change review; stale proposals fail
+  without applying. Existing Save As and unknown/cheat metadata protections retained.
+- 126 passing Windows automated tests, including offscreen Qt tests. Native
+  Windows interaction, Linux and Alpha 0.4 game load/resave acceptance remain pending.
+
+Scope, rejected metadata/equipment cases and owner checklist:
+[Alpha 0.4 report](docs/ALPHA_0.4_INVENTORY_MANAGEMENT.md). No release tag or main merge.
+
 ## Alpha 0.3.1 — 2026-11-13
 
 Owner-approved release, tag `v0.3.1-alpha`. Includes the Alpha 0.3 statistics
