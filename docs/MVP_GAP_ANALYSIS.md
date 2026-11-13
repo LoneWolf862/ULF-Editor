@@ -1,5 +1,7 @@
 # ULF Editor Alpha 0.1 MVP gap analysis
 
+The [Alpha 0.3 item statistics report](ALPHA_0.3_ITEM_STATS.md) supersedes the historical durability findings for the eight verified prefabs. It records calculated previews, transactional repair coverage, and the remaining catalog and platform gaps.
+
 **Audit date** November 11, 2026
 
 **Release assessment (updated 2026-11-12): INITIAL WINDOWS AND IN-GAME ACCEPTANCE PASSED for Alpha 0.1.1.** The automated stabilization gate passes; full MVP and production release acceptance remain open. The detailed Alpha 0.1 audit below is historical evidence, superseded by this update where applicable.

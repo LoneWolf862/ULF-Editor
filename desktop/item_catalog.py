@@ -8,7 +8,7 @@ from core.catalog import CATALOG
 from core.fch import stable_hash
 
 
-CATALOG_VERSION = "Valheim 1.0.21 evidence · Jötunn 1.0.7 names and categories"
+CATALOG_VERSION = "Valheim 1.0.21 ObjectDB audit · Jötunn 1.0.7 labels with verified overrides"
 LABELS = json.loads(Path(__file__).with_name("item_labels.json").read_text(encoding="utf-8"))
 CATEGORY_NAMES = {
     "AmmoNonEquipable": "Ammo", "OneHandedWeapon": "Weapon",
@@ -31,9 +31,18 @@ class CatalogEntry:
 def build_catalog():
     for prefab, metadata in CATALOG.items():
         name, category = LABELS.get(prefab, (metadata["name"], "Misc"))
+        source = metadata.get("source", "Source unavailable")
+        if metadata.get("display_name"):
+            name = metadata["display_name"]
+            source += "\nDisplay name: " + metadata["display_name_source"]
+        elif name.startswith("[") and name.endswith("]"):
+            name = prefab
+            source += "\nDisplay name unavailable: showing the verified prefab identifier."
+        else:
+            source += "\nDisplay name/category: pinned Jötunn 1.0.7 reference."
         yield CatalogEntry(prefab, name, CATEGORY_NAMES.get(category, category),
                            metadata.get("max_stack"), metadata.get("max_quality"),
-                           metadata.get("source", "Source unavailable"))
+                           source)
 
 
 ENTRIES = tuple(build_catalog())

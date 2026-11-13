@@ -140,7 +140,7 @@ class Window(QMainWindow):
         wordmark.setObjectName("brand")
         brand.addWidget(wordmark)
         brand.addStretch(1)
-        brand.addWidget(label("ᚢ   Alpha 0.2", "muted"))
+        brand.addWidget(label("ᚢ   Alpha 0.3.1", "muted"))
         shell.addLayout(brand)
 
         header = panel()
