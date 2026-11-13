@@ -8,6 +8,12 @@ from core.fch import FormatError, stable_hash
 from core.item_stats import calculate_item_stats
 
 
+_PREFABS = {}
+for _prefab in CATALOG:
+    _identifier = stable_hash(_prefab)
+    _PREFABS[_identifier] = None if _identifier in _PREFABS else _prefab
+
+
 def legal_position(character, position):
     return (isinstance(position, (tuple, list)) and len(position) == 2
             and all(type(n) is int for n in position)
@@ -18,14 +24,14 @@ def legal_position(character, position):
 def verified_item(character, item):
     if not character.roundtrip or not any(i is item for i in character.items):
         raise FormatError("Select an existing validated item.")
-    matches = [p for p in CATALOG if stable_hash(p) == item.prefab_hash]
-    if not item.has_prefab or len(matches) != 1 or CATALOG[matches[0]].get("max_stack") is None:
+    prefab = _PREFABS.get(item.prefab_hash)
+    if not item.has_prefab or prefab is None or CATALOG[prefab].get("max_stack") is None:
         raise FormatError("Unknown or ambiguous items must remain unchanged.")
     if len({(i.x, i.y) for i in character.items}) != len(character.items):
         raise FormatError("Duplicate positions prevent inventory organization.")
     if not legal_position(character, (item.x, item.y)):
         raise FormatError("The source position is outside the supported inventory.")
-    return matches[0]
+    return prefab
 
 
 def move_item(character, item, destination, *, swap=False):

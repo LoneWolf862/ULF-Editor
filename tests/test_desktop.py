@@ -564,3 +564,148 @@ class DesktopTests(unittest.TestCase):
             self.assertEqual(self.session.working.items[-1].prefab_hash, stable_hash("AmberPearl"))
             self.export_to(self.target)
         self.assertTrue(Character(self.target.read_bytes()).roundtrip)
+
+    def load_management_fixture(self):
+        self.load_fixture(current_character_bytes(item_bytes=[
+            Item(stable_hash("SwordIron"), 0, 0, quality=8, durability_raw=109210,
+                 crafter_id=42, crafter_name="Synthetic").to_bytes(),
+            Item(stable_hash("ShieldWood"), 1, 0, durability_raw=100).to_bytes(),
+            Item(stable_hash("Wood"), 2, 0, stack=3).to_bytes(),
+            Item(-7654321, 3, 0, custom=[("mod", "opaque")], tail=5).to_bytes(),
+        ]))
+
+    def test_fr020_visible_history_buttons_and_keyboard_preserve_drafts(self):
+        self.load_management_fixture()
+        self.set_item_value("quality", "9")
+        self.inventory.apply_button.click()
+        after = self.session.working.serialize()
+        self.assertTrue(self.window.undo_button.isEnabled())
+        self.inventory.grid.setFocus()
+        QTest.keyClick(self.inventory.grid, Qt.Key.Key_Z, Qt.KeyboardModifier.ControlModifier)
+        self.assertEqual(self.session.working.serialize(), self.session.baseline.original)
+        QTest.keyClick(self.inventory.grid, Qt.Key.Key_Y, Qt.KeyboardModifier.ControlModifier)
+        self.assertEqual(self.session.working.serialize(), after)
+        self.window.undo_button.click()
+        QTest.keyClick(self.inventory.grid, Qt.Key.Key_Z,
+                       Qt.KeyboardModifier.ControlModifier | Qt.KeyboardModifier.ShiftModifier)
+        self.assertEqual(self.session.working.serialize(), after)
+        self.set_item_value("quality", "10")
+        self.assertFalse(self.window.undo_button.isEnabled())
+        QTest.keyClick(self.inventory.fields.editors["quality"], Qt.Key.Key_Z,
+                       Qt.KeyboardModifier.ControlModifier)
+        self.assertEqual(self.session.working.serialize(), after)
+        self.assertEqual(self.inventory.fields.editors["quality"].text(), "10")
+        self.assertIn("drafts", self.window.status.text())
+
+    def test_fr054_duplicate_preview_cancel_apply_undo_redo_export(self):
+        from desktop.inventory_actions import operation_text
+        self.load_management_fixture()
+        original = self.session.working.serialize()
+        def confirm(parent, title, before, after):
+            text = operation_text(before, after)
+            self.assertIn("Crafter ID/name: 42 / Synthetic", text)
+            self.assertIn("Equipped: False", text)
+            self.assertIn("Quality 8", text)
+            return False
+        with patch("desktop.inventory.confirm_operation", side_effect=confirm):
+            self.inventory.stage_operation(("item", 0), "duplicate", (4, 0))
+        self.assertEqual(self.session.working.serialize(), original)
+        with patch("desktop.inventory.confirm_operation", return_value=True):
+            self.inventory.stage_operation(("item", 0), "duplicate", (4, 0))
+        self.assertEqual(self.inventory.position, (4, 0))
+        self.assertIn("Duplicate", self.window.changes[0].title)
+        self.window.undo_button.click()
+        self.assertEqual(self.session.working.serialize(), original)
+        self.window.redo_button.click()
+        self.export_to(self.target)
+        self.assertEqual(len(Character(self.target.read_bytes()).items), 5)
+        self.assertEqual(self.source.read_bytes(), original)
+
+    def test_fr019_grid_drop_uses_preview_transaction_and_rejects_external_stale(self):
+        from types import SimpleNamespace
+        from PySide6.QtCore import QPointF
+        self.load_management_fixture()
+        grid = self.inventory.grid
+        grid.drag_key = ("item", 0)
+        grid.drag_generation = self.session.generation
+        point = grid.visualRect(self.inventory.model.index(0, 1)).center()
+        accepted = []
+        event = SimpleNamespace(position=lambda: QPointF(point), source=lambda: grid,
+                                acceptProposedAction=lambda: accepted.append(True),
+                                ignore=lambda: accepted.append(False))
+        original = self.session.working.serialize()
+        with patch("desktop.inventory.confirm_operation", return_value=False):
+            grid.dropEvent(event)
+        self.assertEqual(self.session.working.serialize(), original)
+        with patch("desktop.inventory.confirm_operation", return_value=True):
+            grid.dragMoveEvent(event)
+            self.assertEqual(grid.drop_target, (1, 0))
+            grid.dropEvent(event)
+        self.assertEqual(self.session.items[("item", 0)].x, 1)
+        self.assertEqual(self.session.items[("item", 1)].x, 0)
+        self.assertEqual(self.inventory.key, ("item", 0))
+        self.assertEqual(len(self.window.changes), 2)
+        self.assertFalse(grid.can_drop((4, 0)))  # stale drag generation
+        after = self.session.working.serialize()
+        event.source = lambda: object()
+        grid.dropEvent(event)
+        self.assertEqual(self.session.working.serialize(), after)
+        self.assertFalse(accepted[-1])
+        self.window.undo_button.click()
+        self.assertEqual(self.session.working.serialize(), original)
+
+    def test_fr071_keyboard_destination_dialog_and_fill_quick_action(self):
+        self.load_management_fixture()
+        with patch("desktop.inventory.DestinationDialog.exec", return_value=QDialog.DialogCode.Accepted), \
+             patch("desktop.inventory.confirm_operation", return_value=True):
+            self.inventory.quick_buttons["move"].click()
+        self.assertEqual(self.session.items[("item", 0)].x, 1)
+        self.select(2, 0)
+        with patch("desktop.inventory.confirm_operation", return_value=True):
+            self.inventory.quick_buttons["fill"].click()
+        self.assertEqual(self.session.items[("item", 2)].stack, 50)
+        self.assertFalse(self.inventory.quick_buttons["fill"].isEnabled())
+        self.select(3, 0)
+        self.assertTrue(all(not b.isEnabled() for b in self.inventory.quick_buttons.values()))
+
+    def test_fr054_replacement_dialog_full_preview_and_metadata_reset(self):
+        from desktop.inventory_actions import ReplacementDialog, operation_text
+        self.load_management_fixture()
+        def choose(dialog):
+            dialog.search.setText("AxeBronze")
+            dialog.results.setCurrentRow(0)
+            dialog.quality.setValue(8)
+            return QDialog.DialogCode.Accepted
+        def confirm(parent, title, before, after):
+            text = operation_text(before, after)
+            for expected in ("SwordIron", "AxeBronze", "1092.10", "475.00", "42 / Synthetic", "0 / (none)"):
+                self.assertIn(expected, text)
+            return True
+        with patch.object(ReplacementDialog, "exec", choose), \
+             patch("desktop.inventory.confirm_operation", side_effect=confirm):
+            self.inventory.quick_buttons["replace"].click()
+        self.assertEqual(self.session.working.items[0].prefab_hash, stable_hash("AxeBronze"))
+        self.assertEqual(len(self.window.changes), 2)
+        self.window.undo_button.click()
+        self.assertEqual(self.session.working.serialize(), self.session.baseline.original)
+
+    def test_fr090_equipment_preview_overview_and_flag_control(self):
+        self.load_management_fixture()
+        self.assertFalse(self.inventory.fields.equipped.isEnabled())
+        with patch("desktop.inventory.confirm_operation", return_value=True):
+            self.inventory.quick_buttons["equip"].click()
+        self.assertTrue(self.session.items[("item", 0)].equipped)
+        self.assertIn("Iron Sword", self.inventory.equipped_overview.text())
+        self.assertIn("Equipped", self.inventory.model.index(0, 0).data(ACCESSIBLE))
+        self.window.undo_button.click()
+        self.assertFalse(self.session.items[("item", 0)].equipped)
+
+    def test_fr072_changed_state_during_preview_is_rejected(self):
+        self.load_management_fixture()
+        def changed(parent, title, before, after):
+            self.session.edit_item(("item", 1), {"quality": 2})
+            return True
+        with patch("desktop.inventory.confirm_operation", side_effect=changed):
+            self.inventory.stage_operation(("item", 0), "move", (4, 0))
+        self.assertEqual(self.session.items[("item", 0)].x, 0)
+        self.assertIn("fresh operation preview", self.inventory.error.text())

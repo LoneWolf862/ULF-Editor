@@ -45,7 +45,7 @@ class InventoryManagementTests(unittest.TestCase):
             lambda s: s.edit_item(("item", 0), {"quality": 65535}),
             lambda s: s.edit_item(("item", 1), {"stack": 4}),
             lambda s: s.edit_item(("item", 0), {"durability_raw": 109211}),
-            lambda s: s.edit_item(("item", 0), {"equipped": False}),
+            lambda s: s.organize(("item", 0), "equip", (False,)),
             lambda s: s.add_item("Stone", (4, 0), 1, 1, {}),
             lambda s: s.remove_item(("item", 1)),
             lambda s: s.apply_repairs(s.repair_plan([("item", 0)])),

@@ -11,6 +11,7 @@ from core.editing import apply_item, apply_skills, remove_item
 from core.fch import Character, FormatError, SKILLS
 from core.item_stats import calculate_item_stats
 from core.history import History
+from core.equipment import equip_item
 from core.inventory_ops import move_item, duplicate_item, replace_item, fill_stack
 from desktop.item_catalog import item_entry
 
@@ -102,6 +103,13 @@ class RepairPlan:
     skipped: tuple
 
 
+@dataclass(frozen=True)
+class OperationPlan:
+    generation: int
+    command: Command
+    expected: bytes
+
+
 class Session:
     def __init__(self, character, path):
         self.baseline = character
@@ -115,6 +123,7 @@ class Session:
         self.revision = self.exported_revision = sha256(character.original).digest()
         self.export_path = None
         self.history = History()
+        self.generation = 0
 
     @staticmethod
     def original_items(character):
@@ -166,6 +175,8 @@ class Session:
             del items[key]
         elif action == "fill":
             fill_stack(character, items[key])
+        elif action == "equip":
+            equip_item(character, items[key], values[0])
         elif action == "skill":
             apply_skills(character, [values])
         else:
@@ -174,11 +185,12 @@ class Session:
     def publish(self, character, items, commands, label="Edit"):
         # Verify serialization before exposing the candidate to any widget.
         revision = sha256(character.serialize()).digest()
-        if revision != self.revision:
+        if revision != self.revision or set(items) != set(self.items):
             self.history.record(label, (self.working, self.items, self.commands),
                                 (character, items, commands))
         self.working, self.items, self.commands = character, items, commands
         self.revision = revision
+        self.generation += 1
 
     def apply(self, command):
         character, items = deepcopy((self.working, self.items))
@@ -199,25 +211,46 @@ class Session:
             return
         self.working, self.items, self.commands = self.history.redo() if redo else self.history.undo()
         self.revision = sha256(self.working.serialize()).digest()
+        self.generation += 1
 
-    def organize(self, key, action, values=()):
+    def preview_operation(self, key, action, values=()):
         if self.has_drafts:
             raise FormatError("Apply or revert all form drafts before inventory quick actions.")
-        if action not in ("move", "swap", "duplicate", "replace", "fill"):
+        if action not in ("move", "swap", "duplicate", "replace", "fill", "equip"):
             raise FormatError("Unsupported inventory quick action.")
+        if key not in self.items:
+            raise FormatError("Select an existing item.")
         new_key = ("new", self.next_item)
         if action == "duplicate":
             values = (new_key, tuple(values))
         elif action == "replace":
             values = (new_key, *values)
-        self.apply(Command(key, action, tuple(values)))
-        if action in ("duplicate", "replace"):
+        command = Command(key, action, tuple(values))
+        character, items = deepcopy((self.working, self.items))
+        self.run_command(character, items, command)
+        return OperationPlan(self.generation, command, character.serialize()), items
+
+    def apply_operation(self, plan):
+        if self.has_drafts or plan.generation != self.generation:
+            raise FormatError("Inventory or drafts changed. Review a fresh operation preview.")
+        character, items = deepcopy((self.working, self.items))
+        self.run_command(character, items, plan.command)
+        if character.serialize() != plan.expected:
+            raise FormatError("The operation no longer matches its preview.")
+        self.publish(character, items, [*self.commands, plan.command], plan.command.action.title())
+        if plan.command.action in ("duplicate", "replace"):
             self.next_item += 1
-            return new_key
-        return key
+            return plan.command.values[0]
+        return plan.command.key
+
+    def organize(self, key, action, values=()):
+        plan, _ = self.preview_operation(key, action, values)
+        return self.apply_operation(plan)
 
     def edit_item(self, key, changes):
         item = self.items[key]
+        if "equipped" in changes and changes["equipped"] != item.equipped:
+            raise FormatError("Use the Equip/Unequip preview for equipment changes.")
         if item.x >= 8 or (item.x, item.y) in self.duplicate_positions:
             raise FormatError("This inventory record cannot be edited at its saved position.")
         if changes:
@@ -279,6 +312,8 @@ class Session:
         self.apply(Command(key, "remove", ()))
 
     def add_item(self, prefab, position, stack, quality, extra):
+        if extra.get("equipped"):
+            raise FormatError("Create unequipped, then use the equipment preview.")
         key = ("new", self.next_item)
         self.apply(Command(key, "add", (prefab, *position, stack, quality, tuple(extra.items()))))
         self.next_item += 1
@@ -294,6 +329,8 @@ class Session:
     def changes(self):
         originals = self.original_items(self.baseline)
         changes = []
+        created_by = {c.values[0]: c.action for c in self.commands if c.action in ("duplicate", "replace")}
+        replaced = {c.key for c in self.commands if c.action == "replace"}
         for key in dict.fromkeys([*originals, *self.items]):
             before, after = originals.get(key), self.items.get(key)
             item = after if after is not None else before
@@ -312,9 +349,21 @@ class Session:
             if not details:
                 continue
             if after is None:
-                title = f"Remove {title}"
+                title = f"{'Replace original' if key in replaced else 'Remove'} {title}"
             elif before is None:
-                title = f"Add {title}"
+                action = {"duplicate": "Duplicate", "replace": "Replacement"}.get(created_by.get(key), "Add")
+                title = f"{action} {title}"
+            elif (before.x, before.y) != position:
+                action = "Swap" if any(c.key == key and c.action == "swap" for c in self.commands) else "Move"
+                title = f"{action} {title}"
+            if before is None or after is None:
+                stats = calculate_item_stats(item)
+                maximum = stats.maximum_durability if stats else None
+                details.extend((f"Prefab  {entry.prefab if entry else item.prefab_hash}",
+                                f"Maximum durability  {maximum if maximum is not None else 'unavailable/inapplicable'}",
+                                f"Crafter  {item.crafter_id} / {item.crafter_name or '(none)'}",
+                                f"Variant {item.variant} · World level {item.world_level} · Picked up {item.picked}",
+                                f"Custom records {len(item.custom)} · Trailing flags {item.tail}"))
             if after and (before is None or after.quality != before.quality):
                 if entry and entry.maximum_quality is not None and after.quality > entry.maximum_quality:
                     warning = f"Quality exceeds the vanilla maximum ({entry.maximum_quality}). Gameplay may differ."
@@ -348,7 +397,7 @@ class Session:
         return set()
 
     def discard(self, keys):
-        if any(c.action in ("move", "swap", "duplicate", "replace") for c in self.commands):
+        if any(c.action in ("move", "swap", "duplicate", "replace", "equip") for c in self.commands):
             raise FormatError("Use Undo or Discard All for dependent inventory operations.")
         character = deepcopy(self.baseline)
         items = self.original_items(character)
