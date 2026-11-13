@@ -1,7 +1,27 @@
 # Alpha 0.3.1 owner acceptance
 
-Prepared November 13, 2026. **Not yet run by the owner.** Record pass/fail and
-observations below; no merge or release follows automatically.
+Prepared November 13, 2026. **Owner acceptance approved for the tested functionality.**
+The owner subsequently explicitly authorized the Alpha 0.3.1 merge and release.
+The procedure below is retained for reproduction; unchecked cases are not
+implicitly marked passed.
+
+## Recorded owner results — November 13, 2026
+
+The owner reported success for all of the following:
+
+- Moose Hide Cape is correctly identified.
+- Individual Repair functions correctly.
+- Repair All functions correctly.
+- The edited character exports successfully.
+- The modified character loads in Valheim 1.0.21.
+- Repaired equipment remains correct after saving in-game.
+- The character reopens successfully after the game saves it.
+
+These are owner-reported results, not a new agent-observed game run. The owner
+approved this tested scope and explicitly authorized release. Exact game build,
+mods, DPI, every numeric maximum, extreme qualities and the full accessibility
+matrix were not separately reported. **Native Linux testing remains pending.**
+See [release notes](ALPHA_0.3.1_RELEASE.md) for the remaining limitations.
 
 Scope: FR-001–005, FR-011/015–018/030–033/050–054/057/060–063/071–073,
 NFR-001–003. Use Valheim 1.0.21 (audited build 26249040); record the actual game,

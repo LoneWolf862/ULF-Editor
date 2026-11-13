@@ -1,6 +1,6 @@
 # ULF — Valheim Character Workshop
 
-A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.2.1** adds Valheim 1.0.21 save compatibility to the Alpha 0.2 interface. See the [compatibility report](docs/ALPHA_0.2.1_COMPATIBILITY.md) for verification and the in-game test checklist.
+A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.3.1** adds comprehensive vanilla catalog coverage, equipment statistics, Individual Repair and previewed Repair All for Valheim 1.0.21. The owner approved the tested repair/export/game-resave workflow. See the [release notes](docs/ALPHA_0.3.1_RELEASE.md) and [changelog](CHANGELOG.md) for scope and limitations.
 
 ## Run on CachyOS / Linux
 
@@ -39,13 +39,14 @@ Installation needs the dependencies. Normal application use is offline. Python 3
 
 ## Known limitations
 
-- The bundled offline catalog has **821 entries** with sourced stack limits. It identifies 30 of 33 items in the 1.0.21 sample. Unknown records remain read-only and are preserved exactly across unrelated edits.
+- The bundled offline catalog has **1,049 entries**, including all **927 verified ordinary inventory candidates**, with **288 verified maximum durability definitions** and **285 repairable equipment types**. All 33 records in the tested 1.0.21 sample are identified. Unknown records remain read-only and are preserved exactly across unrelated edits. Eleven entries use prefab identifiers because friendly names are unavailable; 122 retained legacy entries lack verified statistics.
 - Real-file evidence covers **46 / 33 / 109 / 2** and **47 / 34 / 110 / 2**. Other accepted legacy combinations have synthetic coverage. Unsupported versions are rejected.
 - Character preview currently requires a profile in the supported versions. For older saves, additional adapters are needed.
 - Creation is limited to the first six rows and, on 1.0.21, to the save's verified pocket capacity. Existing higher-row items remain visible. Ambiguous positions appear in inventory diagnostics.
 - Item artwork uses original ULF silhouettes and category fallbacks. Drag/drop, backup recovery, cloud sync conflict handling, and achievement verification remain outside the current interface work.
 - Save editing and avoiding console commands do **not** guarantee achievements; character/world/mod state can affect eligibility.
-- Close Valheim before using or replacing saves; make an independent backup. The app itself never loads a character automatically.
+- Close Valheim before using or replacing saves; make an independent backup. Open a character explicitly or supply its path when launching the app.
+- Native Linux, the full Windows accessibility/DPI matrix and extreme-quality gameplay remain unverified. Statistics are build-specific item values, not final combat predictions; positive-world-level damage/armor and projectile effects are unavailable.
 
 Real character files are **not bundled**. Checked-in tests use synthetic fixtures. Public reference notices and factual catalog provenance are in `docs/references/`; no game artwork or executables are included.
 
@@ -59,4 +60,4 @@ On Linux use `.venv/bin/python -B -m unittest discover -s tests -v`. Desktop tes
 
 ## Next milestones
 
-Alpha 0.2.1 still needs the owner’s in-game load and resave test, native Windows and Linux workflow checks, and comprehensive catalog verification. Advanced sorting, drag-and-drop and equipment management are post-MVP. See [the approved requirements](REQUIREMENTS.md).
+Recommended next milestone: desktop reliability and usability acceptance, including native Linux/offline checks, accessibility, undo/redo and recovery planning. Advanced sorting, drag-and-drop and equipment management remain post-MVP. Alpha 0.4 implementation has not begun. See [the approved requirements](REQUIREMENTS.md).

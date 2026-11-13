@@ -1,6 +1,14 @@
 # Alpha 0.3.1 release-candidate validation
 
-November 13, 2026 (America/Denver). **PARTIALLY READY**: automated and local
+**Release update — November 13, 2026:** The owner approved the tested identity,
+repair, export, Valheim 1.0.21 load, game-save persistence and reopening workflow,
+and explicitly authorized merge and release. All **101 automated tests pass**
+again on the release candidate. See the [owner result record](ALPHA_0.3.1_OWNER_ACCEPTANCE.md)
+and [release notes](ALPHA_0.3.1_RELEASE.md). Native Linux and broader accessibility/
+edge-case coverage remain pending. The earlier assessment below is historical;
+its requirement for explicit owner approval is now satisfied.
+
+Original assessment, November 13, 2026 (America/Denver): **PARTIALLY READY**: automated and local
 save-integrity gates pass; native interaction/visual acceptance and in-game
 acceptance remain open. No confirmed production defect was found or fixed.
 No merge, tag or release was performed. The owner should complete the
