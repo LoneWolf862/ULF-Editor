@@ -314,6 +314,79 @@ class DesktopTests(unittest.TestCase):
         self.export_to(self.target)
         self.assertEqual(Character(self.target.read_bytes()).items[0].durability_raw, 25)
 
+    def test_fr018_reported_equipment_repair_all_preserves_unknown_and_cheat_metadata(self):
+        rows = [
+            Item(stable_hash("SwordGold_BloodLightning"), 0, 0, quality=8, durability_raw=71500,
+                 equipped=True, crafter_id=42, crafter_name="Synthetic", custom=[("fixture", "keep")], tail=5),
+            Item(stable_hash("StaffThunderBlood"), 1, 0, quality=8, durability_raw=73300, tail=7),
+            Item(stable_hash("CapeDeepNorth"), 2, 0, quality=32, durability_raw=272700, tail=5),
+            Item(stable_hash("Ice"), 3, 0, stack=3),
+            Item(-7654321, 4, 0, custom=[("unknown", "preserved")], tail=255),
+            Item(stable_hash("Beard1"), 5, 0),
+        ]
+        self.load_fixture(current_character_bytes(item_bytes=[item.to_bytes() for item in rows]))
+        original = self.source.read_bytes()
+        plan = self.session.repair_plan()
+        self.assertEqual(len(plan.changes), 3)
+        self.assertEqual(len(plan.skipped), 3)
+        self.session.apply_repairs(plan)
+        for item, raw in zip(rows, (75000, 75000, 275000)):
+            item.durability_raw = raw
+        self.assertEqual(self.session.working.items, rows)
+        self.export_to(self.target)
+        reopened = Character(self.target.read_bytes())
+        self.assertEqual(reopened.items, rows)
+        self.assertEqual(reopened.items[4].to_bytes(), self.session.baseline.items[4].to_bytes())
+        self.assertEqual(reopened._skill_bytes, self.session.baseline._skill_bytes)
+        self.assertEqual(self.source.read_bytes(), original)
+
+    def test_fr018_cape_quality_preserves_current_durability_and_advanced_details(self):
+        cape = Item(stable_hash("CapeDeepNorth"), 0, 0, quality=32, durability_raw=272700, tail=5)
+        self.load_fixture(current_character_bytes(item_bytes=[cape.to_bytes()]))
+        self.assertIn("2727.00 / 2750.00", self.inventory.stat_summary.text())
+        self.assertIn("99.2%", self.inventory.stat_summary.text())
+        self.assertNotIn("raw", self.inventory.metadata.text())
+        self.assertNotIn("CapeDeepNorth", self.inventory.metadata.text())
+        def inspect(dialog):
+            self.assertIn("CapeDeepNorth", dialog.text())
+            self.assertIn("272700 hundredths", dialog.text())
+            self.assertIn("26249040", dialog.text())
+            return QMessageBox.StandardButton.Ok
+        with patch.object(QMessageBox, "exec", inspect):
+            self.inventory.source_button.click()
+        self.set_item_value("quality", "50")
+        self.inventory.apply_button.click()
+        self.assertEqual(self.session.working.items[0].durability_raw, 272700)
+        self.assertIn("2727.00 / 3650.00", self.inventory.stat_summary.text())
+        self.inventory.repair_button.click()
+        self.assertEqual(self.session.working.items[0].durability_raw, 365000)
+
+    def test_fr032_unknown_missing_catalog_metadata_and_missing_stats_have_distinct_messages(self):
+        from dataclasses import replace
+        from desktop.item_catalog import BY_HASH
+        self.load_fixture(current_character_bytes(item_bytes=[Item(-7654321, 0, 0).to_bytes()]))
+        self.assertIn("Unknown prefab", self.inventory.stat_summary.text())
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+        beard = Item(stable_hash("Beard1"), 0, 0)
+        self.load_fixture(current_character_bytes(item_bytes=[beard.to_bytes()]))
+        self.assertIn("Missing item statistics", self.inventory.stat_summary.text())
+        self.assertNotIn("Unknown prefab", self.inventory.metadata.text())
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+        identifier = stable_hash("CapeDeepNorth")
+        with patch.dict(BY_HASH, {identifier: replace(BY_HASH[identifier], maximum_stack=None)}):
+            self.load_fixture(current_character_bytes(item_bytes=[Item(identifier, 0, 0).to_bytes()]))
+            self.assertIn("missing catalog metadata", self.inventory.metadata.text())
+            self.assertFalse(self.inventory.apply_button.isVisible())
+            self.assertFalse(self.inventory.repair_button.isEnabled())
+
+    def test_fr018_ammunition_shows_damage_without_default_block_or_repair(self):
+        arrow = Item(stable_hash("ArrowBloodGold"), 0, 0, stack=100)
+        self.load_fixture(current_character_bytes(item_bytes=[arrow.to_bytes()]))
+        self.assertIn("Pierce 100", self.inventory.stat_summary.text())
+        self.assertNotIn("Base block", self.inventory.stat_summary.text())
+        self.assertNotIn("Armor:", self.inventory.stat_summary.text())
+        self.assertFalse(self.inventory.repair_button.isEnabled())
+
     def test_fr050_save_as_rejects_alias_and_retains_edits(self):
         alias = self.source.with_name("alias.fch")
         os.link(self.source, alias)

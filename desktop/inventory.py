@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (
 )
 
 from core.fch import FormatError
-from core.item_stats import GAME_VERSION, calculate_item_stats
+from core.item_stats import GAME_VERSION, SNAPSHOT, calculate_item_stats
 from desktop.item_catalog import CATALOG_VERSION, ENTRIES, item_entry, search_catalog
 from desktop.session import durability_text, item_name, slot_name
 from desktop.theme import heading, item_icon, label, panel, primary_button, scroll_area, set_invalid, theme_active
@@ -439,7 +439,7 @@ class InventoryPage(QWidget):
         inspector_layout.addLayout(item_header)
         self.metadata = label(role="muted", wrap=True)
         inspector_layout.addWidget(self.metadata)
-        self.source_button = QPushButton("Catalog Source")
+        self.source_button = QPushButton("Advanced Item Details")
         self.source_button.clicked.connect(self.show_source)
         inspector_layout.addWidget(self.source_button, alignment=Qt.AlignmentFlag.AlignLeft)
         self.fields = ItemFields()
@@ -565,8 +565,17 @@ class InventoryPage(QWidget):
             self.show_record(key, (item.x, item.y), True)
 
     def show_source(self):
-        dialog = QMessageBox(QMessageBox.Icon.Information, "Catalog Source",
-                             f"{CATALOG_VERSION}\n\n{self.entry.source}",
+        item = self.session.items[self.key]
+        prefab = self.entry.prefab if self.entry else "Unknown prefab"
+        source = self.entry.source if self.entry else "No verified identity or catalog metadata"
+        stats = SNAPSHOT["items"].get(prefab)
+        evidence = (f"Valheim {GAME_VERSION}, build {SNAPSHOT['steam_build']}\n"
+                    f"{SNAPSHOT['verification']}\nBundle SHA-256: {SNAPSHOT['sha256']}"
+                    if stats else "Statistics have not been verified for this prefab.")
+        dialog = QMessageBox(QMessageBox.Icon.Information, "Advanced Item Details",
+                             f"Prefab: {prefab}\nHash: {item.prefab_hash}\n"
+                             f"Serialized durability: {item.durability_raw} hundredths\n\n"
+                             f"{CATALOG_VERSION}\n{source}\n\nStatistics: {evidence}",
                              QMessageBox.StandardButton.Ok, self)
         dialog.setTextFormat(Qt.TextFormat.PlainText)
         dialog.exec()
@@ -583,20 +592,19 @@ class InventoryPage(QWidget):
             flag_text = ("Legacy item flag byte preserved" if cheated is None else
                          f"Saved cheated flag: {'set' if cheated else 'clear'}")
         self.entry = entry
-        self.source_button.setVisible(entry is not None)
+        self.source_button.setVisible(item is not None)
         self.position_label.setText(slot_name(position))
         self.name.setText(item_name(item) if item else "Conflicting slot" if conflict else "Empty slot")
         self.icon.setPixmap(item_icon(entry).pixmap(42, 42) if item else item_icon(None).pixmap(0, 0))
         self.icon.setVisible(item is not None)
         if entry:
-            meta = (f"{entry.prefab} · {entry.category}\nVerified stack maximum: {entry.maximum_stack}\n"
+            stack_text = str(entry.maximum_stack) if entry.maximum_stack is not None else "unavailable (missing catalog metadata)"
+            meta = (f"{entry.category}\nVerified stack maximum: {stack_text}\n"
                     f"Vanilla quality maximum: {entry.maximum_quality if entry.maximum_quality is not None else 'unavailable'}\n"
-                    f"Saved durability raw value: {item.durability_raw}\n"
                     f"{flag_text}")
             self.metadata.setToolTip(f"{CATALOG_VERSION}\n{entry.source}")
         elif item:
-            meta = (f"Hash {item.prefab_hash} · Unverified metadata. This record is preserved.\n"
-                    f"Saved durability raw value: {item.durability_raw}\n"
+            meta = (f"Unknown prefab · Hash {item.prefab_hash}. This record is preserved.\n"
                     f"{flag_text}")
             self.metadata.setToolTip("")
         elif conflict:
@@ -641,11 +649,13 @@ class InventoryPage(QWidget):
         stored = durability_text(item.durability_raw)
         lines = [f"Valheim {GAME_VERSION} · {'Draft quality' if 'quality' in draft else 'Calculated stats'}"]
         if stats is None or stats.maximum_durability is None:
-            lines.append(f"Durability (stored / max): {stored} / unavailable")
+            lines.append(f"Durability (current / max): {stored} / unavailable")
+            if stats is not None:
+                lines.append("This prefab does not use a verified positive durability maximum.")
         else:
             maximum = stats.maximum_durability
             fraction = stats.durability_fraction(item.durability_raw)
-            lines.append(f"Durability (stored / max): {stored} / {maximum:.2f} · {fraction:.1%}")
+            lines.append(f"Durability (current / max): {stored} / {maximum:.2f} · {fraction:.1%}")
             if item.durability_raw / 100 > maximum:
                 lines.append("Stored durability exceeds the calculated maximum.")
             self.durability_meter.setValue(round(fraction * 1000))
@@ -653,11 +663,13 @@ class InventoryPage(QWidget):
             self.durability_meter.show()
         category = self.entry.category if self.entry else None
         if stats is None:
-            lines.append("Verified statistics unavailable for this item or quality.")
-        elif category in ("Weapon", "Armor", "Shield", "Tool"):
+            lines.append("Unknown prefab: identity must be verified before statistics can be calculated."
+                         if self.entry is None else
+                         "Missing item statistics or unsupported quality: maximum durability is unavailable.")
+        elif category in ("Weapon", "Armor", "Shield", "Tool", "Ammo"):
             if category == "Armor":
                 lines.append(f"Armor: {stats.armor:g}" if stats.armor is not None else "Armor unavailable at this world level.")
-            if category in ("Weapon", "Tool"):
+            if category in ("Weapon", "Tool", "Ammo"):
                 if stats.damage is None:
                     lines.append("Damage unavailable at this world level.")
                 elif stats.damage:

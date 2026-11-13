@@ -31,7 +31,7 @@ Installation needs the dependencies. Normal application use is offline. Python 3
 - Search item names and prefabs offline. Filter by category and inspect verified stack limits and source data.
 - Edit skill levels with synchronized sliders and precise numeric inputs. Expand a row to edit experience explicitly.
 - Apply item or skill drafts, review before/after values, and discard changes before exporting.
-- The Alpha 0.3 development branch previews verified 1.0.21 item statistics and stages individual or bulk durability repairs for supported prefabs. See the [item statistics report](docs/ALPHA_0.3_ITEM_STATS.md) for coverage and acceptance checks.
+- Alpha 0.3.1 audits Valheim 1.0.21's complete ObjectDB registry and supports 927 ordinary inventory candidates with verified statistics (1,049 catalog entries including retained legacy records). Repair supports 285 equipment prefabs. See the [coverage and validation report](docs/ALPHA_0.3.1_ITEM_COVERAGE.md) for exact counts, exclusions, provenance and remaining acceptance checks.
 - **Save As only:** refuses to overwrite the loaded original. Exports verified by loading the result again.
 - Transactional item/skill validation; invalid proposals do not partially apply. Level edits preserve experience unless explicitly changed.
 - Source/hard-link protection, external-change detection, closed temporary-file read-back, checksum/semantic checks and atomic target publication.

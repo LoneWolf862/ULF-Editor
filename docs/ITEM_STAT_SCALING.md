@@ -1,5 +1,10 @@
 # Valheim item statistics and quality scaling
 
+The [Alpha 0.3.1 audit](ALPHA_0.3.1_ITEM_COVERAGE.md) subsequently enumerated the
+complete installed ObjectDB item registry and expanded the offline coefficients.
+The formulas below remain unchanged; the sample-only coverage and open registry
+research notes describe the earlier investigation.
+
 For the subsequent 1.0.21 reader/writer implementation and local save checks, see [Alpha 0.2.1 compatibility](ALPHA_0.2.1_COMPATIBILITY.md).
 
 **Research date** 2026-11-12  

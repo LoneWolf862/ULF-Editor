@@ -1,5 +1,9 @@
 # Alpha 0.3 item statistics and repair
 
+Historical report for commit `454ac4e`. The [Alpha 0.3.1 audit](ALPHA_0.3.1_ITEM_COVERAGE.md)
+supersedes the eight-prefab coverage figures below with the expanded dataset and
+documents the current interface, exclusions and validation results.
+
 **2026-11-12 · Ready for owner testing for the supported prefabs**
 
 ## Implementation and coverage
