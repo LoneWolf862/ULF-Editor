@@ -626,6 +626,11 @@ class DesktopTests(unittest.TestCase):
         from PySide6.QtCore import QPointF
         self.load_management_fixture()
         grid = self.inventory.grid
+        # Qt requires a draggable model index before dispatching startDrag.
+        self.assertTrue(self.inventory.model.flags(self.inventory.model.index(0, 0)) &
+                        Qt.ItemFlag.ItemIsDragEnabled)
+        self.assertFalse(self.inventory.model.flags(self.inventory.model.index(0, 4)) &
+                         Qt.ItemFlag.ItemIsDragEnabled)
         grid.drag_key = ("item", 0)
         grid.drag_generation = self.session.generation
         point = grid.visualRect(self.inventory.model.index(0, 1)).center()

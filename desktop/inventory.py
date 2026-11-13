@@ -51,6 +51,12 @@ class InventoryModel(QAbstractTableModel):
     def columnCount(self, parent=QModelIndex()):
         return 0 if parent.isValid() else 8
 
+    def flags(self, index):
+        flags = super().flags(index)
+        if index.isValid() and len(self.positions.get((index.column(), index.row()), ())) == 1:
+            flags |= Qt.ItemFlag.ItemIsDragEnabled
+        return flags
+
     def data(self, index, role=DISPLAY):
         if not index.isValid():
             return None
