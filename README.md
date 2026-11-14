@@ -2,8 +2,9 @@
 
 A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.3.1** adds comprehensive vanilla catalog coverage, equipment statistics, Individual Repair and previewed Repair All for Valheim 1.0.21. The owner approved the tested repair/export/game-resave workflow. See the [release notes](docs/ALPHA_0.3.1_RELEASE.md) and [changelog](CHANGELOG.md) for scope and limitations.
 
-This development branch implements **Alpha 0.4 inventory management**, ready for
-owner testing within its documented supported scope. It is not a new release.
+This development branch implements **Alpha 0.4 inventory management**. The owner
+reported successful Windows manual and Valheim in-game load/save acceptance on
+2026-11-14. It awaits PR review and explicit merge/release approval.
 See the [implementation report and acceptance checklist](docs/ALPHA_0.4_INVENTORY_MANAGEMENT.md).
 
 ## Run on CachyOS / Linux
@@ -51,7 +52,7 @@ Installation needs the dependencies. Normal application use is offline. Python 3
 - Creation is limited to the first six rows and, on 1.0.21, to the save's verified pocket capacity. Existing higher-row items remain visible. Ambiguous positions appear in inventory diagnostics.
 - Item artwork uses original ULF silhouettes and category fallbacks. Automatic sorting, backup recovery, cloud sync conflict handling, and achievement verification remain outside the current interface work.
 - Duplicate/Replace and equipment management require inventory v110. Copy/replacement rejects custom data, nonzero variants/world levels and flagged sources. Equipment supports verified saved-slot rules only; context-dependent torches, DLC ownership and unknown/modded equipment are unsupported. Existing records remain preserved.
-- History is in-memory for the current session. Dependent organization changes require Undo or Discard All instead of selective discard. Alpha 0.4 native drag/drop and in-game load/resave acceptance are pending.
+- History is in-memory for the current session. Dependent organization changes require Undo or Discard All instead of selective discard. Owner acceptance covers the tested Windows/game workflow, not every equipment or gameplay edge case.
 - Save editing and avoiding console commands do **not** guarantee achievements; character/world/mod state can affect eligibility.
 - Close Valheim before using or replacing saves; make an independent backup. Open a character explicitly or supply its path when launching the app.
 - Native Linux, the full Windows accessibility/DPI matrix and extreme-quality gameplay remain unverified. Statistics are build-specific item values, not final combat predictions; positive-world-level damage/armor and projectile effects are unavailable.
@@ -67,12 +68,13 @@ Real character files are **not bundled**. Checked-in tests use synthetic fixture
 On Linux use `.venv/bin/python -B -m unittest discover -s tests -v`. Desktop tests use Qt's offscreen platform. See [the stabilization report](docs/ALPHA_0.1.1_RESEARCH.md) for results, source evidence, limitations and the owner’s acceptance results. The optional `tools/inspect_game_items.py` research utility needs UnityPy 1.25.4; the editor itself does not.
 
 Alpha 0.4: **126 passing tests, zero failures/skips** on Windows, including the
-101-test release baseline. Native Linux and Alpha 0.4 game acceptance remain pending.
+101-test release baseline, rerun 2026-11-14. Owner Windows/game acceptance is
+recorded separately; native Linux testing remains pending.
 
 ## Next milestones
 
-Next gate: owner acceptance of Alpha 0.4 on disposable saves, including native
-Windows/Linux, offline use, accessibility and Valheim load/resave. Recovery and
-distribution hardening can follow acceptance. Automatic sorting and broader
+Next gate: review the Alpha 0.4 PR and obtain explicit owner approval before
+merging or publishing. Linux and broader accessibility/DPI testing remain open.
+Recovery and distribution hardening can follow. Automatic sorting and broader
 metadata/equipment policies need separate scope approval. See
 [the approved requirements](REQUIREMENTS.md); its baseline remains unchanged.

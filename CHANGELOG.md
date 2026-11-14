@@ -2,14 +2,19 @@
 
 ## Alpha 0.4 — Unreleased
 
+Owner acceptance recorded 2026-11-14: successful Windows manual testing and
+Valheim in-game load/save verification for the tested Alpha 0.4 workflow.
+Awaiting PR review and explicit approval before merge, tag or publication.
+
 - General Undo/Redo for supported item/skill edits and inventory transactions.
 - Validated Move/Swap with previewed drag/drop and keyboard alternatives.
 - Duplicate, explicit fresh-item Replacement and verified Fill Stack previews.
 - Conservative equipment conflict management, equipped badges and overview.
 - Complete affected-record previews and net change review; stale proposals fail
   without applying. Existing Save As and unknown/cheat metadata protections retained.
-- 126 passing Windows automated tests, including offscreen Qt tests. Native
-  Windows interaction, Linux and Alpha 0.4 game load/resave acceptance remain pending.
+- 126 passing Windows automated tests (rerun 2026-11-14), zero failures/skips,
+  including offscreen Qt tests. Native Linux, broader accessibility/DPI coverage
+  and untested gameplay edge cases remain pending.
 
 Scope, rejected metadata/equipment cases and owner checklist:
 [Alpha 0.4 report](docs/ALPHA_0.4_INVENTORY_MANAGEMENT.md). No release tag or main merge.

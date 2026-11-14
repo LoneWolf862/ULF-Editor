@@ -2,8 +2,23 @@
 
 Development branch: `feature/alpha-0.4-inventory-management`, based on approved
 Alpha 0.3.1 `afd9bd8`. Owner instruction schedules advanced inventory work for
-this milestone; REQUIREMENTS.md remains unchanged. This is development, not a
-release or an in-game compatibility claim.
+this milestone; REQUIREMENTS.md remains unchanged. Owner acceptance is complete;
+the release candidate awaits pull request review and explicit merge/release approval.
+
+## Owner acceptance — recorded 2026-11-14
+
+The project owner reports Alpha 0.4 development and manual acceptance testing
+complete, including successful Windows manual testing and successful Valheim
+in-game load and save verification for the tested workflow. These are
+owner-reported results, separate from the automated checks below. The acceptance
+statement does not provide a per-case log or a complete hardware/DPI matrix;
+it is not treated as evidence for every catalog item, extreme-quality edge case
+or unsupported equipment/metadata policy. The targeted game format remains
+Valheim 1.0.21; no broader version compatibility is claimed.
+
+Native Linux testing remains pending. Owner acceptance authorizes preparation
+of the PR, not merging, tagging or publishing. All three remain gated on a
+subsequent explicit owner approval.
 
 ## Acceptance gates
 
@@ -118,9 +133,10 @@ equipped items can explicitly be unequipped without clearing other flags.
 These are saved-slot constraints, not an emulation of live game state. World
 settings, DLC ownership and transient swimming/attacking/death restrictions are
 not available from this editor. Equipment management requires inventory v110.
-Actual gameplay behavior remains an owner acceptance gate.
+The owner has accepted the tested gameplay workflow; untested contexts remain
+outside that acceptance scope.
 
-## Validation results — 2026-11-13
+## Validation results — rerun 2026-11-14
 
 **126 tests passed; zero failures, zero skips**, using Windows Python/PySide6:
 `.venv/Scripts/python.exe -m unittest discover -s tests -q`.
@@ -139,9 +155,34 @@ source-change safety regressions remain passing.
 
 Desktop tests run with Qt's **offscreen** platform. A synthetic 1366×768 render
 was visually inspected for the new inspector actions and history controls.
-These checks do not constitute native mouse-drag, accessibility or DPI acceptance.
-No Alpha 0.4 in-game load/resave acceptance or native Linux testing has occurred.
-Alpha 0.3.1 owner's earlier acceptance does not establish Alpha 0.4 compatibility.
+These automated checks alone do not constitute native mouse-drag, accessibility
+or DPI acceptance. The separate Alpha 0.4 owner report above establishes
+successful Windows manual and in-game load/save acceptance for the tested
+workflow. Native Linux and the broader accessibility/DPI matrix remain unverified.
+
+## Pre-PR review — 2026-11-14
+
+Reviewed the complete feature-branch diff against `origin/main` (`afd9bd8`),
+including export coordinate validation, transaction identity/history, preview
+staleness checks, drag/drop routing, equipment constraints and regression tests.
+No blocking defect or unintended unrelated modification was identified. The
+branch preserves the original 101 tests and adds 25 tests with parameterized
+subcases. Automated native OS drag-loop coverage and exhaustive slot/category
+combinations remain gaps; the suite is not claimed exhaustive.
+
+REQUIREMENTS.md, the binary codec, catalog and dependency definitions are
+unchanged. The reviewed files contain application code, synthetic tests and
+documentation only: no personal saves, research dumps, binaries, credentials or
+temporary files. No unrelated research branch is included. Compatibility
+limitations remain explicit: copy/replacement and equipment require v110,
+unknown records cannot be organized, and raw equipped-checkbox editing is
+replaced by the validated preview workflow.
+
+Owner review should confirm the documented conservative copy/fresh-replacement
+policies and acceptance of pending Linux coverage for the intended release.
+Formal baseline requirement amendments remain proposals, not implied changes
+from this acceptance record. No new feature implementation is required by this
+review; release authorization is still outstanding.
 
 ## Requirements status and proposed amendments
 
@@ -168,7 +209,11 @@ policy amendments are **proposals for owner review**, not edits to REQUIREMENTS.
   discard should be a later milestone. Current history is session-local and
   dependent organization transactions use Undo or Discard All.
 
-## Owner acceptance checklist
+## Acceptance checklist retained for repeat testing
+
+Windows and game acceptance are recorded above. This list remains available for
+repeat testing; it is not a claim that each subcase has an individually logged
+owner result. Step 7 remains pending.
 
 Use a disposable copy, retain an independent backup and keep Valheim closed
 while editing. Do not replace the original through the editor.
@@ -193,9 +238,10 @@ while editing. Do not replace the original through the editor.
    file dialogs, keyboard navigation, drag/drop and export. Record results
    separately; Linux remains pending until performed.
 
-**READY FOR OWNER TESTING** within the documented conservative scope. This is
-not a release approval. Remaining limitations include native platform and game
-acceptance, opaque copy/replacement policies, unsupported equipment categories,
+**OWNER ACCEPTED — READY FOR PR REVIEW** within the documented conservative
+scope. This is not merge or release approval. Remaining limitations include
+native Linux and broader accessibility/DPI coverage, untested gameplay edge
+cases, opaque copy/replacement policies, unsupported equipment categories,
 legacy copy/equipment support, unbounded in-memory history and inherited
 extreme-quality/build-specific statistic limitations. No merge or release tag
 is authorized by this development milestone.
