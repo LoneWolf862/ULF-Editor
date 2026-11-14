@@ -1,5 +1,26 @@
 # ULF Editor feature expansion plan
 
+## Current milestone update — 2026-11-13
+
+The owner subsequently approved and released Alpha 0.3.1, then explicitly
+scheduled **Alpha 0.4 Advanced Inventory Management**. That assignment supersedes
+the proposed milestone naming/sequencing below, not the approved requirements.
+The historical assessment below is retained as research and is not a current
+implementation inventory.
+
+Alpha 0.4 now implements session Undo/Redo, transactional move/swap, drag/drop,
+previewed duplicate/replacement/fill and a conservative verified equipment-slot
+workflow. Windows automated validation passes 126 tests. On 2026-11-14 the owner
+reported successful Windows manual and Valheim in-game load/save acceptance;
+native Linux remains pending. See the
+[implementation, policy proposals and owner checklist](ALPHA_0.4_INVENTORY_MANAGEMENT.md).
+Automatic sorting, broader custom/variant copy policies, context-dependent
+equipment and recovery remain deferred. REQUIREMENTS.md is unchanged; proposals
+remain proposals until explicitly approved. The next gate is PR review and
+explicit owner authorization before merge or publication.
+
+## Historical proposal
+
 **Date** 2026-11-12  
 **Status** Research and proposed requirements for owner review. [REQUIREMENTS.md](../REQUIREMENTS.md) remains authoritative. The proposed rows below are the draft amendments.
 

@@ -4,7 +4,7 @@ from copy import deepcopy
 from pathlib import Path
 import sys
 
-from PySide6.QtCore import QObject, QRunnable, QThreadPool, Qt, Signal, Slot
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Qt, Signal, Slot, QEvent
 from PySide6.QtGui import QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QApplication, QDialog, QFileDialog, QFormLayout, QHBoxLayout, QMainWindow,
@@ -140,7 +140,7 @@ class Window(QMainWindow):
         wordmark.setObjectName("brand")
         brand.addWidget(wordmark)
         brand.addStretch(1)
-        brand.addWidget(label("ᚢ   Alpha 0.3.1", "muted"))
+        brand.addWidget(label("ᚢ   Alpha 0.4", "muted"))
         shell.addLayout(brand)
 
         header = panel()
@@ -166,6 +166,12 @@ class Window(QMainWindow):
         header_actions.addLayout(buttons)
         self.details_button = QPushButton("Character Details")
         header_actions.addWidget(self.details_button, alignment=Qt.AlignmentFlag.AlignRight)
+        history_buttons = QHBoxLayout()
+        self.undo_button = QPushButton("Undo")
+        self.redo_button = QPushButton("Redo")
+        history_buttons.addWidget(self.undo_button)
+        history_buttons.addWidget(self.redo_button)
+        header_actions.addLayout(history_buttons)
         header_layout.addLayout(header_actions)
         shell.addWidget(header)
 
@@ -208,10 +214,40 @@ class Window(QMainWindow):
         self.review.discard_change.connect(self.discard_change)
         self.review.discard_all.clicked.connect(self.discard_all)
         self.review.export.clicked.connect(self.export)
+        self.undo_button.clicked.connect(lambda: self.travel_history(False))
+        self.redo_button.clicked.connect(lambda: self.travel_history(True))
+        QApplication.instance().installEventFilter(self)
         QShortcut(QKeySequence.StandardKey.Open, self, activated=self.open_file)
         QShortcut(QKeySequence.StandardKey.SaveAs, self, activated=self.save_shortcut)
         apply_theme(self)
         self.refresh_status()
+
+    def eventFilter(self, watched, event):
+        if (event.type() in (QEvent.Type.ShortcutOverride, QEvent.Type.KeyPress)
+                and isinstance(watched, QWidget) and (watched is self or self.isAncestorOf(watched))
+                and event.modifiers() & Qt.KeyboardModifier.ControlModifier
+                and event.key() in (Qt.Key.Key_Z, Qt.Key.Key_Y)):
+            if event.type() == QEvent.Type.KeyPress:
+                self.travel_history(event.key() == Qt.Key.Key_Y or
+                                    bool(event.modifiers() & Qt.KeyboardModifier.ShiftModifier))
+            event.accept()
+            return True
+        return super().eventFilter(watched, event)
+
+    def travel_history(self, redo):
+        if self.job is not None or self.session is None or QApplication.activeModalWidget() is not None:
+            return
+        key = self.inventory.key
+        try:
+            self.session.redo() if redo else self.session.undo()
+        except FormatError as error:
+            self.message = str(error)
+            self.refresh_status()
+        else:
+            item = self.session.items.get(key)
+            self.inventory.refresh((item.x, item.y) if item else None)
+            self.skills.refresh()
+            self.refresh_review()
 
     def start_job(self, operation, message, failure_title, on_success):
         if self.job is not None:
@@ -313,6 +349,13 @@ class Window(QMainWindow):
         self.pages.setEnabled(not busy)
         self.review_button.setEnabled(bool(session and not busy))
         self.details_button.setEnabled(bool(session and not busy))
+        for button, stack in ((self.undo_button, session.history.past if session else []),
+                              (self.redo_button, session.history.future if session else [])):
+            button.setEnabled(bool(stack and session and not session.has_drafts and not busy))
+            button.setToolTip(("Apply or revert drafts first." if session and session.has_drafts else
+                               stack[-1].label if stack else "No history"))
+        if session:
+            self.inventory.refresh_quick_actions()
         if not session:
             self.pending.hide()
             self.status.setText(self.message)

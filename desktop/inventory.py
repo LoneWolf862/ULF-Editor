@@ -2,19 +2,23 @@
 
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
+from copy import deepcopy
 import re
 
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, QRect, QSize, Qt, Signal
-from PySide6.QtGui import QColor, QPainter, QPen
+from PySide6.QtCore import QAbstractTableModel, QModelIndex, QRect, QSize, Qt, Signal, QMimeData
+from PySide6.QtGui import QColor, QPainter, QPen, QDrag, QPixmap
 from PySide6.QtWidgets import (
     QAbstractItemView, QAbstractSpinBox, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
-    QHBoxLayout, QHeaderView, QLineEdit, QListWidget, QListWidgetItem, QMessageBox,
+    QHBoxLayout, QGridLayout, QHeaderView, QLineEdit, QListWidget, QListWidgetItem, QMessageBox,
     QPlainTextEdit, QProgressBar, QPushButton, QStyledItemDelegate, QStyle,
     QStyleOptionSpinBox, QTableView, QVBoxLayout, QWidget,
 )
 
 from core.fch import FormatError
 from core.item_stats import GAME_VERSION, SNAPSHOT, calculate_item_stats
+from core.inventory_ops import move_item, verified_item, transferable_item
+from core.equipment import equipment_changes, equipment_slots
+from desktop.inventory_actions import confirm_operation, DestinationDialog, ReplacementDialog
 from desktop.item_catalog import CATALOG_VERSION, ENTRIES, item_entry, search_catalog
 from desktop.session import durability_text, item_name, slot_name
 from desktop.theme import heading, item_icon, label, panel, primary_button, scroll_area, set_invalid, theme_active
@@ -47,6 +51,12 @@ class InventoryModel(QAbstractTableModel):
     def columnCount(self, parent=QModelIndex()):
         return 0 if parent.isValid() else 8
 
+    def flags(self, index):
+        flags = super().flags(index)
+        if index.isValid() and len(self.positions.get((index.column(), index.row()), ())) == 1:
+            flags |= Qt.ItemFlag.ItemIsDragEnabled
+        return flags
+
     def data(self, index, role=DISPLAY):
         if not index.isValid():
             return None
@@ -62,6 +72,8 @@ class InventoryModel(QAbstractTableModel):
             else:
                 item = records[0][1]
                 text = f"{item_name(item)}, quantity {item.stack}, quality {item.quality}"
+                if item.equipped:
+                    text += " · Equipped"
             return f"{text} · {slot_name(position)}"
 
 
@@ -115,6 +127,8 @@ class SlotDelegate(QStyledItemDelegate):
                 item_icon(item_entry(item)).paint(painter, icon_rect)
             name = metrics.elidedText(item_name(item), Qt.TextElideMode.ElideRight, caption.width())
             painter.drawText(caption, Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter, name)
+            if item.equipped:
+                painter.drawText(rect.adjusted(5, 18, -5, -4), Qt.AlignmentFlag.AlignLeft, "E")
         elif selected:
             painter.drawText(rect, Qt.AlignmentFlag.AlignCenter, "+")
         painter.restore()
@@ -122,6 +136,100 @@ class SlotDelegate(QStyledItemDelegate):
 
 class SlotGrid(QTableView):
     inspect = Signal()
+    drop_requested = Signal(object, object)
+
+    def __init__(self):
+        super().__init__()
+        self.session = None
+        self.drag_key = None
+        self.drag_generation = None
+        self.drop_target = None
+        self.setDragEnabled(True)
+        self.setAcceptDrops(True)
+        self.setDragDropMode(QAbstractItemView.DragDropMode.DragDrop)
+        self.setDefaultDropAction(Qt.DropAction.MoveAction)
+
+    def startDrag(self, supported_actions):
+        records = self.currentIndex().data(CELL)
+        if not self.session or self.session.has_drafts or not records or len(records) != 1:
+            return
+        key, item = records[0]
+        try:
+            verified_item(self.session.working, item)
+        except FormatError:
+            return
+        self.drag_key = key
+        self.drag_generation = self.session.generation
+        drag = QDrag(self)
+        mime = QMimeData()
+        mime.setData("application/x-ulf-slot", b"internal")
+        drag.setMimeData(mime)
+        pixmap = QPixmap(210, 46)
+        pixmap.fill(QColor("#302a24"))
+        with QPainter(pixmap) as painter:
+            painter.setPen(QColor("#f2e9da"))
+            painter.drawText(pixmap.rect().adjusted(6, 0, -6, 0), Qt.AlignmentFlag.AlignCenter,
+                             painter.fontMetrics().elidedText(item_name(item), Qt.TextElideMode.ElideRight, 198))
+        drag.setPixmap(pixmap)
+        try:
+            drag.exec(Qt.DropAction.MoveAction)
+        finally:
+            self.drag_key = self.drop_target = None
+            self.viewport().update()
+
+    def can_drop(self, destination):
+        s = self.session
+        if not s or s.has_drafts or self.drag_generation != s.generation or self.drag_key not in s.items:
+            return False
+        occupied = any((i.x, i.y) == destination for i in s.items.values())
+        try:
+            character, items = deepcopy((s.working, s.items))
+            move_item(character, items[self.drag_key], destination, swap=occupied)
+        except FormatError:
+            return False
+        return True
+
+    def dragEnterEvent(self, event):
+        if event.source() is self and event.mimeData().hasFormat("application/x-ulf-slot"):
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        index = self.indexAt(event.position().toPoint())
+        destination = (index.column(), index.row())
+        valid = event.source() is self and index.isValid() and self.can_drop(destination)
+        self.drop_target = destination if valid else None
+        self.viewport().update()
+        if valid:
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dragLeaveEvent(self, event):
+        self.drop_target = None
+        self.viewport().update()
+        event.accept()
+
+    def dropEvent(self, event):
+        index = self.indexAt(event.position().toPoint())
+        destination = (index.column(), index.row())
+        self.drop_target = None
+        if event.source() is self and index.isValid() and self.can_drop(destination):
+            # Never call the default model move/drop implementation.
+            self.drop_requested.emit(self.drag_key, destination)
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+        self.viewport().update()
+
+    def paintEvent(self, event):
+        super().paintEvent(event)
+        if self.drop_target is not None:
+            x, y = self.drop_target
+            with QPainter(self.viewport()) as painter:
+                painter.setPen(QPen(QColor("#e3bb79"), 3))
+                painter.drawRect(self.visualRect(self.model().index(y, x)).adjusted(2, 2, -2, -2))
 
     def keyPressEvent(self, event):
         if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
@@ -283,6 +391,8 @@ class CatalogDialog(QDialog):
         layout.addLayout(form)
         self.fields = ItemFields()
         self.fields.populate()
+        self.fields.equipped.setEnabled(False)
+        self.fields.equipped.setToolTip("Create unequipped, then use the equipment preview.")
         layout.addWidget(self.fields)
         self.error = label(role="error", wrap=True)
         self.warning = label(role="warning", wrap=True)
@@ -445,6 +555,8 @@ class InventoryPage(QWidget):
         self.fields = ItemFields()
         self.fields.populate()
         inspector_layout.addWidget(self.fields)
+        self.fields.equipped.setEnabled(False)
+        self.fields.equipped.setToolTip("Use Equip/Unequip below to review equipment conflicts.")
         self.stat_summary = label(role="muted", wrap=True)
         self.stat_summary.setAccessibleName("Calculated item statistics")
         inspector_layout.addWidget(self.stat_summary)
@@ -456,6 +568,19 @@ class InventoryPage(QWidget):
         inspector_layout.addWidget(self.durability_meter)
         self.repair_button = QPushButton("Repair")
         inspector_layout.addWidget(self.repair_button, alignment=Qt.AlignmentFlag.AlignLeft)
+        quick = QGridLayout()
+        self.quick_buttons = {}
+        for n, (action, title) in enumerate((("move", "Move / Swap…"), ("duplicate", "Duplicate…"),
+                                            ("replace", "Replace…"), ("fill", "Fill Stack…"),
+                                            ("equip", "Equip / Unequip…"))):
+            button = QPushButton(title)
+            button.clicked.connect(lambda checked=False, action=action: self.quick_action(action))
+            quick.addWidget(button, n // 2, n % 2)
+            self.quick_buttons[action] = button
+        inspector_layout.addLayout(quick)
+        self.equipped_overview = label(role="muted", wrap=True)
+        self.equipped_overview.setAccessibleName("Equipped item overview")
+        inspector_layout.addWidget(self.equipped_overview)
         self.warning = label(role="warning", wrap=True)
         self.error = label(role="error", wrap=True)
         self.error.setAccessibleName("Item validation error")
@@ -481,6 +606,7 @@ class InventoryPage(QWidget):
         self.grid.clicked.connect(self.select_slot)
         self.grid.inspect.connect(self.open_inspector)
         self.grid.doubleClicked.connect(self.open_inspector)
+        self.grid.drop_requested.connect(self.drop_item)
         self.inspect_button.clicked.connect(self.open_inspector)
         self.back.clicked.connect(self.return_to_grid)
         self.diagnostics.currentItemChanged.connect(self.inspect_diagnostic)
@@ -529,6 +655,7 @@ class InventoryPage(QWidget):
         if position is None:
             position = (index.column(), index.row()) if index.isValid() else (0, 0)
         items = self.session.items if self.session else {}
+        self.grid.session = self.session
         self.model.set_items(items)
         self.count.setText(f"{len(items)} items · {self.model.height * 8} displayed slots")
         self.diagnostics.clear()
@@ -634,6 +761,85 @@ class InventoryPage(QWidget):
         self.revert_button.setEnabled(bool(draft))
         self.add_here.setVisible(bool(self.session and not item and not conflict and position[1] < writable_rows))
         self.refresh_statistics()
+        self.refresh_quick_actions()
+
+    def refresh_quick_actions(self):
+        s = self.session
+        item = s.items.get(self.key) if s else None
+        for action, button in self.quick_buttons.items():
+            reason = "Select a supported inventory item."
+            if item is not None:
+                try:
+                    if s.has_drafts:
+                        raise FormatError("Apply or revert all drafts first.")
+                    verified_item(s.working, item)
+                    if self.entry is None or self.entry.maximum_stack is None:
+                        raise FormatError("Verified catalog limits are unavailable.")
+                    if action in ("duplicate", "replace"):
+                        transferable_item(s.working, item)
+                    if action == "duplicate" and not s.free_slots():
+                        raise FormatError("No free inventory slot.")
+                    if action == "fill" and item.stack >= self.entry.maximum_stack:
+                        raise FormatError("Already at or above the verified stack maximum.")
+                    if action == "equip":
+                        equipment_changes(s.working, item, not item.equipped)
+                    reason = ""
+                except FormatError as error:
+                    reason = str(error)
+            button.setEnabled(not reason)
+            button.setToolTip(reason or "Review the complete operation before applying.")
+            button.setAccessibleDescription(button.toolTip())
+        equipped = [f"{item_name(i)} — {', '.join(sorted(equipment_slots(i) or ['unverified slot']))}"
+                    for i in s.items.values() if i.equipped] if s else []
+        if s:
+            active = [i for i in s.items.values() if i.equipped]
+            for index, left in enumerate(active):
+                for right in active[index + 1:]:
+                    if (equipment_slots(left) or set()) & (equipment_slots(right) or set()):
+                        equipped.append(f"Conflict: {item_name(left)} / {item_name(right)}")
+        self.equipped_overview.setText("Equipped\n" + "\n".join(equipped) if equipped else "No equipped items")
+
+    def stage_operation(self, key, action, values=()):
+        session = self.session
+        try:
+            plan, proposed = session.preview_operation(key, action, values)
+            if not confirm_operation(self, action.title(), session.items, proposed):
+                return
+            if self.session is not session:
+                raise FormatError("Character changed. Review a new operation.")
+            selected = session.apply_operation(plan)
+        except FormatError as error:
+            self.error.setText(str(error))
+        else:
+            item = session.items[selected]
+            self.refresh((item.x, item.y))
+            self.changed.emit()
+
+    def drop_item(self, key, destination):
+        occupied = any((i.x, i.y) == destination for i in self.session.items.values())
+        self.stage_operation(key, "swap" if occupied else "move", destination)
+
+    def quick_action(self, action):
+        if not self.session or self.key not in self.session.items:
+            return
+        if action in ("move", "duplicate"):
+            dialog = DestinationDialog(self, self.session, self.key, action == "duplicate")
+            if dialog.exec() == QDialog.DialogCode.Accepted:
+                destination = dialog.slots.currentData()
+                if action == "move":
+                    self.drop_item(self.key, destination)
+                else:
+                    self.stage_operation(self.key, action, destination)
+            dialog.deleteLater()
+        elif action == "replace":
+            dialog = ReplacementDialog(self)
+            if dialog.exec() == QDialog.DialogCode.Accepted:
+                self.stage_operation(self.key, action, dialog.values())
+            dialog.deleteLater()
+        elif action == "equip":
+            self.stage_operation(self.key, action, (not self.session.items[self.key].equipped,))
+        else:
+            self.stage_operation(self.key, action)
 
     def refresh_statistics(self):
         item = self.session.items.get(self.key) if self.session else None
