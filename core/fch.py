@@ -237,7 +237,15 @@ class Character:
         skip_strings(p)  # trophies
         skip_strings(p) # known biomes
         for _ in range(p.count()):p.string();p.string()
-        p.string();p.string();p.vector();p.vector();p.i32()
+        from core.appearance import Appearance, FIELDS
+        values = []
+        self._appearance_spans = {}
+        for field in FIELDS:
+            start = p.p
+            value = p.string() if field in ('beard', 'hair') else p.i32() if field == 'model' else tuple(p.f32() for _ in range(3))
+            values.append(value)
+            self._appearance_spans[field] = (start - mid_start, p.p - mid_start)
+        self.appearance = self._original_appearance = Appearance(*values)
         for _ in range(p.count()):p.string();p.f32()
         self.middle=self.player_data[mid_start:p.p]
         self.skills_version=p.i32();n=p.i32()
@@ -275,7 +283,8 @@ class Character:
                 fields.append(self._skill_bytes[index][column*4:column*4+4] if same else pack(kind,value))
             skill_records.append(b''.join(fields))
         sk=pack('ii',self.skills_version,len(self.skills))+b''.join(skill_records)
-        player=self.head+inv+self.middle+sk+self.tail
+        from core.appearance import encoded_middle
+        player=self.head+inv+encoded_middle(self)+sk+self.tail
         body=self.prefix+pack('i',len(player))+player+self.suffix
         return pack('i',len(body))+body+pack('i',64)+hashlib.sha512(body).digest()
     def set_skill(self,id,level):
