@@ -1,5 +1,5 @@
 """ULF FCH binary engine for legacy saves and Valheim 1.0.21.
-Rebuilds inventory and skills only, preserving other profile/player sections byte-for-byte.
+Rebuilds inventory, skills and targeted appearance fields; preserves other sections byte-for-byte.
 """
 import hashlib
 import struct

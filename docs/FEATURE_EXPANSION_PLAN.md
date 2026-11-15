@@ -1,5 +1,16 @@
 # ULF Editor feature expansion plan
 
+## Alpha 0.5 development update
+
+Alpha 0.4 was released at `v0.4.0-alpha`. The owner then scheduled FR-092
+appearance work as Alpha 0.5. Typed appearance fields, verified style catalogs,
+model/style/RGB controls, shared history and reviewed export are implemented
+with 147 passing tests. Name editing stays read-only because future upgrade
+seeds depend on the name. See the [Alpha 0.5 implementation and acceptance
+report](ALPHA_0.5_CHARACTER_APPEARANCE.md). Native Windows/Linux and game
+acceptance are next; no Alpha 0.6 implementation is scheduled by this update.
+The earlier proposal and milestone updates below are retained as history.
+
 ## Current milestone update — 2026-11-13
 
 The owner subsequently approved and released Alpha 0.3.1, then explicitly

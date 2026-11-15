@@ -93,7 +93,114 @@ no IDs, seeds, historical names or world records are rewritten.
 
 ## Development validation
 
-Core milestone: 136 tests pass on Windows, zero failures/skips (126 baseline plus
-10 new appearance tests with field/version/input subcases). UI, history integration
-and final acceptance documentation follow. Native Linux and Alpha 0.5 in-game
-acceptance have not been performed.
+**147 tests pass on Windows, zero failures/skips**, running
+`.venv/Scripts/python.exe -m unittest discover -s tests -q`.
+The 126-test release baseline remains included, with 15 appearance/core/history
+tests and 6 desktop tests added. Parameterized subcases cover fields, versions,
+invalid inputs and raw-byte encodings. The first core checkpoint passed 136 tests;
+the final integration includes the remaining history, UI and export tests.
+
+Tests cover both verified model indices, explicit model1/BeardNone resolution,
+hair/beard search and selection, normalized colors, invalid/nonfinite values,
+unknown styles/models, legacy read-only controls, grouped edits, mixed
+inventory/skill/appearance history, divergent history, no-op edits, drafts,
+review/discard, source protection and export reopen. Raw-preservation tests
+include NaN payload bytes, signed zero and noncanonical string-length encoding.
+Export rejects direct attempts to change unverified appearance or progression.
+
+The local designated experimental save also passed exact no-op and five separate
+appearance export/reopen cases (hair, beard, model with explicit beard resolution,
+hair RGB and skin RGB). Source hash and all inventory/skill, identity, progression,
+opaque and cheat metadata checks passed. Outputs remain ignored and local; no
+personal data or actual saves are committed. This is serialization evidence,
+not an in-game acceptance claim.
+
+Desktop automation uses Qt offscreen. Synthetic 1210×760 and 800×600 renders were
+visually inspected; the form scrolls to expose all controls. Native Windows
+interaction, complete accessibility/high-DPI coverage, native Linux and Alpha
+0.5 in-game load/resave acceptance remain pending.
+
+## Completed application integration
+
+The Appearance tab includes read-only identity/version/current-value overview,
+two verified body choices, searchable hair/beard selectors, current/proposed
+color swatches, RGB inputs, a visual color picker, per-color revert, a complete
+change preview, Apply Changes and Revert Draft. Global Undo/Redo and Review
+Changes remain available in the shell. Unknown current styles/models stay
+visible; selecting a supported replacement is explicit. Search alone never
+changes a draft. Legacy saves expose values but disable appearance editing.
+
+RGB inputs use shortest float32-roundtripping text rather than silently rounding
+the original values to 8-bit channels. Swatches are approximate screen previews;
+picker acceptance explicitly proposes its returned RGB values, which are shown
+before applying. Canceling the picker leaves drafts untouched. Invalid proposals
+show an explanation and disable Apply. The preview does not claim a game render.
+
+`Session` adds appearance commands to the existing history. A grouped appearance
+apply publishes one validated candidate. Draft state is separate from the applied
+working state and survives unrelated item edits and editor refreshes. Appearance
+drafts block Undo/Redo and export and can be reached from Review Changes. Undo
+restores field bytes and the editor values; redo reproduces the accepted state.
+The review has a distinct Appearance group with every changed field. Discard
+restores the original appearance as one group; existing dependent inventory
+operations still require Undo or Discard All. No separate appearance history or
+export bypass exists.
+
+Files: `core/appearance.py`, `core/appearance_catalog.json`, targeted additions to
+`core/fch.py` and `core/export.py`; `desktop/appearance.py`, session and shell
+integration; synthetic fixture extension and appearance/desktop regression tests.
+No dependencies or approved requirements were changed.
+
+## Limits and proposed policy amendments
+
+- Appearance writes are supported only for 47/34/110/2. Existing accepted legacy
+  formats remain readable and preserve their original appearance exactly.
+- Unknown styles/models are not creation choices. Unrelated edits preserve them;
+  style edits require a supported model. Model1 requires BeardNone explicitly.
+- Normalized RGB [0,1] is the conservative editor write policy. Out-of-range or
+  nonfinite existing vectors remain preserved until explicitly replaced with a
+  supported vector. Vanilla palette/tone presets are deferred because their
+  asset-specific endpoints were not established. No gamut or brightness behavior
+  is guessed. Ratification/expansion of this policy is proposed for owner review.
+- Model1 beard restrictions follow the verified customization UI; existing
+  unusual combinations are preserved on load. Mod-specific style compatibility
+  and changes outside the verified combination policy remain unsupported.
+- Character name remains read-only. Future rename work requires a separate
+  decision on name/file-key validation and future upgrade-seed effects, never
+  rewriting historical seeds to hide a rename.
+- No 3D renderer, game artwork, thumbnails, color-management guarantee, barber
+  unlock editing, skin palette presets or Alpha 0.6 features are included.
+- History remains session-local and unbounded, as in Alpha 0.4. Linux, native
+  accessibility/high-DPI and actual game behavior remain acceptance tasks.
+
+Implemented and regression-tested: FR-092 for the supported fields/layout;
+FR-020/072 history and staging; FR-005/015/032/050–054/060 preservation/export;
+FR-080 UI-independent core. FR-071/073 have automated UI coverage only and
+remain partial pending native accessibility/platform acceptance. Name editing,
+legacy appearance writes and advanced rendering are explicitly unimplemented.
+The above policies supplement the owner's milestone assignment as proposals;
+they do not silently amend REQUIREMENTS.md.
+
+## Required owner acceptance
+
+Use a disposable copy and independent backup, with Valheim closed while editing.
+
+1. On native Windows, open a current save and verify displayed body, hair/beard
+   identifiers/names and colors. Inspect unknown values without changing them.
+2. Search styles with keyboard and pointer. Apply/revert each hair/beard change.
+   Change body model; verify incompatible beard proposals fail and only an
+   explicit BeardNone selection resolves model1. Check no silent style resets.
+3. Use RGB entry and the visual picker for hair and skin. Cancel/revert, test
+   invalid input, and inspect current/proposed swatches and numeric preview.
+4. Apply a grouped change, mix it with inventory and skill edits, then Undo/Redo
+   through the sequence. Check drafts, Review Changes and exported-state markers.
+5. Save As a separate disposable file, reopen in ULF, load it in Valheim 1.0.21,
+   inspect actual appearance and equipment/skills, save in-game and reopen in ULF.
+   Check unrelated progression/metadata and confirm the original stayed intact.
+6. Check ordinary and high-DPI layouts, keyboard focus, scrolling and screen
+   reader labels. Repeat the supported offline workflow natively on Linux.
+7. Record Windows, Linux and game outcomes separately. Prior Alpha 0.4 acceptance
+   does not establish Alpha 0.5 appearance compatibility.
+
+**READY FOR OWNER TESTING** within the documented conservative scope. No final
+in-game compatibility, release approval, merge or tag is claimed.
