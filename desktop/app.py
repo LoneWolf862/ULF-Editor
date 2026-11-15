@@ -16,6 +16,7 @@ from core.fch import FormatError
 from desktop.inventory import InventoryPage
 from desktop.session import Session, load_character
 from desktop.skills import SkillsPage
+from desktop.appearance import AppearancePage
 from desktop.theme import apply_theme, artwork, heading, label, panel, primary_button, scroll_area
 
 
@@ -49,9 +50,11 @@ class ReviewPage(QWidget):
         layout.addWidget(label("Compare with the loaded original. Save As exports a separate copy.", "muted", wrap=True))
         self.inventory_drafts = QPushButton("Resolve inventory drafts")
         self.skill_drafts = QPushButton("Resolve skill drafts")
+        self.appearance_drafts = QPushButton("Resolve appearance drafts")
         draft_actions = QHBoxLayout()
         draft_actions.addWidget(self.inventory_drafts)
         draft_actions.addWidget(self.skill_drafts)
+        draft_actions.addWidget(self.appearance_drafts)
         draft_actions.addStretch(1)
         layout.addLayout(draft_actions)
         content = QWidget()
@@ -76,8 +79,9 @@ class ReviewPage(QWidget):
                 widget.deleteLater()
         if not changes:
             self.cards.addWidget(label("No applied differences from the loaded original.", "muted", wrap=True))
-        for group, title in (("inventory", "Inventory"), ("skills", "Skills")):
-            subset = [change for change in changes if (change.position is None) == (group == "skills")]
+        for group, title in (("inventory", "Inventory"), ("skill", "Skills"), ("appearance", "Appearance")):
+            subset = [change for change in changes if
+                      (change.position is not None if group == "inventory" else change.key[0] == group)]
             if not subset:
                 continue
             self.cards.addWidget(heading(title, 1.15))
@@ -101,6 +105,7 @@ class ReviewPage(QWidget):
     def show_state(self, session, changes, duplicate_positions):
         self.inventory_drafts.setVisible(bool(session.item_drafts))
         self.skill_drafts.setVisible(bool(session.skill_drafts))
+        self.appearance_drafts.setVisible(bool(session.appearance_drafts))
         notices = []
         if session.has_drafts:
             notices.append("Apply or discard unapplied drafts before exporting.")
@@ -140,7 +145,7 @@ class Window(QMainWindow):
         wordmark.setObjectName("brand")
         brand.addWidget(wordmark)
         brand.addStretch(1)
-        brand.addWidget(label("ᚢ   Alpha 0.4", "muted"))
+        brand.addWidget(label("ᚢ   Alpha 0.5", "muted"))
         shell.addLayout(brand)
 
         header = panel()
@@ -190,9 +195,11 @@ class Window(QMainWindow):
         self.inventory = InventoryPage()
         self.skills = SkillsPage()
         self.review = ReviewPage()
+        self.appearance = AppearancePage()
         self.tabs.addTab(self.inventory, "Inventory")
         self.tabs.addTab(self.skills, "Skills")
         self.tabs.addTab(self.review, "Review")
+        self.tabs.addTab(self.appearance, "Appearance")
         self.pages.addWidget(self.tabs)
         shell.addWidget(self.pages, 1)
         self.status = label(role="muted", wrap=True)
@@ -209,8 +216,11 @@ class Window(QMainWindow):
         self.inventory.drafts_changed.connect(self.refresh_status)
         self.skills.changed.connect(self.refresh_review)
         self.skills.drafts_changed.connect(self.refresh_status)
+        self.appearance.changed.connect(self.refresh_review)
+        self.appearance.drafts_changed.connect(self.refresh_status)
         self.review.inventory_drafts.clicked.connect(self.resolve_inventory_draft)
         self.review.skill_drafts.clicked.connect(self.resolve_skill_draft)
+        self.review.appearance_drafts.clicked.connect(lambda: self.tabs.setCurrentWidget(self.appearance))
         self.review.discard_change.connect(self.discard_change)
         self.review.discard_all.clicked.connect(self.discard_all)
         self.review.export.clicked.connect(self.export)
@@ -247,6 +257,7 @@ class Window(QMainWindow):
             item = self.session.items.get(key)
             self.inventory.refresh((item.x, item.y) if item else None)
             self.skills.refresh()
+            self.appearance.refresh()
             self.refresh_review()
 
     def start_job(self, operation, message, failure_title, on_success):
@@ -304,6 +315,7 @@ class Window(QMainWindow):
         self.validation.setText("✓ SHA-512 and byte-exact round trip passed")
         self.inventory.set_session(session)
         self.skills.set_session(session)
+        self.appearance.set_session(session)
         self.tabs.setCurrentWidget(self.inventory)
         self.pages.setCurrentWidget(self.tabs)
         self.refresh_review()
@@ -365,6 +377,7 @@ class Window(QMainWindow):
         self.tabs.setTabText(0, "Inventory · Draft" if session.item_drafts else "Inventory")
         self.tabs.setTabText(1, "Skills · Draft" if session.skill_drafts else "Skills")
         self.tabs.setTabText(2, f"Review ({len(self.changes)})")
+        self.tabs.setTabText(3, "Appearance · Draft" if session.appearance_drafts else "Appearance")
         parts = []
         if session.has_drafts:
             parts.append("Unapplied edits")
@@ -425,7 +438,8 @@ class Window(QMainWindow):
             if answer != QMessageBox.StandardButton.Discard:
                 return
         elif (change.key in self.session.item_drafts or
-              change.key[0] == "skill" and change.key[1] in self.session.skill_drafts):
+              change.key[0] == "skill" and change.key[1] in self.session.skill_drafts or
+              change.key[0] == "appearance" and self.session.appearance_drafts):
             answer = QMessageBox.question(
                 self, "Discard Change and Draft", "Discard this applied change and its unapplied draft?",
                 QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel,
@@ -454,6 +468,7 @@ class Window(QMainWindow):
     def refresh_editors(self):
         self.inventory.refresh()
         self.skills.refresh()
+        self.appearance.refresh()
         self.refresh_review()
 
     def export(self):

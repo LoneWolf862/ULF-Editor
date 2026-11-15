@@ -24,6 +24,84 @@ from synthetic import character_bytes, current_character_bytes
 
 
 class DesktopTests(unittest.TestCase):
+    def test_fr072_appearance_draft_survives_other_edits_and_resolves_from_review(self):
+        from test_appearance import fixture
+        self.load_fixture(fixture());page=self.window.appearance
+        page.colors['skin_color'][0].setText('0.8')
+        self.session.edit_item(('item',0),{'stack':6})
+        self.window.refresh_editors()
+        self.assertEqual(page.colors['skin_color'][0].text(),'0.8')
+        self.assertTrue(self.session.appearance_drafts)
+        self.assertFalse(self.window.undo_button.isEnabled())
+        self.window.show_review();self.window.review.appearance_drafts.click()
+        self.assertIs(self.window.tabs.currentWidget(),page)
+        page.apply_button.click()
+        self.assertEqual(self.session.working.items[0].stack,6)
+        self.assertFalse(self.session.has_drafts)
+        self.window.undo_button.click()
+        self.assertEqual(self.session.working.items[0].stack,6)
+        self.assertEqual(page.colors['skin_color'][0].text(),'0.1')
+
+    def test_fr092_appearance_search_apply_review_undo_export(self):
+        from test_appearance import fixture
+        self.load_fixture(fixture())
+        page=self.window.appearance;self.window.tabs.setCurrentWidget(page)
+        page.searches['hair'].setText('HairNone')
+        page.styles['hair'].setCurrentIndex(page.styles['hair'].findData('HairNone'))
+        self.assertTrue(self.session.has_drafts)
+        self.assertIn('HairNone',page.preview.toPlainText())
+        self.assertFalse(self.window.review.export.isEnabled())
+        page.apply_button.click()
+        self.assertEqual(self.session.working.appearance.hair,'HairNone')
+        self.assertEqual(self.window.changes[0].key,('appearance',0))
+        self.window.undo_button.click();self.assertEqual(page.styles['hair'].currentData(),'Hair7')
+        self.window.redo_button.click();self.export_to(self.target)
+        self.assertEqual(Character(self.target.read_bytes()).appearance.hair,'HairNone')
+
+    def test_fr092_appearance_rgb_invalid_preview_revert(self):
+        from test_appearance import fixture
+        self.load_fixture(fixture());page=self.window.appearance
+        original=self.session.working.serialize()
+        page.colors['skin_color'][0].setText('nan')
+        self.assertFalse(page.apply_button.isEnabled());self.assertIn('finite',page.error.text())
+        self.assertFalse(self.window.undo_button.isEnabled())
+        page.colors['skin_color'][0].setText('0.75')
+        self.assertTrue(page.apply_button.isEnabled());self.assertIn('0.75',page.preview.toPlainText())
+        self.assertNotEqual(page.swatches['skin_color'][0].styleSheet(),page.swatches['skin_color'][1].styleSheet())
+        page.revert_button.click();self.assertFalse(self.session.has_drafts)
+        self.assertEqual(self.session.working.serialize(),original)
+
+    def test_fr092_appearance_model_requires_explicit_beard_resolution(self):
+        from test_appearance import fixture
+        self.load_fixture(fixture());page=self.window.appearance
+        page.model.setCurrentIndex(page.model.findData(1))
+        self.assertFalse(page.apply_button.isEnabled());self.assertIn('BeardNone',page.error.text())
+        page.styles['beard'].setCurrentIndex(page.styles['beard'].findData('BeardNone'))
+        self.assertTrue(page.apply_button.isEnabled())
+        page.apply_button.click()
+        self.assertEqual(self.session.working.appearance.model,1)
+        self.assertEqual(len(self.session.history.past),1)
+
+    def test_fr092_unknown_appearance_visible_legacy_readonly(self):
+        from test_appearance import fixture
+        self.load_fixture(fixture(hair='CustomHair',model=23));page=self.window.appearance
+        self.assertIn('CustomHair',page.overview.text());self.assertEqual(page.model.currentData(),23)
+        self.assertFalse(self.session.has_drafts)
+        self.load_fixture(character_bytes())
+        self.assertFalse(page.model.isEnabled());self.assertFalse(page.apply_button.isEnabled())
+        self.assertTrue(all(not button.isEnabled() for pair in page.color_buttons.values() for button in pair))
+        self.assertIn('profile 47',page.error.text())
+
+    def test_fr092_color_picker_is_explicit_and_cancel_preserves_draft(self):
+        from test_appearance import fixture
+        from PySide6.QtGui import QColor
+        self.load_fixture(fixture());page=self.window.appearance
+        with patch('desktop.appearance.QColorDialog.getColor',return_value=QColor()):page.pick_color('hair_color')
+        self.assertFalse(self.session.has_drafts)
+        with patch('desktop.appearance.QColorDialog.getColor',return_value=QColor.fromRgbF(.2,.3,.4)):page.pick_color('hair_color')
+        self.assertTrue(self.session.has_drafts);self.assertTrue(page.apply_button.isEnabled())
+        page.revert_color('hair_color');self.assertFalse(self.session.has_drafts)
+
     @classmethod
     def setUpClass(cls):
         cls.application = QApplication.instance() or QApplication([])

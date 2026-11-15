@@ -11,6 +11,7 @@ from core.editing import apply_item, apply_skills, remove_item
 from core.fch import Character, FormatError, SKILLS
 from core.item_stats import calculate_item_stats
 from core.history import History
+from core.appearance import FIELDS as APPEARANCE_FIELDS, apply_appearance, same as same_appearance
 from core.equipment import equip_item
 from core.inventory_ops import move_item, duplicate_item, replace_item, fill_stack
 from desktop.item_catalog import item_entry
@@ -119,6 +120,7 @@ class Session:
         self.items = self.original_items(self.working)
         self.item_drafts = {}
         self.skill_drafts = {}
+        self.appearance_drafts = {}
         self.next_item = 0
         self.revision = self.exported_revision = sha256(character.original).digest()
         self.export_path = None
@@ -131,7 +133,7 @@ class Session:
 
     @property
     def has_drafts(self):
-        return bool(self.item_drafts or self.skill_drafts)
+        return bool(self.item_drafts or self.skill_drafts or self.appearance_drafts)
 
     @property
     def unsaved(self):
@@ -179,6 +181,8 @@ class Session:
             equip_item(character, items[key], values[0])
         elif action == "skill":
             apply_skills(character, [values])
+        elif action == "appearance":
+            apply_appearance(character, dict(values))
         else:
             raise FormatError("Unsupported editing command.")
 
@@ -326,6 +330,10 @@ class Session:
             self.publish(character, items, [*self.commands, *commands], "Edit skills")
         self.skill_drafts.clear()
 
+    def apply_appearance_batch(self, changes):
+        self.apply(Command(("appearance", 0), "appearance", tuple(changes.items())))
+        self.appearance_drafts.clear()
+
     def changes(self):
         originals = self.original_items(self.baseline)
         changes = []
@@ -385,6 +393,12 @@ class Session:
                 details = ("New skill record", *details)
             if details:
                 changes.append(Change(key, SKILLS[skill_id], details))
+        old, new = self.baseline.appearance, self.working.appearance
+        details = tuple(f"{field.replace('_', ' ').title()}  {appearance_value(getattr(old, field))} → "
+                        f"{appearance_value(getattr(new, field))}" for field in APPEARANCE_FIELDS
+                        if not same_appearance(getattr(old, field), getattr(new, field)))
+        if details:
+            changes.append(Change(("appearance", 0), "Character appearance", details))
         return changes
 
     def discard_dependencies(self, change):
@@ -408,6 +422,8 @@ class Session:
         for kind, identifier in keys:
             if kind == "skill":
                 self.skill_drafts.pop(identifier, None)
+            elif kind == "appearance":
+                self.appearance_drafts.clear()
             else:
                 self.item_drafts.pop((kind, identifier), None)
 
@@ -416,3 +432,8 @@ class Session:
         self.publish(character, self.original_items(character), [])
         self.item_drafts.clear()
         self.skill_drafts.clear()
+        self.appearance_drafts.clear()
+
+
+def appearance_value(value):
+    return ", ".join(display_number(v) for v in value) if isinstance(value, tuple) else str(value)
