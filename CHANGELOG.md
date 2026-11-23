@@ -1,5 +1,24 @@
 # Changelog
 
+## Alpha 0.5 — Unreleased
+
+- Typed, version-aware appearance view with targeted raw-preserving serialization.
+- Offline catalog of 39 hair and 27 beard styles from verified 1.0.21 data.
+- Appearance tab with model/style selection, explicit beard compatibility, hair
+  and skin RGB/color pickers, current/proposed swatches and complete previews.
+- Appearance drafts, grouped Apply/Revert, shared Undo/Redo, change review and
+  verified Save As. Character name remains read-only.
+- 147 passing Windows automated tests; local experimental-save export/reopen
+  preservation checks pass. Native Windows/Linux and game acceptance pending.
+
+Scope and acceptance: [Alpha 0.5 report](docs/ALPHA_0.5_CHARACTER_APPEARANCE.md).
+
+## Alpha 0.4 release status
+
+PR #1 was owner-approved and merged as `056808d`; annotated tag `v0.4.0-alpha`
+identifies that unchanged release tree. The tag annotation supersedes the
+historical pre-merge status recorded below.
+
 ## Alpha 0.4 — Unreleased
 
 Owner acceptance recorded 2026-11-14: successful Windows manual testing and

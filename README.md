@@ -2,10 +2,9 @@
 
 A local Python/PySide6 desktop editor with a Norse / WolfWorks theme. **Alpha 0.3.1** adds comprehensive vanilla catalog coverage, equipment statistics, Individual Repair and previewed Repair All for Valheim 1.0.21. The owner approved the tested repair/export/game-resave workflow. See the [release notes](docs/ALPHA_0.3.1_RELEASE.md) and [changelog](CHANGELOG.md) for scope and limitations.
 
-This development branch implements **Alpha 0.4 inventory management**. The owner
-reported successful Windows manual and Valheim in-game load/save acceptance on
-2026-11-14. It awaits PR review and explicit merge/release approval.
-See the [implementation report and acceptance checklist](docs/ALPHA_0.4_INVENTORY_MANAGEMENT.md).
+This development branch implements **Alpha 0.5 character appearance**, ready for
+owner testing. It builds on released Alpha 0.4 (`v0.4.0-alpha`). See the
+[appearance report and acceptance checklist](docs/ALPHA_0.5_CHARACTER_APPEARANCE.md).
 
 ## Run on CachyOS / Linux
 
@@ -30,6 +29,10 @@ Installation needs the dependencies. Normal application use is offline. Python 3
 
 ## Current features
 
+- Dedicated Appearance tab for verified body models, 39 hair styles and 27 beard
+  styles, hair/skin RGB inputs and visual color pickers. Current/proposed values,
+  explicit model/beard compatibility, grouped Apply/Revert, shared Undo/Redo and
+  Review Changes. Character name remains read-only.
 - `.fch` reader/writer for Valheim 1.0.21 (**47 / 34 / 110 / 2**) and the existing legacy matrix (**44 or 46 / 23–33 / 109 / 2**), in profile / player / inventory / skills order.
 - Validates SHA-512 and **requires byte-identical round-trip before editing**.
 - Eight-column graphical inventory with variable display height and a separate item inspector. Edit verified items' stack count, quality (1–65,535) and durability. Preview supported equipment changes and all conflicting unequips.
@@ -46,6 +49,10 @@ Installation needs the dependencies. Normal application use is offline. Python 3
 
 ## Known limitations
 
+- Appearance writes require 47/34/110/2; legacy appearance remains read-only.
+  Unknown styles and raw untouched color values are preserved. Edited RGB uses
+  finite normalized [0,1] values; vanilla tone-slider presets and a 3D preview are
+  deferred. Alpha 0.5 native Windows/Linux and game load/resave acceptance are pending.
 - The bundled offline catalog has **1,049 entries**, including all **927 verified ordinary inventory candidates**, with **288 verified maximum durability definitions** and **285 repairable equipment types**. All 33 records in the tested 1.0.21 sample are identified. Unknown records remain read-only and are preserved exactly across unrelated edits. Eleven entries use prefab identifiers because friendly names are unavailable; 122 retained legacy entries lack verified statistics.
 - Real-file evidence covers **46 / 33 / 109 / 2** and **47 / 34 / 110 / 2**. Other accepted legacy combinations have synthetic coverage. Unsupported versions are rejected.
 - Character preview currently requires a profile in the supported versions. For older saves, additional adapters are needed.
@@ -67,14 +74,15 @@ Real character files are **not bundled**. Checked-in tests use synthetic fixture
 
 On Linux use `.venv/bin/python -B -m unittest discover -s tests -v`. Desktop tests use Qt's offscreen platform. See [the stabilization report](docs/ALPHA_0.1.1_RESEARCH.md) for results, source evidence, limitations and the owner’s acceptance results. The optional `tools/inspect_game_items.py` research utility needs UnityPy 1.25.4; the editor itself does not.
 
-Alpha 0.4: **126 passing tests, zero failures/skips** on Windows, including the
-101-test release baseline, rerun 2026-11-14. Owner Windows/game acceptance is
-recorded separately; native Linux testing remains pending.
+Alpha 0.5: **147 passing tests, zero failures/skips** on Windows, including the
+126-test Alpha 0.4 baseline. Qt tests run offscreen; native platform and Alpha 0.5
+game acceptance remain pending. A local experimental-save appearance export/reopen
+check passed without changing the source or unrelated metadata.
 
 ## Next milestones
 
-Next gate: review the Alpha 0.4 PR and obtain explicit owner approval before
-merging or publishing. Linux and broader accessibility/DPI testing remain open.
-Recovery and distribution hardening can follow. Automatic sorting and broader
+Next gate: owner testing of Alpha 0.5 appearance on disposable saves, followed by
+review and explicit approval before merging or publishing. Linux and broader
+accessibility/DPI testing remain open. Automatic sorting and broader
 metadata/equipment policies need separate scope approval. See
 [the approved requirements](REQUIREMENTS.md); its baseline remains unchanged.

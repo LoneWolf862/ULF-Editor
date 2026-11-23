@@ -83,7 +83,16 @@ def export_character(character, source, destination):
         for index,item in enumerate(original_items):
             if index not in retained and known.get(item.prefab_hash,{}).get('max_stack') is None:
                 raise FormatError("An unverified inventory item was removed.")
-        protected = ("prefix", "suffix", "head", "middle", "tail")
+        from core.appearance import FIELDS, same, propose, encoded_middle, protected_middle
+        if protected_middle(verified) != protected_middle(original):
+            raise FormatError("Export would change protected progression metadata.")
+        changes = {f: getattr(verified.appearance, f) for f in FIELDS
+                   if not same(getattr(original.appearance, f), getattr(verified.appearance, f))}
+        if changes:
+            original.appearance = propose(original, changes)
+        if verified.middle != encoded_middle(original):
+            raise FormatError("Appearance encoding differs from the validated targeted changes.")
+        protected = ("prefix", "suffix", "head", "tail")
         if any(getattr(verified, name) != getattr(original, name) for name in protected):
             raise FormatError("Export would change protected character metadata.")
         stage = "creating the temporary output"

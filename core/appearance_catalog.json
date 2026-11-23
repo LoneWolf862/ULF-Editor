@@ -1,0 +1,513 @@
+{
+  "game_version": "1.0.21",
+  "steam_build": 26249040,
+  "bundle_sha256": "84f55cfb24af51b9f0494fd9d1a355bf009e08545ff8ccf607c7d88d2e4e1ec8",
+  "assembly_sha256": "9f959c0396ec4240d47fcbe5d0d062c428cc627244506db5ea567f9d77b2b769",
+  "labels_sha256": "892db5626808f6929c7f3c5dd3997e965100074b0a493d7ce54eb2489f0cdd6f",
+  "hair": {
+    "Hair1": {
+      "name": "Windswept",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair10": {
+      "name": "Side Swept",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair11": {
+      "name": "Long Braid",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair12": {
+      "name": "Matronly",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair13": {
+      "name": "Twin Braids",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair14": {
+      "name": "Speed Demon",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair15": {
+      "name": "Pulled Back Curls",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair16": {
+      "name": "Gathered Braids",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair17": {
+      "name": "Neat Braids",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair18": {
+      "name": "Royal Braids",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair19": {
+      "name": "Painter Curls",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair2": {
+      "name": "High Ponytail",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair20": {
+      "name": "Tidy Curls",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair21": {
+      "name": "Twin Buns",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair22": {
+      "name": "Single Bun",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair23": {
+      "name": "Short Curls",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair24": {
+      "name": "Shaved and Braided",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair25": {
+      "name": "Knot",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair26": {
+      "name": "Short Locs",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair27": {
+      "name": "Strength Braids",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair28": {
+      "name": "Merchant's Braid",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair29": {
+      "name": "Tucked Back",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair3": {
+      "name": "Pigtails",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair30": {
+      "name": "Loose Waves",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair31": {
+      "name": "Gathered Locs",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair32": {
+      "name": "Mullet",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair33": {
+      "name": "Vinland Shave",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair34": {
+      "name": "Castellan",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair35": {
+      "name": "Champion",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair36": {
+      "name": "Chronicler",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair37": {
+      "name": "Sunbringer",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair38": {
+      "name": "Masculine",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair4": {
+      "name": "Low Ponytail",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair5": {
+      "name": "Short",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair6": {
+      "name": "Long and Loose",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair7": {
+      "name": "Dragonslayer",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair8": {
+      "name": "Parted",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "Hair9": {
+      "name": "Old One-Eye",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    },
+    "HairNone": {
+      "name": "No Hair",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    }
+  },
+  "beard": {
+    "Beard1": {
+      "name": "Majestic",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard10": {
+      "name": "Top Braid",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard11": {
+      "name": "Facewarmer",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard12": {
+      "name": "Royal",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard13": {
+      "name": "Triplets",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard14": {
+      "name": "Split Braid",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard15": {
+      "name": "Mini Braid",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard16": {
+      "name": "Stonedweller",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard17": {
+      "name": "Neat",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard18": {
+      "name": "Jarl Braids",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard19": {
+      "name": "Bushy",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard2": {
+      "name": "Twin Braids",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard20": {
+      "name": "Spiky",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard21": {
+      "name": "Tidy",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard22": {
+      "name": "Mustache",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard23": {
+      "name": "Crumb Catcher",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard24": {
+      "name": "Waxed",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard25": {
+      "name": "Trimmed",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard26": {
+      "name": "Handlebar",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard3": {
+      "name": "Short",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard4": {
+      "name": "Straight",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard5": {
+      "name": "Single Braid",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard6": {
+      "name": "Loose Braid",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard7": {
+      "name": "Split Shave",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard8": {
+      "name": "Thick",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "Beard9": {
+      "name": "Trobadour",
+      "models": [
+        0
+      ],
+      "tool_tier": 0
+    },
+    "BeardNone": {
+      "name": "No Beard",
+      "models": [
+        0,
+        1
+      ],
+      "tool_tier": 0
+    }
+  }
+}

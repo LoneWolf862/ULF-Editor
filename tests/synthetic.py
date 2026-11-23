@@ -7,7 +7,8 @@ from core.fch import Item, stable_hash, string
 
 
 def character_bytes(item_bytes=None, skill_bytes=None, profile_version=46, player_version=33,
-                    inventory_version=109, skills_version=2, unique_entries=(), player_tail=None):
+                    inventory_version=109, skills_version=2, unique_entries=(), player_tail=None,
+                    appearance_bytes=None):
     def pack(fmt,*values):
         return struct.pack("<"+fmt,*values)
     item = Item(stable_hash("Wood"), 0, 0, stack=5, tail=5)
@@ -18,7 +19,8 @@ def character_bytes(item_bytes=None, skill_bytes=None, profile_version=46, playe
     player += pack("i", 0) * 4
     player += pack("i", len(unique_entries)) + b"".join(map(string, unique_entries))
     player += pack("i", 0) * 3
-    player += string("") * 2 + bytes(24) + pack("ii", 0, 0)
+    player += (string("") * 2 + bytes(24) + pack("i", 0) if appearance_bytes is None else appearance_bytes)
+    player += pack("i", 0)
     skills=[pack("iff",1,10.125,0.375)] if skill_bytes is None else skill_bytes
     if player_tail is None:
         player_tail = b"opaque-tail"
